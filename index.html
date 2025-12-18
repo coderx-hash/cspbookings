@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* ADDED 'ORBITRON' FOR THE 'MAANGAS' LOOK */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&family=Orbitron:wght@700;900&display=swap');
         
         body { 
@@ -20,13 +19,13 @@
             background-size: 24px 24px;
         }
 
-        /* --- INTRO ANIMATION --- */
+        /* --- INTRO ANIMATION (MAANGAS STYLE) --- */
         #intro-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
             z-index: 9999;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            animation: curtainUp 0.8s ease-in-out 3.8s forwards; /* Delay extended for effect */
+            animation: curtainUp 0.8s ease-in-out 3.8s forwards;
         }
         
         .logo-row {
@@ -38,26 +37,19 @@
         .brand-blue { color: #1e3a8a; font-weight: 900; letter-spacing: -1px; }
         .brand-red { color: #dc2626; font-weight: 900; letter-spacing: -1px; }
 
-        /* MAANGAS NA CREDIT STYLE */
         .anim-credit {
             margin-top: 30px; 
-            font-family: 'Orbitron', sans-serif; /* Tech/Strong Font */
-            font-weight: 900;
-            font-size: 1rem; 
-            letter-spacing: 2px;
-            color: #0f172a; /* Dark Slate */
-            text-transform: uppercase;
+            font-family: 'Orbitron', sans-serif; 
+            font-weight: 900; font-size: 1.2rem; letter-spacing: 2px;
+            color: #0f172a; text-transform: uppercase;
             opacity: 0;
-            /* Cool Tracking Animation */
             animation: coolTracking 1.2s cubic-bezier(0.215, 0.610, 0.355, 1.000) 1.2s forwards;
             position: relative;
         }
         
-        /* Subtle Glow for the credit */
         .anim-credit::after {
-            content: ''; position: absolute; bottom: -5px; left: 0; width: 100%; height: 2px;
-            background: #3b82f6;
-            transform: scaleX(0); transform-origin: left;
+            content: ''; position: absolute; bottom: -5px; left: 0; width: 100%; height: 3px;
+            background: #ef4444; transform: scaleX(0); transform-origin: left;
             animation: lineScan 1s ease-out 2s forwards;
         }
 
@@ -176,7 +168,6 @@
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-12 gap-5 mb-8">
-                    
                     <div class="md:col-span-5">
                         <div class="flex justify-between items-end mb-1">
                             <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider" id="lbl-name-static">Invoice To:</label>
@@ -265,12 +256,12 @@
                 <div class="flex flex-col md:flex-row justify-end items-center border-t border-dashed border-slate-300 pt-8 gap-10">
                     
                     <div class="w-full md:w-1/2 space-y-2 text-right text-sm">
-                        <div class="flex justify-between text-slate-500"><span>Medicines Subtotal:</span> <span id="lbl-sub-med" class="font-mono font-bold">₱ 0.00</span></div>
-                        <div class="flex justify-between text-slate-500"><span>Packaging & Handling:</span> <span id="lbl-sub-pack" class="font-mono font-bold">₱ 0.00</span></div>
+                        <div class="flex justify-between text-slate-500"><span id="lbl-meds-title">Medicines Subtotal:</span> <span id="lbl-sub-med" class="font-mono font-bold">₱ 0.00</span></div>
+                        <div class="flex justify-between text-slate-500"><span id="lbl-pack-title">Packaging (Separate):</span> <span id="lbl-sub-pack" class="font-mono font-bold">₱ 0.00</span></div>
                         
                         <div id="gl-specific-lines" class="hidden border-t pt-2 mt-2 space-y-2">
-                             <div class="flex justify-between font-black text-slate-800 text-lg"><span>TOTAL BILL:</span> <span id="gl-grand">₱ 0.00</span></div>
-                             <div class="flex justify-between text-green-600 text-sm font-bold"><span>Less Approved GL:</span> <span id="gl-less">- ₱ 0.00</span></div>
+                             <div class="flex justify-between text-green-600 text-sm font-bold"><span>Approved GL Amount:</span> <span id="gl-limit-display">₱ 0.00</span></div>
+                             <div class="flex justify-between text-red-600 text-sm font-bold border-t border-dotted pt-1"><span>GL Excess (Payable):</span> <span id="gl-excess-display">₱ 0.00</span></div>
                         </div>
                     </div>
 
@@ -278,12 +269,12 @@
                         <div id="comp-cash">
                             <span class="block text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-2">Grand Total Amount</span>
                             <span class="block text-6xl font-black text-slate-800 tracking-tight leading-none" id="cash-grand">₱ 0.00</span>
-                            <span class="block text-xs text-blue-500 font-medium mt-2 bg-blue-50 py-1 px-3 rounded-full inline-block">Total Payable</span>
                         </div>
                         <div id="comp-gl" class="hidden">
                              <div id="gl-balance-box" class="p-5 rounded-xl text-center border-2 transition-all bg-slate-50">
-                                <span class="block text-[10px] font-bold uppercase opacity-70" id="gl-status-lbl">Balance Status</span>
+                                <span class="block text-[10px] font-bold uppercase opacity-70" id="gl-status-lbl">Total Cash Out</span>
                                 <span class="block text-4xl font-black mt-1 tracking-tight" id="gl-final">₱ 0.00</span>
+                                <span class="block text-[10px] font-bold text-blue-500 mt-2">(Excess Meds + Packaging)</span>
                             </div>
                         </div>
                     </div>
@@ -465,6 +456,7 @@
 
         function calculate() {
             let medSum = 0;
+            // 1. Calculate Meds
             document.querySelectorAll('#tbl-body tr').forEach(tr => {
                 const p = parseFloat(tr.querySelector('.price').value) || 0;
                 const q = parseFloat(tr.querySelector('.qty').value) || 0;
@@ -482,6 +474,7 @@
                 medSum += sub;
             });
 
+            // 2. Calculate Packaging
             let packSum = 0;
             document.querySelectorAll('#list-box > div, #list-gel > div').forEach(d => {
                 const v = parseFloat(d.querySelector('.psel').value)||0;
@@ -491,32 +484,44 @@
                 packSum += t;
             });
 
+            // 3. Update UI
             document.getElementById('lbl-sub-med').innerText = fmt(medSum);
             document.getElementById('lbl-sub-pack').innerText = fmt(packSum);
 
             const grandTotal = medSum + packSum;
 
             if(MODE === 'cash') {
+                // CASH MODE: Sum everything
                 document.getElementById('cash-grand').innerText = fmt(grandTotal);
             } else {
+                // GL MODE: Separate Logic
                 let glRaw = document.getElementById('gl-amount').value.replace(/,/g, '');
-                const gl = parseFloat(glRaw) || 0;
-                const bal = grandTotal - gl;
-                document.getElementById('gl-grand').innerText = fmt(grandTotal);
-                document.getElementById('gl-less').innerText = '- ' + fmt(gl);
+                const glLimit = parseFloat(glRaw) || 0;
                 
+                // Meds Excess?
+                let excessMeds = 0;
+                if(medSum > glLimit) {
+                    excessMeds = medSum - glLimit;
+                }
+
+                // Total Cash Out = Excess Meds + All Packaging
+                const totalCashOut = excessMeds + packSum;
+
+                document.getElementById('gl-limit-display').innerText = fmt(glLimit);
+                document.getElementById('gl-excess-display').innerText = fmt(excessMeds);
+                
+                // Final Box Display
+                document.getElementById('gl-final').innerText = fmt(totalCashOut);
+                
+                // Visual indicators
                 const sl = document.getElementById('gl-status-lbl');
-                const sf = document.getElementById('gl-final');
                 const box = document.getElementById('gl-balance-box');
 
-                if(bal > 0.01) {
-                    sl.innerText = "ADDITIONAL TO PAY"; sf.innerText = fmt(bal);
+                if(totalCashOut > 0.01) {
+                    sl.innerText = "TOTAL CASH OUT REQUIRED"; 
                     box.className = "p-5 rounded-xl text-center border-2 transition-all bg-red-50 border-red-200 text-red-600";
-                } else if(bal < -0.01) {
-                    sl.innerText = "CHANGE (SUKLI)"; sf.innerText = fmt(Math.abs(bal));
-                    box.className = "p-5 rounded-xl text-center border-2 transition-all bg-green-50 border-green-200 text-green-600";
                 } else {
-                    sl.innerText = "FULLY COVERED"; sf.innerText = "₱ 0.00";
+                    sl.innerText = "NO CASH OUT (FULLY COVERED)"; 
                     box.className = "p-5 rounded-xl text-center border-2 transition-all bg-green-50 border-green-200 text-green-600";
                 }
             }
@@ -526,10 +531,8 @@
             const proc = document.getElementById('inp-proc').value;
             if(!proc.trim()) { alert("Please enter 'Processed By' name."); return; }
 
-            // --- RECEIPT MODAL CONTENT ---
+            // --- HEADER ---
             let h = `<div class="p-6 font-mono text-sm text-slate-700">`;
-            
-            // Header
             h += `<div class="text-center mb-6 pb-4 border-b border-dashed border-slate-300">`;
             h += `<div class="flex justify-center gap-2 items-center text-xl font-black font-sans tracking-tight">
                     <span class="text-blue-900">COMPLETESOLUTION</span>
@@ -538,24 +541,19 @@
             h += `<p class="text-[10px] text-slate-400 uppercase tracking-widest font-sans mt-1">Transaction Receipt</p>`;
             h += `</div>`;
 
-            // Meta
+            // --- META ---
             h += `<div class="flex justify-between mb-2"><span class="font-bold">Date:</span> <span>${new Date().toLocaleString()}</span></div>`;
             h += `<div class="flex justify-between mb-4"><span class="font-bold">Type:</span> <span class="uppercase font-bold ${MODE==='gl'?'text-red-600':'text-blue-600'}">${MODE==='gl'?'Guarantee Letter':'Walk-in / Cash'}</span></div>`;
 
-            // Customer Info
+            // --- CUSTOMER ---
             h += `<div class="bg-slate-50 p-3 rounded mb-4 border border-slate-100">`;
             const labelName = document.getElementById('sel-name-format').value;
             h += `<div class="flex justify-between mb-1"><span class="text-xs text-slate-400 uppercase font-bold">Bill To (${labelName}):</span></div>`;
             h += `<div class="font-bold text-lg mb-2 border-b border-slate-200 pb-2">${document.getElementById('inp-name').value || 'N/A'}</div>`;
-            h += `<div class="grid grid-cols-2 gap-2 text-xs">`;
-            h += `<div><span class="block text-slate-400">Payment</span><b>${document.getElementById('inp-terms').value}</b></div>`;
-            h += `<div><span class="block text-slate-400">Delivery</span><b>${document.getElementById('inp-delivery').value}</b></div>`;
-            h += `<div class="col-span-2"><span class="block text-slate-400">Address</span><b>${document.getElementById('inp-address').value || 'N/A'}</b></div>`;
-            h += `</div>`;
             
             if(MODE === 'gl') {
                 h += `<div class="mt-2 pt-2 border-t border-slate-200">`;
-                h += `<div class="font-bold text-red-600 text-xs uppercase">GL Info:</div>`;
+                h += `<div class="font-bold text-red-600 text-xs uppercase">GL Agency Info:</div>`;
                 
                 const agency = document.getElementById('gl-agency').value;
                 let agencyDisplay = agency;
@@ -570,70 +568,103 @@
             }
             h += `</div>`;
 
-            // Items
-            h += `<table class="w-full mb-4"><thead><tr class="border-b border-black"><th class="text-left pb-1">Item</th><th class="text-center pb-1">Qty</th><th class="text-right pb-1">Amount</th></tr></thead><tbody>`;
-            
-            // --- CLEAN CLIPBOARD COPY FORMAT ---
-            // Creating a nicely formatted text string for copy-paste
+            // --- CLIPBOARD TEXT PREPARATION ---
             let txt = `================================\n`;
             txt += `   COMPLETESOLUTION PHARMACY   \n`;
-            txt += `================================\n\n`;
+            txt += `================================\n`;
             txt += `DATE: ${new Date().toLocaleString()}\n`;
             txt += `TYPE: ${MODE.toUpperCase()}\n`;
             txt += `BILL TO: ${document.getElementById('inp-name').value}\n`;
+            if(MODE === 'gl') {
+                 const ag = document.getElementById('gl-agency').value;
+                 const br = document.getElementById('gl-branch').value;
+                 txt += `AGENCY: ${ag} ${ag==='PCSO' ? '('+br+')' : ''}\n`;
+                 txt += `REF #: ${document.getElementById('gl-ref').value}\n`;
+            }
             txt += `--------------------------------\n`;
-            txt += `ITEMS:\n`;
 
+            // --- ITEMS TABLE ---
+            h += `<table class="w-full mb-4"><thead><tr class="border-b border-black"><th class="text-left pb-1">Item</th><th class="text-center pb-1">Qty</th><th class="text-right pb-1">Amount</th></tr></thead><tbody>`;
+            
+            txt += `MEDICINES:\n`;
             document.querySelectorAll('#tbl-body tr').forEach(tr => {
                 const i = tr.querySelectorAll('input');
                 const gen = i[0].value; const br = i[1].value; const qt = i[3].value; const tot = tr.querySelector('.total').innerText;
                 if(gen || br) {
                     h += `<tr><td class="py-1"><div class="font-bold">${br}</div><div class="text-[10px] text-slate-500">${gen}</div></td><td class="text-center align-top py-1">${qt}</td><td class="text-right align-top py-1">${tot}</td></tr>`;
-                    
-                    // Add to text copy (indented nicely)
-                    txt += ` - ${br} (${gen}) \n`;
-                    txt += `   Qty: ${qt} | Total: ${tot}\n`;
+                    txt += ` - ${br} (${gen}) [x${qt}] = ${tot}\n`;
                 }
             });
 
+            // --- PACKAGING (SEPARATE SECTION) ---
             const boxCount = document.getElementById('list-box').children.length;
             const gelCount = document.getElementById('list-gel').children.length;
             
             if(boxCount > 0 || gelCount > 0) {
-                 h += `<tr class="border-t border-dotted"><td colspan="3" class="pt-2 text-[10px] font-bold uppercase text-slate-400">Packaging</td></tr>`;
+                 h += `<tr class="border-t border-dotted"><td colspan="3" class="pt-2 text-[10px] font-bold uppercase text-slate-400">Packaging (Separate Transaction)</td></tr>`;
+                 
                  txt += `--------------------------------\n`;
-                 txt += `PACKAGING:\n`;
+                 txt += `PACKAGING (CASH TRANS):\n`;
+                 
                  document.querySelectorAll('#list-box > div, #list-gel > div').forEach(d => {
                     const s = d.querySelector('select');
                     const label = s.options[s.selectedIndex].text;
                     const qty = d.querySelector('.pqty').value;
                     const tot = d.querySelector('.ptot').innerText;
                     h += `<tr><td class="py-1 text-xs pl-2">${label}</td><td class="text-center py-1 text-xs">${qty}</td><td class="text-right py-1 text-xs">${tot}</td></tr>`;
-                    
-                    txt += ` - ${label}\n   Qty: ${qty} | Total: ${tot}\n`;
+                    txt += ` - ${label} [x${qty}] = ${tot}\n`;
                  });
             }
-
             h += `</tbody></table>`;
 
-            // Footer
+            // --- FOOTER & TOTALS ---
             h += `<div class="border-t border-black pt-2">`;
             txt += `================================\n`;
+            txt += `FINANCIAL BREAKDOWN:\n`;
 
             if(MODE === 'gl') {
-                 h += `<div class="flex justify-between font-bold"><span>TOTAL BILL</span><span>${document.getElementById('gl-grand').innerText}</span></div>`;
-                 h += `<div class="flex justify-between text-xs"><span>LESS GL AMOUNT</span><span>-${document.getElementById('gl-amount').value}</span></div>`;
-                 h += `<div class="flex justify-between font-black text-lg mt-2 pt-1 border-t border-dotted"><span>${document.getElementById('gl-status-lbl').innerText}</span><span>${document.getElementById('gl-final').innerText}</span></div>`;
+                 // Calculate Values for Display
+                 const glRaw = document.getElementById('gl-amount').value.replace(/,/g, '');
+                 const glLimit = parseFloat(glRaw) || 0;
+                 const packFee = document.getElementById('lbl-sub-pack').innerText; // String format
+                 const medsTotal = parseFloat(document.getElementById('lbl-sub-med').innerText.replace(/[^\d.]/g, ''));
+                 let excess = medsTotal > glLimit ? medsTotal - glLimit : 0;
                  
-                 txt += `TOTAL BILL: ${document.getElementById('gl-grand').innerText}\n`;
-                 txt += `GL AMOUNT: -${document.getElementById('gl-amount').value}\n`;
-                 txt += `STATUS: ${document.getElementById('gl-final').innerText}\n`;
+                 const totalCash = parseFloat(document.getElementById('gl-final').innerText.replace(/[^\d.]/g, ''));
+
+                 h += `<div class="flex justify-between text-sm"><span>Meds Total</span><span>${document.getElementById('lbl-sub-med').innerText}</span></div>`;
+                 h += `<div class="flex justify-between text-sm text-green-600 mb-2"><span>GL Coverage</span><span>-${fmt(glLimit)}</span></div>`;
+                 
+                 if(excess > 0) {
+                     h += `<div class="flex justify-between text-sm text-red-600 font-bold border-t border-dotted"><span>Excess Meds (Payable)</span><span>${fmt(excess)}</span></div>`;
+                     txt += `MEDS EXCESS: ${fmt(excess)}\n`;
+                 } else {
+                     h += `<div class="text-xs text-green-600 text-right italic border-t border-dotted">Meds Fully Covered</div>`;
+                     txt += `MEDS STATUS: FULLY COVERED\n`;
+                 }
+
+                 // Packaging Line
+                 if(boxCount > 0 || gelCount > 0) {
+                    h += `<div class="flex justify-between text-sm font-bold mt-1"><span>Packaging Fee</span><span>${packFee}</span></div>`;
+                    txt += `PACKAGING FEE: ${packFee}\n`;
+                 }
+
+                 h += `<div class="flex justify-between font-black text-xl mt-2 pt-2 border-t border-black"><span>TOTAL CASH OUT</span><span>${document.getElementById('gl-final').innerText}</span></div>`;
+                 txt += `--------------------------------\n`;
+                 txt += `TOTAL CASH OUT: ${document.getElementById('gl-final').innerText}\n`;
+                 
+                 if(totalCash <= 0) {
+                     txt += `STATUS: NO PAYMENT REQUIRED\n`;
+                 } else {
+                     txt += `STATUS: PAYMENT REQUIRED\n`;
+                 }
+
             } else {
                  h += `<div class="flex justify-between font-black text-xl"><span>GRAND TOTAL</span><span>${document.getElementById('cash-grand').innerText}</span></div>`;
                  txt += `GRAND TOTAL: ${document.getElementById('cash-grand').innerText}\n`;
             }
             h += `</div>`;
-            
+
             txt += `================================\n`;
             txt += `Processed By: ${proc}\n`;
 
@@ -649,7 +680,7 @@
         function copyToClipboard() {
             const t = document.getElementById('hidden-copy-text');
             t.select(); t.setSelectionRange(0,99999);
-            navigator.clipboard.writeText(t.value).then(() => alert("Receipt copied to clipboard!"));
+            navigator.clipboard.writeText(t.value).then(() => alert("Receipt Details Copied!"));
         }
     </script>
 </body>
