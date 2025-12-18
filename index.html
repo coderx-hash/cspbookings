@@ -10,57 +10,44 @@
     
     <style>
         /* FONTS: INTER (UI) & ORBITRON (CREDITS) */
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&family=Orbitron:wght@700;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@700;900&display=swap');
         
         body { 
             font-family: 'Inter', sans-serif; 
-            background-color: #f1f5f9; 
-            color: #334155; 
-            background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
-            background-size: 24px 24px;
+            background-color: #f3f4f6; /* Light Gray Background */
+            color: #1f2937; 
             -webkit-tap-highlight-color: transparent;
         }
 
-        /* --- INTRO ANIMATION DESIGN --- */
+        /* --- INTRO ANIMATION --- */
         #intro-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #ffffff; /* Pure white cleaner look */
+            background: #ffffff;
             z-index: 9999;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            animation: curtainUp 0.8s ease-in-out 3.5s forwards; /* Increased time to appreciate animation */
+            animation: curtainUp 0.8s ease-in-out 3.5s forwards;
         }
 
-        /* Logo Animation */
         .intro-logo-box {
-            opacity: 0;
-            transform: scale(0.5);
+            opacity: 0; transform: scale(0.5);
             animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.2s forwards;
         }
 
-        /* Main Text Slide Up */
         .intro-text-group {
-            opacity: 0;
-            transform: translateY(20px);
+            opacity: 0; transform: translateY(20px);
             animation: slideUpFade 0.8s ease-out 0.6s forwards;
             text-align: center;
         }
 
-        /* Subtitle Fade */
         .intro-subtitle {
-            opacity: 0;
-            letter-spacing: 0px;
+            opacity: 0; letter-spacing: 0px;
             animation: trackExpand 1s ease-out 0.9s forwards;
         }
 
-        /* GELO Falling Letters */
         .gelo-char {
-            display: inline-block;
-            opacity: 0;
-            transform: translateY(-40px);
-            color: #1e3a8a; /* Blue text */
+            display: inline-block; opacity: 0; transform: translateY(-40px); color: #1e3a8a;
         }
         
-        /* Bouncing Drop Keyframes */
         @keyframes dropBounce {
             0% { opacity: 0; transform: translateY(-60px); }
             60% { opacity: 1; transform: translateY(10px); }
@@ -68,7 +55,6 @@
             100% { opacity: 1; transform: translateY(0); }
         }
 
-        /* Delay for each letter G-E-L-O */
         .gelo-char:nth-child(1) { animation: dropBounce 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.6s forwards; }
         .gelo-char:nth-child(2) { animation: dropBounce 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.7s forwards; }
         .gelo-char:nth-child(3) { animation: dropBounce 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.8s forwards; }
@@ -76,303 +62,319 @@
 
         @keyframes popIn { to { opacity: 1; transform: scale(1); } }
         @keyframes slideUpFade { to { opacity: 1; transform: translateY(0); } }
-        @keyframes trackExpand { 
-            to { opacity: 1; letter-spacing: 3px; } 
-        }
-        @keyframes curtainUp { 
-            0% { transform: translateY(0); opacity: 1; }
-            100% { transform: translateY(-100%); opacity: 0; visibility: hidden; } 
+        @keyframes trackExpand { to { opacity: 1; letter-spacing: 3px; } }
+        @keyframes curtainUp { 0% { transform: translateY(0); opacity: 1; } 100% { transform: translateY(-100%); opacity: 0; visibility: hidden; } }
+
+        /* UI UTILITIES */
+        .card-clean {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            border: 1px solid #e5e7eb;
         }
 
-        /* Responsive Text Sizing for Intro */
-        .responsive-title {
-            font-size: clamp(1.2rem, 5vw, 3rem); /* Ensures text shrinks instead of breaking line */
-            line-height: 1.1;
+        /* Input Styling */
+        .inp-clean {
+            width: 100%;
+            background-color: #ffffff;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            padding: 12px 16px;
+            font-size: 0.95rem;
+            color: #374151;
+            transition: all 0.2s;
+            outline: none;
+        }
+        .inp-clean:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        .inp-clean::placeholder { color: #9ca3af; font-weight: 500; }
+        .inp-error { border-color: #ef4444 !important; background-color: #fef2f2 !important; }
+
+        .label-clean {
+            display: block;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #9ca3af;
+            margin-bottom: 6px;
+            letter-spacing: 0.05em;
         }
 
-        /* --- UI STYLES --- */
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05);
-        }
-
-        .inp-modern {
-            width: 100%; background: #ffffff;
-            border: 1px solid #e2e8f0; border-radius: 8px;
-            padding: 12px 12px; font-size: 0.95rem; font-weight: 600; 
-            color: #1e293b; transition: all 0.2s;
-        }
-        .inp-modern:focus { outline: none; border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15); }
-        .inp-error { border-color: #ef4444 !important; background-color: #fef2f2 !important; box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15) !important; }
+        /* Table Inputs */
+        .tbl-inp { width: 100%; background: transparent; border: none; padding: 4px; outline: none; font-weight: 500; font-size: 0.9rem; }
         
-        .tbl-inp { width: 100%; background: transparent; border: none; padding: 8px; outline: none; font-weight: 500; }
-        .tbl-inp:focus { background: #f1f5f9; border-radius: 4px; }
-        
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-
-        .custom-scroll::-webkit-scrollbar { width: 6px; height: 6px; }
+        /* Custom Scrollbars */
+        .custom-scroll::-webkit-scrollbar { height: 6px; width: 6px; }
+        .custom-scroll::-webkit-scrollbar-track { background: #f1f1f1; }
         .custom-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
-        
-        @media (max-width: 768px) {
-            .mobile-stack { flex-direction: column; }
-            .mobile-full { width: 100%; }
-        }
     </style>
 </head>
-<body class="pb-32 md:pb-20">
+<body class="pb-32">
 
     <div id="intro-overlay">
         <div class="intro-logo-box bg-white p-5 rounded-3xl shadow-xl mb-6 flex items-center justify-center w-24 h-24 md:w-32 md:h-32">
             <i class="fas fa-prescription text-5xl md:text-6xl text-blue-600"></i>
         </div>
-
         <div class="intro-text-group px-4">
-            <div class="font-black tracking-tighter responsive-title mb-2">
-                <span class="text-blue-900">COMPLETESOLUTION</span><span class="text-red-600">PHARMACY</span>
+            <div class="font-black text-2xl md:text-4xl tracking-tight mb-2 leading-tight">
+                <span class="text-blue-900">COMPLETESOLUTION</span>&nbsp;<span class="text-red-600">PHARMACY</span>
             </div>
             <div class="intro-subtitle text-[10px] md:text-sm font-bold text-slate-400 uppercase tracking-widest">
                 Next-Gen Bookings System
             </div>
         </div>
-
         <div class="mt-12 text-center">
-            <div class="text-[9px] font-bold text-slate-400 tracking-widest mb-2 opacity-0 animate-[popIn_0.5s_ease_1.4s_forwards]">
-                DESIGNED BY
-            </div>
+            <div class="text-[9px] font-bold text-slate-400 tracking-widest mb-2 opacity-0 animate-[popIn_0.5s_ease_1.4s_forwards]">DESIGNED BY</div>
             <div class="text-2xl md:text-4xl font-black tracking-[0.5em] pl-2 font-['Orbitron']">
                 <span class="gelo-char">G</span><span class="gelo-char">E</span><span class="gelo-char">L</span><span class="gelo-char">O</span>
             </div>
         </div>
     </div>
 
-    <div class="max-w-[1200px] mx-auto p-3 md:p-8">
+    <div class="max-w-3xl mx-auto min-h-screen">
         
-        <div class="glass-panel rounded-2xl p-4 mb-4 flex flex-col md:flex-row justify-between items-center sticky top-2 z-40 gap-3">
-            <div class="flex items-center gap-3 w-full md:w-auto">
-                <div class="bg-gradient-to-br from-blue-800 to-slate-900 text-white w-10 h-10 md:w-12 md:h-12 rounded-xl flex items-center justify-center shadow-lg shrink-0">
-                    <i class="fas fa-mortar-pestle text-lg md:text-xl"></i>
+        <div class="bg-white p-4 pb-6 shadow-sm sticky top-0 z-40 rounded-b-2xl border-b border-gray-100">
+            <div class="flex items-center gap-3 mb-3">
+                <div class="bg-blue-900 text-white w-10 h-10 rounded-xl flex items-center justify-center shadow-md shrink-0">
+                    <i class="fas fa-mortar-pestle text-lg"></i>
                 </div>
-                <div class="flex flex-col">
-                    <h1 class="text-lg md:text-3xl font-black tracking-tight leading-none flex flex-wrap gap-1 md:gap-2">
-                        <span class="text-blue-900">COMPLETESOLUTION</span>
-                        <span class="text-red-600">PHARMACY</span>
+                <div>
+                    <h1 class="font-black text-lg leading-none tracking-tight">
+                        <span class="text-blue-900">COMPLETESOLUTION</span>&nbsp;<span class="text-red-600">PHARMACY</span>
                     </h1>
-                    <p class="text-[9px] md:text-[10px] text-slate-500 font-bold uppercase tracking-[0.2em] mt-1">Professional Management System</p>
+                    <p class="text-[9px] text-gray-400 font-bold uppercase tracking-widest mt-0.5">Professional Management System</p>
                 </div>
             </div>
-            <div class="w-full md:w-auto flex justify-between md:justify-end items-center gap-2 bg-slate-50 px-4 py-2 rounded-lg border border-slate-200 shadow-inner">
-                <div class="flex items-center gap-2">
-                    <i class="far fa-calendar-check text-blue-600"></i>
-                    <span id="date-now" class="text-xs font-bold text-slate-600">--</span>
-                </div>
+            
+            <div class="bg-slate-50 border border-slate-100 rounded-lg px-3 py-2 flex items-center gap-2 text-slate-600 w-full">
+                <i class="far fa-calendar-alt text-blue-500"></i>
+                <span id="date-now" class="text-xs font-bold">--</span>
             </div>
         </div>
 
-        <div class="grid grid-cols-2 gap-3 mb-4 md:mb-6">
-            <button onclick="setMode('cash')" id="btn-cash" class="py-3 md:py-4 rounded-xl font-bold text-xs md:text-sm shadow-sm transition-all flex flex-col md:flex-row items-center justify-center gap-2 border-2 bg-white">
-                <i class="fas fa-wallet text-lg md:text-xl"></i> <span>WALK-IN / CASH</span>
-            </button>
-            <button onclick="setMode('gl')" id="btn-gl" class="py-3 md:py-4 rounded-xl font-bold text-xs md:text-sm shadow-sm transition-all flex flex-col md:flex-row items-center justify-center gap-2 border-2 bg-white">
-                <i class="fas fa-file-contract text-lg md:text-xl"></i> <span>GUARANTEE LETTER</span>
-            </button>
-        </div>
+        <div class="p-4 space-y-4">
 
-        <div class="glass-panel rounded-2xl overflow-hidden relative shadow-xl">
-            <div id="status-bar" class="h-1.5 w-full bg-blue-600 transition-colors duration-500"></div>
+            <div class="grid grid-cols-2 gap-3">
+                <button onclick="setMode('cash')" id="btn-cash" class="py-3 rounded-xl font-bold text-sm shadow-sm transition-all flex flex-col items-center justify-center gap-1 border bg-white">
+                    <i class="fas fa-wallet text-lg"></i> <span>WALK-IN</span>
+                </button>
+                <button onclick="setMode('gl')" id="btn-gl" class="py-3 rounded-xl font-bold text-sm shadow-sm transition-all flex flex-col items-center justify-center gap-1 border bg-white">
+                    <i class="fas fa-file-contract text-lg"></i> <span>GUARANTEE</span>
+                </button>
+            </div>
+            
+            <div id="status-bar" class="h-1 w-full bg-blue-600 rounded-full transition-colors duration-500"></div>
 
-            <div class="p-4 md:p-8">
-
-                <div id="gl-section" class="hidden mb-6 md:mb-8 bg-red-50/80 p-4 md:p-6 rounded-xl border border-red-100 relative overflow-hidden backdrop-blur-sm">
-                    <div class="absolute -right-6 -top-6 text-red-200/50 text-8xl md:text-9xl pointer-events-none"><i class="fas fa-landmark"></i></div>
-                    <div class="relative z-10 grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-5">
-                        <div class="md:col-span-1">
-                            <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1 block">Government Agency</label>
-                            <select id="gl-agency" class="inp-modern font-bold text-red-700 cursor-pointer" onchange="checkBranch()">
-                                <option value="">Select Agency...</option>
-                                <option>PCSO</option>
-                                <option>DSWD NCR</option>
-                                <option>DSWD BATASAN</option>
-                                <option>OFFICE OF THE PRESIDENT</option>
-                                <option>OFFICE OF THE VICE PRESIDENT</option>
-                                <option>NATIONAL SHRINE</option>
-                            </select>
-                        </div>
-                        <div class="md:col-span-1 hidden" id="pcso-branch-div">
-                            <label class="text-[10px] font-bold text-orange-600 uppercase tracking-wider mb-1 block">PCSO Branch</label>
-                            <select id="gl-branch" class="inp-modern text-orange-700 cursor-pointer">
-                                <option>MANILA</option><option>BATANGAS</option><option>OLANGAPO</option>
-                                <option>LAGUNA</option><option>RIZAL</option><option>BULACAN</option>
-                                <option>CDO</option><option>PAMPANGA</option><option>QUEZON</option>
-                                <option>ILOILO</option><option>CEBU</option><option>ISABELA</option>
-                            </select>
-                        </div>
-                        <div class="md:col-span-1">
-                            <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1 block">GL Reference No.</label>
-                            <input type="text" id="gl-ref" class="inp-modern uppercase font-bold" placeholder="Control #">
-                        </div>
-                        <div class="md:col-span-1">
-                            <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1 block">Approved Amount</label>
-                            <div class="relative">
-                                <span class="absolute left-3 top-3 text-green-600 font-bold">₱</span>
-                                <input type="text" id="gl-amount" class="inp-modern pl-7 font-bold text-green-700 text-lg" placeholder="0.00" onkeyup="formatCurrencyInput(this)" onblur="calculate()">
-                            </div>
+            <div id="gl-section" class="hidden card-clean p-4 border-l-4 border-l-red-500 bg-red-50/50">
+                <div class="flex items-center gap-2 mb-4 text-red-700 font-bold text-sm uppercase tracking-wider">
+                    <i class="fas fa-landmark"></i> Government Agency Details
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="label-clean">Agency Name</label>
+                        <select id="gl-agency" class="inp-clean font-bold text-red-700 cursor-pointer" onchange="checkBranch()">
+                            <option value="">Select Agency...</option>
+                            <option>PCSO</option>
+                            <option>DSWD NCR</option>
+                            <option>DSWD BATASAN</option>
+                            <option>OFFICE OF THE PRESIDENT</option>
+                            <option>OFFICE OF THE VICE PRESIDENT</option>
+                            <option>NATIONAL SHRINE</option>
+                        </select>
+                    </div>
+                    <div id="pcso-branch-div" class="hidden">
+                        <label class="label-clean">PCSO Branch</label>
+                        <select id="gl-branch" class="inp-clean font-bold text-orange-700">
+                            <option>MANILA</option><option>BATANGAS</option><option>OLANGAPO</option>
+                            <option>LAGUNA</option><option>RIZAL</option><option>BULACAN</option>
+                            <option>CDO</option><option>PAMPANGA</option><option>QUEZON</option>
+                            <option>ILOILO</option><option>CEBU</option><option>ISABELA</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="label-clean">GL Reference No.</label>
+                        <input type="text" id="gl-ref" class="inp-clean uppercase font-bold" placeholder="Control #">
+                    </div>
+                    <div>
+                        <label class="label-clean">Approved Amount</label>
+                        <div class="relative">
+                            <span class="absolute left-3 top-3.5 text-green-600 font-bold">₱</span>
+                            <input type="text" id="gl-amount" class="inp-clean pl-7 font-bold text-green-700" placeholder="0.00" onkeyup="formatCurrencyInput(this)" onblur="calculate()">
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-5 mb-6 md:mb-8">
-                    <div class="md:col-span-5">
-                        <div class="flex justify-between items-end mb-1">
-                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider" id="lbl-name-static">Invoice To:</label>
-                            <select id="sel-name-format" class="text-[10px] font-bold text-blue-600 bg-blue-50 border border-blue-100 rounded px-2 py-1 outline-none cursor-pointer hover:bg-blue-100" onchange="updateNameLabel()">
-                                <option value="Customer Name">Customer Name</option>
-                                <option value="Patient Name">Patient Name</option>
-                                <option value="Doctor's Name & Patient">Doctor's Name & Patient</option>
-                                <option value="Doctor's Name">Doctor's Name Only</option>
-                                <option value="Company Name">Company Name</option>
-                            </select>
-                        </div>
-                        <input type="text" id="inp-name" class="inp-modern text-base md:text-lg" placeholder="Enter Name">
-                        <div id="name-error-msg" class="text-xs text-red-500 font-bold mt-1 hidden animate-pulse"></div>
-                    </div>
-
-                    <div class="md:col-span-3">
-                        <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1 block">Contact Number</label>
-                        <input type="tel" id="inp-contact" class="inp-modern" placeholder="09xxxxxxxxx">
-                    </div>
-
-                    <div class="md:col-span-4">
-                        <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1 block">Payment Terms</label>
-                        <select id="inp-terms" class="inp-modern cursor-pointer bg-white">
-                            <option>Walk in Payment</option>
-                            <option>Online Payment (Gcash/Maya)</option>
-                            <option>C.O.D.</option>
-                            <option>Terms 30 Days</option>
-                            <option>Terms 45 Days</option>
-                            <option>Check Payment</option>
+            <div class="card-clean p-4 md:p-6 space-y-4">
+                
+                <div>
+                    <div class="flex justify-between items-center">
+                        <label class="label-clean mb-1" id="lbl-name-static">INVOICE TO:</label>
+                        <select id="sel-name-format" class="text-[10px] font-bold text-blue-600 bg-blue-50 border border-blue-100 rounded px-2 py-0.5 outline-none mb-1" onchange="updateNameLabel()">
+                            <option value="Customer Name">Customer Name</option>
+                            <option value="Patient Name">Patient Name</option>
+                            <option value="Doctor's Name & Patient">Doctor's Name & Patient</option>
+                            <option value="Doctor's Name">Doctor's Name Only</option>
+                            <option value="Company Name">Company Name</option>
                         </select>
                     </div>
-
-                    <div class="md:col-span-8">
-                        <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1 block">Complete Address / Branch</label>
-                        <input type="text" id="inp-address" class="inp-modern" placeholder="Delivery Address">
-                    </div>
-
-                    <div class="md:col-span-4">
-                        <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1 block">Delivery Option</label>
-                        <select id="inp-delivery" class="inp-modern cursor-pointer bg-white">
-                            <option>Pick-Up</option>
-                            <option>Branch Delivery</option>
-                            <option>Lalamove</option>
-                            <option>Grab Express</option>
-                            <option>Courier (LBC/J&T)</option>
-                        </select>
-                    </div>
+                    <input type="text" id="inp-name" class="inp-clean text-lg font-semibold" placeholder="Enter Customer Name">
+                    <div id="name-error-msg" class="text-xs text-red-500 font-bold mt-1 hidden animate-pulse"></div>
                 </div>
 
-                <div class="border rounded-xl overflow-hidden mb-6 bg-slate-50/50 shadow-sm">
-                    <div class="overflow-x-auto custom-scroll pb-2">
-                        <table class="w-full text-sm min-w-[800px]"> <thead class="bg-slate-100 text-slate-500 font-bold uppercase text-[10px] tracking-wider border-b">
-                                <tr>
-                                    <th class="p-4 text-left w-[20%]">Generic Name</th>
-                                    <th class="p-4 text-left w-[20%]">Brand Name</th>
-                                    <th class="p-4 text-center w-[10%]">Prep</th>
-                                    <th class="p-4 text-center w-[10%]">Expiry</th>
-                                    <th class="p-4 text-right w-[10%]">Price</th>
-                                    <th class="p-4 text-center w-[8%]">Qty</th>
-                                    <th class="p-4 text-center w-[12%]">Discount</th>
-                                    <th class="p-4 text-right w-[15%]">Total</th>
-                                    <th class="p-4 text-center w-[5%]"></th>
-                                </tr>
-                            </thead>
-                            <tbody id="tbl-body" class="divide-y divide-slate-200 bg-white"></tbody>
-                        </table>
-                    </div>
-                    <button onclick="addRow()" class="w-full py-4 bg-white hover:bg-blue-50 text-blue-600 font-bold text-xs transition border-t border-slate-200 flex items-center justify-center gap-2 group active:bg-blue-100">
-                        <i class="fas fa-plus-circle group-hover:scale-110 transition-transform text-lg"></i> ADD MEDICINE ROW
+                <div>
+                    <label class="label-clean">CONTACT NUMBER</label>
+                    <input type="tel" id="inp-contact" class="inp-clean" placeholder="09xxxxxxxxx">
+                </div>
+
+                <div>
+                    <label class="label-clean">PAYMENT TERMS</label>
+                    <select id="inp-terms" class="inp-clean cursor-pointer bg-white">
+                        <option>Walk in Payment</option>
+                        <option>Online Payment (Gcash/Maya)</option>
+                        <option>C.O.D.</option>
+                        <option>Terms 30 Days</option>
+                        <option>Terms 45 Days</option>
+                        <option>Check Payment</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="label-clean">COMPLETE ADDRESS / BRANCH</label>
+                    <input type="text" id="inp-address" class="inp-clean" placeholder="Delivery Address">
+                </div>
+
+                <div>
+                    <label class="label-clean">DELIVERY OPTION</label>
+                    <select id="inp-delivery" class="inp-clean cursor-pointer bg-white">
+                        <option>Pick-Up</option>
+                        <option>Branch Delivery</option>
+                        <option>Lalamove</option>
+                        <option>Grab Express</option>
+                        <option>Courier (LBC/J&T)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="card-clean overflow-hidden">
+                <div class="bg-slate-50 border-b p-3">
+                    <h3 class="text-xs font-bold uppercase text-slate-500 tracking-wider">Order Items</h3>
+                </div>
+                <div class="overflow-x-auto custom-scroll">
+                    <table class="w-full text-sm min-w-[700px]"> 
+                        <thead class="bg-white text-slate-400 font-bold uppercase text-[10px] tracking-wider border-b">
+                            <tr>
+                                <th class="p-3 text-left w-[20%]">Generic Name</th>
+                                <th class="p-3 text-left w-[20%]">Brand Name</th>
+                                <th class="p-3 text-center w-[10%]">Prep</th>
+                                <th class="p-3 text-center w-[10%]">Expiry</th>
+                                <th class="p-3 text-right w-[10%]">Price</th>
+                                <th class="p-3 text-center w-[8%]">Qty</th>
+                                <th class="p-3 text-center w-[12%]">Discount</th>
+                                <th class="p-3 text-right w-[15%]">Total</th>
+                                <th class="p-3 text-center w-[5%]"></th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbl-body" class="divide-y divide-slate-100 bg-white"></tbody>
+                    </table>
+                </div>
+                <div class="p-3">
+                    <button onclick="addRow()" class="w-full py-3 bg-white border border-blue-200 text-blue-600 rounded-lg font-bold text-xs hover:bg-blue-50 transition flex items-center justify-center gap-2">
+                        <i class="fas fa-plus-circle"></i> ADD MEDICINE ROW
                     </button>
                 </div>
+            </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5 mb-8">
-                    <div class="bg-orange-50/60 rounded-xl border border-orange-100 p-4 shadow-sm">
-                        <div class="flex justify-between items-center mb-3 border-b border-orange-200 pb-2">
-                            <span class="font-bold text-orange-800 text-xs uppercase tracking-wider flex items-center gap-2"><i class="fas fa-box-open"></i> Styro / Box</span>
-                            <button onclick="addPack('box')" class="bg-white border border-orange-200 text-orange-600 px-3 py-1.5 rounded-lg text-[10px] font-bold hover:bg-orange-100 shadow-sm active:scale-95 transition">+ Add Box</button>
-                        </div>
-                        <div id="list-box" class="space-y-2"></div>
+            <div class="space-y-3">
+                <div class="bg-[#fff7ed] border border-[#ffedd5] rounded-xl p-4">
+                    <div class="flex justify-between items-center mb-3 pb-2 border-b border-[#fed7aa]">
+                        <span class="font-bold text-[#9a3412] text-xs uppercase tracking-wider flex items-center gap-2">
+                            <i class="fas fa-box-open"></i> Styro / Box
+                        </span>
+                        <button onclick="addPack('box')" class="bg-white border border-[#fed7aa] text-[#ea580c] px-3 py-1.5 rounded-lg text-[10px] font-bold shadow-sm hover:bg-[#fff7ed] active:scale-95 transition">
+                            + Add Box
+                        </button>
                     </div>
-                    <div class="bg-cyan-50/60 rounded-xl border border-cyan-100 p-4 shadow-sm">
-                        <div class="flex justify-between items-center mb-3 border-b border-cyan-200 pb-2">
-                            <span class="font-bold text-cyan-800 text-xs uppercase tracking-wider flex items-center gap-2"><i class="fas fa-snowflake"></i> Gel / Ice Packs</span>
-                            <button onclick="addPack('gel')" class="bg-white border border-cyan-200 text-cyan-600 px-3 py-1.5 rounded-lg text-[10px] font-bold hover:bg-cyan-100 shadow-sm active:scale-95 transition">+ Add Ice</button>
-                        </div>
-                        <div id="list-gel" class="space-y-2"></div>
-                    </div>
+                    <div id="list-box" class="space-y-2"></div>
                 </div>
 
-                <div class="flex flex-col md:flex-row justify-end items-center border-t border-dashed border-slate-300 pt-6 md:pt-8 gap-6 md:gap-10">
-                    <div class="w-full md:w-1/2 space-y-2 text-right text-sm order-2 md:order-1">
-                        <div class="flex justify-between text-slate-500"><span id="lbl-meds-title">Medicines Subtotal:</span> <span id="lbl-sub-med" class="font-mono font-bold text-slate-700">₱ 0.00</span></div>
-                        <div class="flex justify-between text-slate-500"><span id="lbl-pack-title">Packaging (Separate):</span> <span id="lbl-sub-pack" class="font-mono font-bold text-slate-700">₱ 0.00</span></div>
-                        
-                        <div id="gl-specific-lines" class="hidden border-t pt-2 mt-2 space-y-2">
-                             <div class="flex justify-between text-green-600 text-sm font-bold"><span>Approved GL Amount:</span> <span id="gl-limit-display">₱ 0.00</span></div>
-                             <div class="flex justify-between text-red-600 text-sm font-bold border-t border-dotted pt-1"><span>GL Excess (Payable):</span> <span id="gl-excess-display">₱ 0.00</span></div>
-                        </div>
+                <div class="bg-[#f0f9ff] border border-[#e0f2fe] rounded-xl p-4">
+                    <div class="flex justify-between items-center mb-3 pb-2 border-b border-[#bae6fd]">
+                        <span class="font-bold text-[#075985] text-xs uppercase tracking-wider flex items-center gap-2">
+                            <i class="fas fa-snowflake"></i> Gel / Ice Packs
+                        </span>
+                        <button onclick="addPack('gel')" class="bg-white border border-[#bae6fd] text-[#0284c7] px-3 py-1.5 rounded-lg text-[10px] font-bold shadow-sm hover:bg-[#f0f9ff] active:scale-95 transition">
+                            + Add Ice
+                        </button>
+                    </div>
+                    <div id="list-gel" class="space-y-2"></div>
+                </div>
+            </div>
+
+            <div class="card-clean p-4 md:p-6 mt-4">
+                <div class="space-y-2 mb-6 text-sm">
+                    <div class="flex justify-between text-slate-500">
+                        <span id="lbl-meds-title">Medicines Subtotal:</span> 
+                        <span id="lbl-sub-med" class="font-mono font-bold text-slate-700">₱ 0.00</span>
+                    </div>
+                    <div class="flex justify-between text-slate-500">
+                        <span id="lbl-pack-title">Packaging (Separate):</span> 
+                        <span id="lbl-sub-pack" class="font-mono font-bold text-slate-700">₱ 0.00</span>
                     </div>
                     
-                    <div class="w-full md:w-auto min-w-[280px] md:min-w-[320px] text-right order-1 md:order-2 bg-slate-50 md:bg-transparent p-4 md:p-0 rounded-xl">
-                        <div id="comp-cash">
-                            <span class="block text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-1">Grand Total Amount</span>
-                            <span class="block text-5xl md:text-6xl font-black text-slate-800 tracking-tight leading-none" id="cash-grand">₱ 0.00</span>
+                    <div id="gl-specific-lines" class="hidden border-t pt-2 mt-2 space-y-2">
+                        <div class="flex justify-between text-green-600 font-bold">
+                            <span>Approved GL Amount:</span> <span id="gl-limit-display">₱ 0.00</span>
                         </div>
-                        <div id="comp-gl" class="hidden">
-                             <div id="gl-balance-box" class="p-4 md:p-5 rounded-xl text-center border-2 transition-all bg-slate-50">
-                                <span class="block text-[10px] font-bold uppercase opacity-70" id="gl-status-lbl">Total Cash Out</span>
-                                <span class="block text-3xl md:text-4xl font-black mt-1 tracking-tight" id="gl-final">₱ 0.00</span>
-                                <span class="block text-[10px] font-bold text-blue-500 mt-2">(Excess Meds + Packaging)</span>
-                            </div>
+                        <div class="flex justify-between text-red-600 font-bold border-t border-dotted pt-1">
+                            <span>GL Excess (Payable):</span> <span id="gl-excess-display">₱ 0.00</span>
                         </div>
                     </div>
                 </div>
 
-                <div class="mt-8 md:mt-10 pt-6 border-t border-slate-100 flex flex-col md:flex-row justify-end items-center gap-4">
-                    <div class="flex items-center gap-3 w-full md:w-auto justify-end">
-                        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest whitespace-nowrap">Processed By:</span>
-                        <input type="text" id="inp-proc" class="inp-modern w-full md:w-48 text-right font-bold text-blue-900 uppercase border-0 bg-slate-100 focus:bg-white focus:ring-1" placeholder="ENTER NAME">
+                <div class="bg-slate-50 rounded-xl p-4 text-right mb-6 border border-slate-100">
+                    <div id="comp-cash">
+                        <span class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Grand Total Amount</span>
+                        <span class="block text-4xl md:text-5xl font-black text-slate-800 tracking-tight leading-none" id="cash-grand">₱ 0.00</span>
+                    </div>
+                    <div id="comp-gl" class="hidden">
+                         <div id="gl-balance-box" class="p-3 rounded-lg text-center border-2 transition-all bg-white">
+                            <span class="block text-[10px] font-bold uppercase opacity-70" id="gl-status-lbl">Total Cash Out</span>
+                            <span class="block text-3xl font-black mt-1 tracking-tight" id="gl-final">₱ 0.00</span>
+                        </div>
                     </div>
                 </div>
 
-                <div class="mt-8 text-center">
-                    <button onclick="review()" class="w-full md:w-auto group relative bg-slate-900 text-white px-8 md:px-12 py-4 rounded-xl md:rounded-full font-bold shadow-xl hover:bg-blue-900 transition-all hover:scale-[1.02] active:scale-95">
-                        <span class="flex items-center justify-center gap-3 text-base md:text-lg">
-                            <i class="fas fa-file-invoice group-hover:rotate-12 transition-transform"></i> REVIEW & GENERATE RECEIPT
-                        </span>
-                    </button>
+                <div class="flex items-center gap-3 justify-end mb-6">
+                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest whitespace-nowrap">Processed By:</span>
+                    <input type="text" id="inp-proc" class="inp-clean w-48 text-right font-bold text-blue-900 uppercase py-2" placeholder="ENTER NAME">
                 </div>
 
+                <button onclick="review()" class="w-full bg-slate-900 text-white py-4 rounded-xl font-bold shadow-lg hover:bg-blue-900 transition-all active:scale-[0.98] flex items-center justify-center gap-2">
+                    <i class="fas fa-file-invoice"></i> REVIEW & GENERATE RECEIPT
+                </button>
             </div>
+
         </div>
     </div>
 
     <div id="modal-review" class="fixed inset-0 z-50 hidden bg-slate-900/80 backdrop-blur-sm flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] flex flex-col overflow-hidden animate-[slideUp_0.3s_ease-out]">
-            <div class="bg-slate-900 p-4 md:p-5 flex justify-between items-center text-white shrink-0">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-xl max-h-[90vh] flex flex-col overflow-hidden animate-[slideUp_0.3s_ease-out]">
+            <div class="bg-slate-900 p-4 flex justify-between items-center text-white shrink-0">
                 <div class="flex items-center gap-3">
                     <div class="bg-white/10 p-2 rounded-lg"><i class="fas fa-receipt"></i></div>
-                    <div><h2 class="font-bold text-base md:text-lg">Transaction Summary</h2><p class="text-[10px] text-slate-400">Verify details before printing</p></div>
+                    <div><h2 class="font-bold text-base">Summary</h2><p class="text-[10px] text-slate-400">Verify details</p></div>
                 </div>
                 <button onclick="closeModal()" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/20 transition"><i class="fas fa-times"></i></button>
             </div>
             
             <div class="p-0 overflow-y-auto custom-scroll flex-1 bg-slate-50" id="review-content-area"></div>
             
-            <div class="p-4 border-t bg-white flex flex-col md:flex-row gap-3 shrink-0">
-                <button onclick="closeModal()" class="px-6 py-3 rounded-xl font-bold text-slate-500 hover:bg-slate-100 transition border w-full md:w-auto order-2 md:order-1">Edit</button>
-                <button onclick="copyToClipboard()" class="flex-1 px-6 py-3 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 shadow-lg transition flex items-center justify-center gap-2 w-full order-1 md:order-2 active:bg-blue-800">
+            <div class="p-4 border-t bg-white flex gap-3 shrink-0">
+                <button onclick="closeModal()" class="px-4 py-3 rounded-xl font-bold text-slate-500 hover:bg-slate-100 transition border w-1/3">Edit</button>
+                <button onclick="copyToClipboard()" class="flex-1 py-3 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 shadow-lg transition flex items-center justify-center gap-2 active:bg-blue-800">
                     <i class="fas fa-copy"></i> COPY DETAILS
                 </button>
             </div>
@@ -398,16 +400,16 @@
             const bar = document.getElementById('status-bar');
 
             if(isGL) {
-                bCash.className = "py-3 md:py-4 rounded-xl font-bold text-xs md:text-sm text-slate-400 border-2 border-slate-200 hover:bg-slate-50 transition-all flex flex-col md:flex-row items-center justify-center gap-2 bg-white opacity-60";
-                bGl.className = "py-3 md:py-4 rounded-xl font-bold text-xs md:text-sm text-red-600 border-2 border-red-600 bg-red-50 shadow-md transition-all flex flex-col md:flex-row items-center justify-center gap-2 transform scale-[1.02]";
-                bar.className = "h-1.5 w-full bg-red-600";
+                bCash.className = "py-3 rounded-xl font-bold text-sm text-slate-400 border border-slate-200 flex flex-col items-center justify-center gap-1 bg-white opacity-60";
+                bGl.className = "py-3 rounded-xl font-bold text-sm text-red-600 border-2 border-red-600 bg-red-50 shadow-md flex flex-col items-center justify-center gap-1";
+                bar.className = "h-1 w-full bg-red-600 rounded-full";
                 document.getElementById('sel-name-format').value = "Patient Name";
                 document.getElementById('sel-name-format').disabled = true;
                 updateNameLabel();
             } else {
-                bCash.className = "py-3 md:py-4 rounded-xl font-bold text-xs md:text-sm text-blue-700 border-2 border-blue-600 bg-blue-50 shadow-md transition-all flex flex-col md:flex-row items-center justify-center gap-2 transform scale-[1.02]";
-                bGl.className = "py-3 md:py-4 rounded-xl font-bold text-xs md:text-sm text-slate-400 border-2 border-slate-200 hover:bg-slate-50 transition-all flex flex-col md:flex-row items-center justify-center gap-2 bg-white opacity-60";
-                bar.className = "h-1.5 w-full bg-blue-600";
+                bCash.className = "py-3 rounded-xl font-bold text-sm text-blue-700 border-2 border-blue-600 bg-blue-50 shadow-md flex flex-col items-center justify-center gap-1";
+                bGl.className = "py-3 rounded-xl font-bold text-sm text-slate-400 border border-slate-200 flex flex-col items-center justify-center gap-1 bg-white opacity-60";
+                bar.className = "h-1 w-full bg-blue-600 rounded-full";
                 document.getElementById('sel-name-format').disabled = false;
                 document.getElementById('sel-name-format').value = "Customer Name";
                 updateNameLabel();
@@ -478,7 +480,7 @@
                 <td class="p-2 border-b"><input type="number" class="tbl-inp text-right price font-mono min-w-[80px]" placeholder="0.00" oninput="calculate()"></td>
                 <td class="p-2 border-b"><input type="number" class="tbl-inp text-center qty bg-slate-100 rounded font-bold min-w-[50px]" placeholder="1" value="1" oninput="calculate()"></td>
                 <td class="p-2 border-b">
-                     <div class="flex items-center border rounded bg-white overflow-hidden h-9 w-full shadow-sm min-w-[90px]">
+                     <div class="flex items-center border rounded bg-white overflow-hidden h-8 w-full shadow-sm min-w-[90px]">
                         <select class="h-full bg-slate-100 text-[10px] font-bold px-1 border-r outline-none dtype cursor-pointer text-center w-10 text-slate-600" onchange="calculate()">
                             <option value="n">-</option><option value="%">%</option><option value="-">₱</option>
                         </select>
@@ -561,10 +563,10 @@
 
                 if(totalCashOut > 0.01) {
                     sl.innerText = "TOTAL CASH OUT REQUIRED"; 
-                    box.className = "p-4 md:p-5 rounded-xl text-center border-2 transition-all bg-red-50 border-red-200 text-red-600";
+                    box.className = "p-3 rounded-lg text-center border-2 transition-all bg-red-50 border-red-200 text-red-600";
                 } else {
                     sl.innerText = "NO CASH OUT (FULLY COVERED)"; 
-                    box.className = "p-4 md:p-5 rounded-xl text-center border-2 transition-all bg-green-50 border-green-200 text-green-600";
+                    box.className = "p-3 rounded-lg text-center border-2 transition-all bg-green-50 border-green-200 text-green-600";
                 }
             }
         }
