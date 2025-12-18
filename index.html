@@ -19,83 +19,76 @@
             background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
             background-size: 24px 24px;
             -webkit-tap-highlight-color: transparent;
-            overflow: hidden; /* Prevent scroll during intro */
         }
 
-        /* --- INTRO ANIMATION STYLES --- */
+        /* --- INTRO ANIMATION DESIGN --- */
         #intro-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #ffffff; /* Pure white background like image */
+            background: #ffffff; /* Pure white cleaner look */
             z-index: 9999;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            animation: curtainUp 0.8s ease-in-out 4.5s forwards; /* Will lift after 4.5s */
+            animation: curtainUp 0.8s ease-in-out 3.5s forwards; /* Increased time to appreciate animation */
         }
 
-        /* Logo Icon Box */
-        .intro-icon-box {
-            width: 80px; height: 80px;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(30, 58, 138, 0.15);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 40px; color: #1e3a8a;
-            margin-bottom: 20px;
-            opacity: 0; transform: scale(0.5);
-            animation: popIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.5s forwards;
-        }
-
-        /* Main Title */
-        .intro-title {
-            font-size: 2rem; font-weight: 900; letter-spacing: -1px; text-align: center;
-            opacity: 0; transform: translateY(20px);
-            animation: slideUpFade 0.8s ease-out 1.0s forwards;
-        }
-        @media (min-width: 768px) { .intro-title { font-size: 3.5rem; } }
-
-        /* Subtitle */
-        .intro-sub {
-            font-size: 0.75rem; font-weight: 700; letter-spacing: 0.2em; color: #64748b;
-            text-transform: uppercase; margin-top: 5px; margin-bottom: 40px;
+        /* Logo Animation */
+        .intro-logo-box {
             opacity: 0;
-            animation: fadeIn 1s ease 1.5s forwards;
+            transform: scale(0.5);
+            animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.2s forwards;
         }
 
-        /* FALLING LETTERS CONTAINER */
-        .intro-credits-box {
-            position: relative;
-            height: 30px;
-            display: flex;
-            gap: 2px; /* Spacing between letters */
-            font-family: 'Inter', sans-serif; /* Clean font per image */
-            font-weight: 800;
-            font-size: 0.85rem;
-            color: #94a3b8; /* Lighter gray for "DESIGNED BY" */
+        /* Main Text Slide Up */
+        .intro-text-group {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideUpFade 0.8s ease-out 0.6s forwards;
+            text-align: center;
         }
 
-        .intro-credits-box .gelo-name {
-            color: #1e40af; /* Blue for GELO */
-            margin-left: 5px;
+        /* Subtitle Fade */
+        .intro-subtitle {
+            opacity: 0;
+            letter-spacing: 0px;
+            animation: trackExpand 1s ease-out 0.9s forwards;
         }
 
-        /* The falling letter class */
-        .falling-char {
+        /* GELO Falling Letters */
+        .gelo-char {
             display: inline-block;
             opacity: 0;
-            transform: translateY(-80px) rotate(-20deg); /* Start high and tilted */
+            transform: translateY(-40px);
+            color: #1e3a8a; /* Blue text */
+        }
+        
+        /* Bouncing Drop Keyframes */
+        @keyframes dropBounce {
+            0% { opacity: 0; transform: translateY(-60px); }
+            60% { opacity: 1; transform: translateY(10px); }
+            80% { transform: translateY(-5px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
 
-        /* Keyframe for the drop */
-        @keyframes letterDrop {
-            0% { opacity: 0; transform: translateY(-100px) rotate(-20deg); }
-            60% { opacity: 1; transform: translateY(10px) rotate(5deg); } /* Bounce past target */
-            80% { transform: translateY(-5px) rotate(-2deg); } /* Small rebound */
-            100% { opacity: 1; transform: translateY(0) rotate(0); } /* Land */
-        }
+        /* Delay for each letter G-E-L-O */
+        .gelo-char:nth-child(1) { animation: dropBounce 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.6s forwards; }
+        .gelo-char:nth-child(2) { animation: dropBounce 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.7s forwards; }
+        .gelo-char:nth-child(3) { animation: dropBounce 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.8s forwards; }
+        .gelo-char:nth-child(4) { animation: dropBounce 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.9s forwards; }
 
         @keyframes popIn { to { opacity: 1; transform: scale(1); } }
         @keyframes slideUpFade { to { opacity: 1; transform: translateY(0); } }
-        @keyframes fadeIn { to { opacity: 1; } }
-        @keyframes curtainUp { to { transform: translateY(-100%); opacity: 0; visibility: hidden; } }
+        @keyframes trackExpand { 
+            to { opacity: 1; letter-spacing: 3px; } 
+        }
+        @keyframes curtainUp { 
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-100%); opacity: 0; visibility: hidden; } 
+        }
+
+        /* Responsive Text Sizing for Intro */
+        .responsive-title {
+            font-size: clamp(1.2rem, 5vw, 3rem); /* Ensures text shrinks instead of breaking line */
+            line-height: 1.1;
+        }
 
         /* --- UI STYLES --- */
         .glass-panel {
@@ -132,18 +125,27 @@
 <body class="pb-32 md:pb-20">
 
     <div id="intro-overlay">
-        <div class="intro-icon-box">
-            <i class="fas fa-prescription"></i>
+        <div class="intro-logo-box bg-white p-5 rounded-3xl shadow-xl mb-6 flex items-center justify-center w-24 h-24 md:w-32 md:h-32">
+            <i class="fas fa-prescription text-5xl md:text-6xl text-blue-600"></i>
         </div>
-        
-        <div class="intro-title">
-            <span class="text-blue-900">CompleteSolution</span> <span class="text-red-600">Pharmacy</span>
-        </div>
-        
-        <div class="intro-sub">Next-Gen Booking System</div>
 
-        <div class="intro-credits-box" id="falling-text-container">
+        <div class="intro-text-group px-4">
+            <div class="font-black tracking-tighter responsive-title mb-2">
+                <span class="text-blue-900">COMPLETESOLUTION</span><span class="text-red-600">PHARMACY</span>
             </div>
+            <div class="intro-subtitle text-[10px] md:text-sm font-bold text-slate-400 uppercase tracking-widest">
+                Next-Gen Bookings System
+            </div>
+        </div>
+
+        <div class="mt-12 text-center">
+            <div class="text-[9px] font-bold text-slate-400 tracking-widest mb-2 opacity-0 animate-[popIn_0.5s_ease_1.4s_forwards]">
+                DESIGNED BY
+            </div>
+            <div class="text-2xl md:text-4xl font-black tracking-[0.5em] pl-2 font-['Orbitron']">
+                <span class="gelo-char">G</span><span class="gelo-char">E</span><span class="gelo-char">L</span><span class="gelo-char">O</span>
+            </div>
+        </div>
     </div>
 
     <div class="max-w-[1200px] mx-auto p-3 md:p-8">
@@ -384,33 +386,6 @@
         
         document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('date-now').innerText = new Date().toLocaleString('en-US', {weekday:'short', month:'short', day:'numeric', hour:'numeric', minute:'numeric'});
-            
-            // --- FALLING LETTERS LOGIC ---
-            const container = document.getElementById('falling-text-container');
-            const text1 = "DESIGNED BY";
-            const text2 = "GELO";
-            
-            let html = "";
-            // Part 1: Designed By
-            for (let i = 0; i < text1.length; i++) {
-                const char = text1[i] === ' ' ? '&nbsp;' : text1[i];
-                html += `<span class="falling-char" style="animation: letterDrop 0.8s forwards ${2.0 + (i * 0.05)}s">${char}</span>`;
-            }
-            html += `<span style="width:10px; display:inline-block"></span>`; // Spacer
-            
-            // Part 2: GELO (Blue Color)
-            for (let i = 0; i < text2.length; i++) {
-                const char = text2[i];
-                // Added extra class for styling and continued delay
-                html += `<span class="falling-char gelo-name" style="animation: letterDrop 0.8s forwards ${2.6 + (i * 0.1)}s">${char}</span>`;
-            }
-            container.innerHTML = html;
-
-            // Re-enable scrolling after animation finishes (approx 5s)
-            setTimeout(() => {
-                document.body.style.overflow = 'auto';
-            }, 5000);
-
             setMode('cash');
         });
 
