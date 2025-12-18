@@ -3,17 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CompleteSolution - Professional System</title>
+    <title>CompleteSolution - Premium POS</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&family=Montserrat:wght@300;600&display=swap');
+        /* ADDED 'ORBITRON' FOR THE 'MAANGAS' LOOK */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&family=Orbitron:wght@700;900&display=swap');
         
         body { 
             font-family: 'Inter', sans-serif; 
-            background-color: #f8fafc; 
+            background-color: #f1f5f9; 
             color: #334155; 
             background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
             background-size: 24px 24px;
@@ -22,10 +23,10 @@
         /* --- INTRO ANIMATION --- */
         #intro-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%);
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
             z-index: 9999;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            animation: curtainUp 0.8s ease-in-out 3.5s forwards;
+            animation: curtainUp 0.8s ease-in-out 3.8s forwards; /* Delay extended for effect */
         }
         
         .logo-row {
@@ -37,20 +38,36 @@
         .brand-blue { color: #1e3a8a; font-weight: 900; letter-spacing: -1px; }
         .brand-red { color: #dc2626; font-weight: 900; letter-spacing: -1px; }
 
+        /* MAANGAS NA CREDIT STYLE */
         .anim-credit {
-            margin-top: 25px; 
-            font-family: 'Montserrat', sans-serif; /* NEW FONT */
-            font-weight: 300;
-            font-size: 0.9rem; 
-            letter-spacing: 3px;
-            color: #64748b;
+            margin-top: 30px; 
+            font-family: 'Orbitron', sans-serif; /* Tech/Strong Font */
+            font-weight: 900;
+            font-size: 1rem; 
+            letter-spacing: 2px;
+            color: #0f172a; /* Dark Slate */
             text-transform: uppercase;
             opacity: 0;
-            animation: simpleFade 1s ease-out 1.5s forwards;
+            /* Cool Tracking Animation */
+            animation: coolTracking 1.2s cubic-bezier(0.215, 0.610, 0.355, 1.000) 1.2s forwards;
+            position: relative;
+        }
+        
+        /* Subtle Glow for the credit */
+        .anim-credit::after {
+            content: ''; position: absolute; bottom: -5px; left: 0; width: 100%; height: 2px;
+            background: #3b82f6;
+            transform: scaleX(0); transform-origin: left;
+            animation: lineScan 1s ease-out 2s forwards;
         }
 
+        @keyframes coolTracking {
+            0% { letter-spacing: -0.5em; opacity: 0; filter: blur(12px); }
+            40% { opacity: 0.6; }
+            100% { letter-spacing: 2px; opacity: 1; filter: blur(0px); }
+        }
+        @keyframes lineScan { to { transform: scaleX(1); } }
         @keyframes slideUp { to { transform: translateY(0); opacity: 1; } }
-        @keyframes simpleFade { to { opacity: 1; } }
         @keyframes curtainUp { to { transform: translateY(-100%); opacity: 0; visibility: hidden; } }
 
         /* --- UI STYLES --- */
@@ -83,7 +100,7 @@
             <span class="brand-blue">COMPLETESOLUTION</span>
             <span class="brand-red">PHARMACY</span>
         </div>
-        <div class="anim-credit">System Created by Gelo</div>
+        <div class="anim-credit">SYSTEM CREATED BY GELO</div>
     </div>
 
     <div class="max-w-[1100px] mx-auto p-4 md:p-8">
@@ -514,7 +531,6 @@
             
             // Header
             h += `<div class="text-center mb-6 pb-4 border-b border-dashed border-slate-300">`;
-            // ONE LINE HEADER IN RECEIPT TOO
             h += `<div class="flex justify-center gap-2 items-center text-xl font-black font-sans tracking-tight">
                     <span class="text-blue-900">COMPLETESOLUTION</span>
                     <span class="text-red-600">PHARMACY</span>
@@ -557,16 +573,26 @@
             // Items
             h += `<table class="w-full mb-4"><thead><tr class="border-b border-black"><th class="text-left pb-1">Item</th><th class="text-center pb-1">Qty</th><th class="text-right pb-1">Amount</th></tr></thead><tbody>`;
             
-            let txt = `*** COMPLETESOLUTION PHARMACY ***\n${new Date().toLocaleString()}\n`;
-            txt += `Type: ${MODE.toUpperCase()}\nBill To: ${document.getElementById('inp-name').value}\n`;
-            txt += `------------------------------\n`;
+            // --- CLEAN CLIPBOARD COPY FORMAT ---
+            // Creating a nicely formatted text string for copy-paste
+            let txt = `================================\n`;
+            txt += `   COMPLETESOLUTION PHARMACY   \n`;
+            txt += `================================\n\n`;
+            txt += `DATE: ${new Date().toLocaleString()}\n`;
+            txt += `TYPE: ${MODE.toUpperCase()}\n`;
+            txt += `BILL TO: ${document.getElementById('inp-name').value}\n`;
+            txt += `--------------------------------\n`;
+            txt += `ITEMS:\n`;
 
             document.querySelectorAll('#tbl-body tr').forEach(tr => {
                 const i = tr.querySelectorAll('input');
                 const gen = i[0].value; const br = i[1].value; const qt = i[3].value; const tot = tr.querySelector('.total').innerText;
                 if(gen || br) {
                     h += `<tr><td class="py-1"><div class="font-bold">${br}</div><div class="text-[10px] text-slate-500">${gen}</div></td><td class="text-center align-top py-1">${qt}</td><td class="text-right align-top py-1">${tot}</td></tr>`;
-                    txt += `${br} (${gen}) x${qt} = ${tot}\n`;
+                    
+                    // Add to text copy (indented nicely)
+                    txt += ` - ${br} (${gen}) \n`;
+                    txt += `   Qty: ${qt} | Total: ${tot}\n`;
                 }
             });
 
@@ -575,13 +601,16 @@
             
             if(boxCount > 0 || gelCount > 0) {
                  h += `<tr class="border-t border-dotted"><td colspan="3" class="pt-2 text-[10px] font-bold uppercase text-slate-400">Packaging</td></tr>`;
+                 txt += `--------------------------------\n`;
+                 txt += `PACKAGING:\n`;
                  document.querySelectorAll('#list-box > div, #list-gel > div').forEach(d => {
                     const s = d.querySelector('select');
                     const label = s.options[s.selectedIndex].text;
                     const qty = d.querySelector('.pqty').value;
                     const tot = d.querySelector('.ptot').innerText;
                     h += `<tr><td class="py-1 text-xs pl-2">${label}</td><td class="text-center py-1 text-xs">${qty}</td><td class="text-right py-1 text-xs">${tot}</td></tr>`;
-                    txt += `[PACK] ${label} x${qty} = ${tot}\n`;
+                    
+                    txt += ` - ${label}\n   Qty: ${qty} | Total: ${tot}\n`;
                  });
             }
 
@@ -589,24 +618,27 @@
 
             // Footer
             h += `<div class="border-t border-black pt-2">`;
+            txt += `================================\n`;
+
             if(MODE === 'gl') {
                  h += `<div class="flex justify-between font-bold"><span>TOTAL BILL</span><span>${document.getElementById('gl-grand').innerText}</span></div>`;
                  h += `<div class="flex justify-between text-xs"><span>LESS GL AMOUNT</span><span>-${document.getElementById('gl-amount').value}</span></div>`;
                  h += `<div class="flex justify-between font-black text-lg mt-2 pt-1 border-t border-dotted"><span>${document.getElementById('gl-status-lbl').innerText}</span><span>${document.getElementById('gl-final').innerText}</span></div>`;
                  
-                 txt += `------------------------------\n`;
-                 txt += `TOTAL: ${document.getElementById('gl-grand').innerText}\nGL AMT: -${document.getElementById('gl-amount').value}\nSTATUS: ${document.getElementById('gl-final').innerText}`;
+                 txt += `TOTAL BILL: ${document.getElementById('gl-grand').innerText}\n`;
+                 txt += `GL AMOUNT: -${document.getElementById('gl-amount').value}\n`;
+                 txt += `STATUS: ${document.getElementById('gl-final').innerText}\n`;
             } else {
                  h += `<div class="flex justify-between font-black text-xl"><span>GRAND TOTAL</span><span>${document.getElementById('cash-grand').innerText}</span></div>`;
-                 txt += `------------------------------\n`;
-                 txt += `TOTAL: ${document.getElementById('cash-grand').innerText}`;
+                 txt += `GRAND TOTAL: ${document.getElementById('cash-grand').innerText}\n`;
             }
             h += `</div>`;
+            
+            txt += `================================\n`;
+            txt += `Processed By: ${proc}\n`;
 
             h += `<div class="mt-6 text-center text-xs text-slate-400">Processed By: <span class="font-bold text-slate-600 uppercase">${proc}</span></div>`;
             h += `</div>`;
-
-            txt += `\nProcessed By: ${proc}`;
 
             document.getElementById('review-content-area').innerHTML = h;
             document.getElementById('hidden-copy-text').value = txt;
