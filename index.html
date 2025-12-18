@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>CompleteSolution - Premium POS</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
@@ -18,6 +18,7 @@
             color: #334155; 
             background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
             background-size: 24px 24px;
+            -webkit-tap-highlight-color: transparent;
         }
 
         /* --- INTRO ANIMATION --- */
@@ -26,40 +27,34 @@
             background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
             z-index: 9999;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            animation: curtainUp 0.8s ease-in-out 3.8s forwards;
+            animation: curtainUp 0.8s ease-in-out 2.5s forwards; /* Shortened slightly for UX */
         }
         
         .logo-row {
-            display: flex; gap: 15px; align-items: center; justify-content: center;
+            display: flex; gap: 10px; align-items: center; justify-content: center; flex-wrap: wrap;
             opacity: 0; transform: translateY(20px);
             animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards;
+            text-align: center;
         }
 
         .brand-blue { color: #1e3a8a; font-weight: 900; letter-spacing: -1px; }
         .brand-red { color: #dc2626; font-weight: 900; letter-spacing: -1px; }
 
         .anim-credit {
-            margin-top: 30px; 
+            margin-top: 20px; 
             font-family: 'Orbitron', sans-serif; 
-            font-weight: 900; font-size: 1.2rem; letter-spacing: 2px;
+            font-weight: 900; font-size: 0.9rem; letter-spacing: 2px;
             color: #0f172a; text-transform: uppercase;
             opacity: 0;
-            animation: coolTracking 1.2s cubic-bezier(0.215, 0.610, 0.355, 1.000) 1.2s forwards;
+            animation: coolTracking 1.2s cubic-bezier(0.215, 0.610, 0.355, 1.000) 1.0s forwards;
             position: relative;
         }
         
-        .anim-credit::after {
-            content: ''; position: absolute; bottom: -5px; left: 0; width: 100%; height: 3px;
-            background: #ef4444; transform: scaleX(0); transform-origin: left;
-            animation: lineScan 1s ease-out 2s forwards;
-        }
-
         @keyframes coolTracking {
             0% { letter-spacing: -0.5em; opacity: 0; filter: blur(12px); }
             40% { opacity: 0.6; }
             100% { letter-spacing: 2px; opacity: 1; filter: blur(0px); }
         }
-        @keyframes lineScan { to { transform: scaleX(1); } }
         @keyframes slideUp { to { transform: translateY(0); opacity: 1; } }
         @keyframes curtainUp { to { transform: translateY(-100%); opacity: 0; visibility: hidden; } }
 
@@ -74,7 +69,7 @@
         .inp-modern {
             width: 100%; background: #ffffff;
             border: 1px solid #e2e8f0; border-radius: 8px;
-            padding: 10px 12px; font-size: 0.9rem; font-weight: 600;
+            padding: 12px 12px; font-size: 0.95rem; font-weight: 600; /* Larger padding for mobile touch */
             color: #1e293b; transition: all 0.2s;
         }
         .inp-modern:focus { outline: none; border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15); }
@@ -83,58 +78,70 @@
         .tbl-inp { width: 100%; background: transparent; border: none; padding: 8px; outline: none; font-weight: 500; }
         .tbl-inp:focus { background: #f1f5f9; border-radius: 4px; }
         
-        .custom-scroll::-webkit-scrollbar { width: 6px; }
+        /* Mobile Scrollbar hiding */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        .custom-scroll::-webkit-scrollbar { width: 6px; height: 6px; }
         .custom-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        
+        /* Specific Mobile Tweaks */
+        @media (max-width: 768px) {
+            .mobile-stack { flex-direction: column; }
+            .mobile-full { width: 100%; }
+        }
     </style>
 </head>
-<body class="pb-20">
+<body class="pb-32 md:pb-20">
 
     <div id="intro-overlay">
-        <div class="logo-row text-3xl md:text-5xl">
+        <div class="logo-row text-2xl md:text-5xl px-4">
             <span class="brand-blue">COMPLETESOLUTION</span>
             <span class="brand-red">PHARMACY</span>
         </div>
-        <div class="anim-credit">SYSTEM CREATED BY GELO</div>
+        <div class="anim-credit text-xs md:text-xl">SYSTEM CREATED BY GELO</div>
     </div>
 
-    <div class="max-w-[1100px] mx-auto p-4 md:p-8">
+    <div class="max-w-[1200px] mx-auto p-3 md:p-8">
         
-        <div class="glass-panel rounded-2xl p-4 mb-6 flex flex-col md:flex-row justify-between items-center sticky top-2 z-40">
-            <div class="flex items-center gap-4">
-                <div class="bg-gradient-to-br from-blue-800 to-slate-900 text-white w-12 h-12 rounded-xl flex items-center justify-center shadow-lg">
-                    <i class="fas fa-mortar-pestle text-xl"></i>
+        <div class="glass-panel rounded-2xl p-4 mb-4 flex flex-col md:flex-row justify-between items-center sticky top-2 z-40 gap-3">
+            <div class="flex items-center gap-3 w-full md:w-auto">
+                <div class="bg-gradient-to-br from-blue-800 to-slate-900 text-white w-10 h-10 md:w-12 md:h-12 rounded-xl flex items-center justify-center shadow-lg shrink-0">
+                    <i class="fas fa-mortar-pestle text-lg md:text-xl"></i>
                 </div>
-                <div>
-                    <h1 class="text-2xl md:text-3xl font-black tracking-tight leading-none flex gap-2">
+                <div class="flex flex-col">
+                    <h1 class="text-lg md:text-3xl font-black tracking-tight leading-none flex flex-wrap gap-1 md:gap-2">
                         <span class="text-blue-900">COMPLETESOLUTION</span>
                         <span class="text-red-600">PHARMACY</span>
                     </h1>
-                    <p class="text-[10px] text-slate-500 font-bold uppercase tracking-[0.2em] mt-1">Professional Management System</p>
+                    <p class="text-[9px] md:text-[10px] text-slate-500 font-bold uppercase tracking-[0.2em] mt-1">Professional Management System</p>
                 </div>
             </div>
-            <div class="mt-3 md:mt-0 flex items-center gap-2 bg-slate-50 px-4 py-2 rounded-lg border border-slate-200 shadow-inner">
-                <i class="far fa-calendar-check text-blue-600"></i>
-                <span id="date-now" class="text-xs font-bold text-slate-600">--</span>
+            <div class="w-full md:w-auto flex justify-between md:justify-end items-center gap-2 bg-slate-50 px-4 py-2 rounded-lg border border-slate-200 shadow-inner">
+                <div class="flex items-center gap-2">
+                    <i class="far fa-calendar-check text-blue-600"></i>
+                    <span id="date-now" class="text-xs font-bold text-slate-600">--</span>
+                </div>
             </div>
         </div>
 
-        <div class="grid grid-cols-2 gap-4 mb-6">
-            <button onclick="setMode('cash')" id="btn-cash" class="py-4 rounded-xl font-bold text-sm shadow-sm transition-all flex items-center justify-center gap-2 border-2 bg-white">
-                <i class="fas fa-wallet text-xl"></i> WALK-IN / CASH
+        <div class="grid grid-cols-2 gap-3 mb-4 md:mb-6">
+            <button onclick="setMode('cash')" id="btn-cash" class="py-3 md:py-4 rounded-xl font-bold text-xs md:text-sm shadow-sm transition-all flex flex-col md:flex-row items-center justify-center gap-2 border-2 bg-white">
+                <i class="fas fa-wallet text-lg md:text-xl"></i> <span>WALK-IN / CASH</span>
             </button>
-            <button onclick="setMode('gl')" id="btn-gl" class="py-4 rounded-xl font-bold text-sm shadow-sm transition-all flex items-center justify-center gap-2 border-2 bg-white">
-                <i class="fas fa-file-contract text-xl"></i> GUARANTEE LETTER
+            <button onclick="setMode('gl')" id="btn-gl" class="py-3 md:py-4 rounded-xl font-bold text-xs md:text-sm shadow-sm transition-all flex flex-col md:flex-row items-center justify-center gap-2 border-2 bg-white">
+                <i class="fas fa-file-contract text-lg md:text-xl"></i> <span>GUARANTEE LETTER</span>
             </button>
         </div>
 
-        <div class="glass-panel rounded-2xl overflow-hidden relative">
+        <div class="glass-panel rounded-2xl overflow-hidden relative shadow-xl">
             <div id="status-bar" class="h-1.5 w-full bg-blue-600 transition-colors duration-500"></div>
 
-            <div class="p-6 md:p-8">
+            <div class="p-4 md:p-8">
 
-                <div id="gl-section" class="hidden mb-8 bg-red-50/80 p-6 rounded-xl border border-red-100 relative overflow-hidden backdrop-blur-sm">
-                    <div class="absolute -right-6 -top-6 text-red-200/50 text-9xl pointer-events-none"><i class="fas fa-landmark"></i></div>
-                    <div class="relative z-10 grid grid-cols-1 md:grid-cols-4 gap-5">
+                <div id="gl-section" class="hidden mb-6 md:mb-8 bg-red-50/80 p-4 md:p-6 rounded-xl border border-red-100 relative overflow-hidden backdrop-blur-sm">
+                    <div class="absolute -right-6 -top-6 text-red-200/50 text-8xl md:text-9xl pointer-events-none"><i class="fas fa-landmark"></i></div>
+                    <div class="relative z-10 grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-5">
                         <div class="md:col-span-1">
                             <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1 block">Government Agency</label>
                             <select id="gl-agency" class="inp-modern font-bold text-red-700 cursor-pointer" onchange="checkBranch()">
@@ -144,7 +151,7 @@
                                 <option>DSWD BATASAN</option>
                                 <option>OFFICE OF THE PRESIDENT</option>
                                 <option>OFFICE OF THE VICE PRESIDENT</option>
-                                <option>NATIONAL SHRINE OF OUR MOTHER OF PERPETUAL HELP</option>
+                                <option>NATIONAL SHRINE</option>
                             </select>
                         </div>
                         <div class="md:col-span-1 hidden" id="pcso-branch-div">
@@ -163,18 +170,18 @@
                         <div class="md:col-span-1">
                             <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1 block">Approved Amount</label>
                             <div class="relative">
-                                <span class="absolute left-3 top-2.5 text-green-600 font-bold">₱</span>
+                                <span class="absolute left-3 top-3 text-green-600 font-bold">₱</span>
                                 <input type="text" id="gl-amount" class="inp-modern pl-7 font-bold text-green-700 text-lg" placeholder="0.00" onkeyup="formatCurrencyInput(this)" onblur="calculate()">
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-12 gap-5 mb-8">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-5 mb-6 md:mb-8">
                     <div class="md:col-span-5">
                         <div class="flex justify-between items-end mb-1">
                             <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider" id="lbl-name-static">Invoice To:</label>
-                            <select id="sel-name-format" class="text-[10px] font-bold text-blue-600 bg-blue-50 border border-blue-100 rounded px-2 py-0.5 outline-none cursor-pointer hover:bg-blue-100" onchange="updateNameLabel()">
+                            <select id="sel-name-format" class="text-[10px] font-bold text-blue-600 bg-blue-50 border border-blue-100 rounded px-2 py-1 outline-none cursor-pointer hover:bg-blue-100" onchange="updateNameLabel()">
                                 <option value="Customer Name">Customer Name</option>
                                 <option value="Patient Name">Patient Name</option>
                                 <option value="Doctor's Name & Patient">Doctor's Name & Patient</option>
@@ -182,17 +189,18 @@
                                 <option value="Company Name">Company Name</option>
                             </select>
                         </div>
-                        <input type="text" id="inp-name" class="inp-modern text-lg" placeholder="Enter Name">
-                        <div id="name-error-msg" class="text-xs text-red-500 font-bold mt-1 hidden"></div>
+                        <input type="text" id="inp-name" class="inp-modern text-base md:text-lg" placeholder="Enter Name">
+                        <div id="name-error-msg" class="text-xs text-red-500 font-bold mt-1 hidden animate-pulse"></div>
                     </div>
 
                     <div class="md:col-span-3">
                         <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1 block">Contact Number</label>
-                        <input type="text" id="inp-contact" class="inp-modern" placeholder="09xxxxxxxxx">
+                        <input type="tel" id="inp-contact" class="inp-modern" placeholder="09xxxxxxxxx">
                     </div>
+
                     <div class="md:col-span-4">
                         <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1 block">Payment Terms</label>
-                        <select id="inp-terms" class="inp-modern cursor-pointer">
+                        <select id="inp-terms" class="inp-modern cursor-pointer bg-white">
                             <option>Walk in Payment</option>
                             <option>Online Payment (Gcash/Maya)</option>
                             <option>C.O.D.</option>
@@ -201,13 +209,15 @@
                             <option>Check Payment</option>
                         </select>
                     </div>
+
                     <div class="md:col-span-8">
                         <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1 block">Complete Address / Branch</label>
                         <input type="text" id="inp-address" class="inp-modern" placeholder="Delivery Address">
                     </div>
+
                     <div class="md:col-span-4">
                         <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1 block">Delivery Option</label>
-                        <select id="inp-delivery" class="inp-modern cursor-pointer">
+                        <select id="inp-delivery" class="inp-modern cursor-pointer bg-white">
                             <option>Pick-Up</option>
                             <option>Branch Delivery</option>
                             <option>Lalamove</option>
@@ -218,98 +228,106 @@
                 </div>
 
                 <div class="border rounded-xl overflow-hidden mb-6 bg-slate-50/50 shadow-sm">
-                    <table class="w-full text-sm">
-                        <thead class="bg-slate-100 text-slate-500 font-bold uppercase text-[10px] tracking-wider border-b">
-                            <tr>
-                                <th class="p-4 text-left w-[20%]">Generic Name</th>
-                                <th class="p-4 text-left w-[20%]">Brand Name</th>
-                                <th class="p-4 text-center w-[10%]">Prep</th>
-                                <th class="p-4 text-center w-[10%]">Expiry</th>
-                                <th class="p-4 text-right w-[10%]">Price</th>
-                                <th class="p-4 text-center w-[8%]">Qty</th>
-                                <th class="p-4 text-center w-[12%]">Discount</th>
-                                <th class="p-4 text-right w-[15%]">Total</th>
-                                <th class="p-4 text-center w-[5%]"></th>
-                            </tr>
-                        </thead>
-                        <tbody id="tbl-body" class="divide-y divide-slate-200 bg-white"></tbody>
-                    </table>
-                    <button onclick="addRow()" class="w-full py-3 bg-white hover:bg-blue-50 text-blue-600 font-bold text-xs transition border-t border-slate-200 flex items-center justify-center gap-2 group">
-                        <i class="fas fa-plus-circle group-hover:scale-110 transition-transform"></i> ADD MEDICINE ROW
+                    <div class="overflow-x-auto custom-scroll pb-2">
+                        <table class="w-full text-sm min-w-[800px]"> <thead class="bg-slate-100 text-slate-500 font-bold uppercase text-[10px] tracking-wider border-b">
+                                <tr>
+                                    <th class="p-4 text-left w-[20%]">Generic Name</th>
+                                    <th class="p-4 text-left w-[20%]">Brand Name</th>
+                                    <th class="p-4 text-center w-[10%]">Prep</th>
+                                    <th class="p-4 text-center w-[10%]">Expiry</th>
+                                    <th class="p-4 text-right w-[10%]">Price</th>
+                                    <th class="p-4 text-center w-[8%]">Qty</th>
+                                    <th class="p-4 text-center w-[12%]">Discount</th>
+                                    <th class="p-4 text-right w-[15%]">Total</th>
+                                    <th class="p-4 text-center w-[5%]"></th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbl-body" class="divide-y divide-slate-200 bg-white"></tbody>
+                        </table>
+                    </div>
+                    <button onclick="addRow()" class="w-full py-4 bg-white hover:bg-blue-50 text-blue-600 font-bold text-xs transition border-t border-slate-200 flex items-center justify-center gap-2 group active:bg-blue-100">
+                        <i class="fas fa-plus-circle group-hover:scale-110 transition-transform text-lg"></i> ADD MEDICINE ROW
                     </button>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5 mb-8">
                     <div class="bg-orange-50/60 rounded-xl border border-orange-100 p-4 shadow-sm">
                         <div class="flex justify-between items-center mb-3 border-b border-orange-200 pb-2">
-                            <span class="font-bold text-orange-800 text-xs uppercase tracking-wider"><i class="fas fa-box-open mr-2"></i>Styro / Box</span>
-                            <button onclick="addPack('box')" class="bg-white border border-orange-200 text-orange-600 px-2 py-1 rounded text-[10px] font-bold hover:bg-orange-100 shadow-sm">+ Add Box</button>
+                            <span class="font-bold text-orange-800 text-xs uppercase tracking-wider flex items-center gap-2"><i class="fas fa-box-open"></i> Styro / Box</span>
+                            <button onclick="addPack('box')" class="bg-white border border-orange-200 text-orange-600 px-3 py-1.5 rounded-lg text-[10px] font-bold hover:bg-orange-100 shadow-sm active:scale-95 transition">+ Add Box</button>
                         </div>
                         <div id="list-box" class="space-y-2"></div>
                     </div>
                     <div class="bg-cyan-50/60 rounded-xl border border-cyan-100 p-4 shadow-sm">
                         <div class="flex justify-between items-center mb-3 border-b border-cyan-200 pb-2">
-                            <span class="font-bold text-cyan-800 text-xs uppercase tracking-wider"><i class="fas fa-snowflake mr-2"></i>Gel / Ice Packs</span>
-                            <button onclick="addPack('gel')" class="bg-white border border-cyan-200 text-cyan-600 px-2 py-1 rounded text-[10px] font-bold hover:bg-cyan-100 shadow-sm">+ Add Ice</button>
+                            <span class="font-bold text-cyan-800 text-xs uppercase tracking-wider flex items-center gap-2"><i class="fas fa-snowflake"></i> Gel / Ice Packs</span>
+                            <button onclick="addPack('gel')" class="bg-white border border-cyan-200 text-cyan-600 px-3 py-1.5 rounded-lg text-[10px] font-bold hover:bg-cyan-100 shadow-sm active:scale-95 transition">+ Add Ice</button>
                         </div>
                         <div id="list-gel" class="space-y-2"></div>
                     </div>
                 </div>
 
-                <div class="flex flex-col md:flex-row justify-end items-center border-t border-dashed border-slate-300 pt-8 gap-10">
-                    <div class="w-full md:w-1/2 space-y-2 text-right text-sm">
-                        <div class="flex justify-between text-slate-500"><span id="lbl-meds-title">Medicines Subtotal:</span> <span id="lbl-sub-med" class="font-mono font-bold">₱ 0.00</span></div>
-                        <div class="flex justify-between text-slate-500"><span id="lbl-pack-title">Packaging (Separate):</span> <span id="lbl-sub-pack" class="font-mono font-bold">₱ 0.00</span></div>
+                <div class="flex flex-col md:flex-row justify-end items-center border-t border-dashed border-slate-300 pt-6 md:pt-8 gap-6 md:gap-10">
+                    <div class="w-full md:w-1/2 space-y-2 text-right text-sm order-2 md:order-1">
+                        <div class="flex justify-between text-slate-500"><span id="lbl-meds-title">Medicines Subtotal:</span> <span id="lbl-sub-med" class="font-mono font-bold text-slate-700">₱ 0.00</span></div>
+                        <div class="flex justify-between text-slate-500"><span id="lbl-pack-title">Packaging (Separate):</span> <span id="lbl-sub-pack" class="font-mono font-bold text-slate-700">₱ 0.00</span></div>
+                        
                         <div id="gl-specific-lines" class="hidden border-t pt-2 mt-2 space-y-2">
                              <div class="flex justify-between text-green-600 text-sm font-bold"><span>Approved GL Amount:</span> <span id="gl-limit-display">₱ 0.00</span></div>
                              <div class="flex justify-between text-red-600 text-sm font-bold border-t border-dotted pt-1"><span>GL Excess (Payable):</span> <span id="gl-excess-display">₱ 0.00</span></div>
                         </div>
                     </div>
-                    <div class="w-full md:w-auto min-w-[320px] text-right">
+                    
+                    <div class="w-full md:w-auto min-w-[280px] md:min-w-[320px] text-right order-1 md:order-2 bg-slate-50 md:bg-transparent p-4 md:p-0 rounded-xl">
                         <div id="comp-cash">
-                            <span class="block text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-2">Grand Total Amount</span>
-                            <span class="block text-6xl font-black text-slate-800 tracking-tight leading-none" id="cash-grand">₱ 0.00</span>
+                            <span class="block text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-1">Grand Total Amount</span>
+                            <span class="block text-5xl md:text-6xl font-black text-slate-800 tracking-tight leading-none" id="cash-grand">₱ 0.00</span>
                         </div>
                         <div id="comp-gl" class="hidden">
-                             <div id="gl-balance-box" class="p-5 rounded-xl text-center border-2 transition-all bg-slate-50">
+                             <div id="gl-balance-box" class="p-4 md:p-5 rounded-xl text-center border-2 transition-all bg-slate-50">
                                 <span class="block text-[10px] font-bold uppercase opacity-70" id="gl-status-lbl">Total Cash Out</span>
-                                <span class="block text-4xl font-black mt-1 tracking-tight" id="gl-final">₱ 0.00</span>
+                                <span class="block text-3xl md:text-4xl font-black mt-1 tracking-tight" id="gl-final">₱ 0.00</span>
                                 <span class="block text-[10px] font-bold text-blue-500 mt-2">(Excess Meds + Packaging)</span>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="mt-10 pt-6 border-t border-slate-100 flex justify-end items-center gap-3">
-                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Processed By:</span>
-                    <input type="text" id="inp-proc" class="inp-modern w-48 text-right font-bold text-blue-900 uppercase border-0 bg-slate-50 focus:bg-white" placeholder="ENTER NAME">
+                <div class="mt-8 md:mt-10 pt-6 border-t border-slate-100 flex flex-col md:flex-row justify-end items-center gap-4">
+                    <div class="flex items-center gap-3 w-full md:w-auto justify-end">
+                        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest whitespace-nowrap">Processed By:</span>
+                        <input type="text" id="inp-proc" class="inp-modern w-full md:w-48 text-right font-bold text-blue-900 uppercase border-0 bg-slate-100 focus:bg-white focus:ring-1" placeholder="ENTER NAME">
+                    </div>
                 </div>
-            </div>
-        </div>
 
-        <div class="mt-10 text-center pb-20">
-            <button onclick="review()" class="group relative bg-slate-900 text-white px-12 py-4 rounded-full font-bold shadow-2xl hover:bg-blue-900 transition-all hover:scale-105 active:scale-95">
-                <span class="flex items-center gap-3 text-lg">
-                    <i class="fas fa-file-invoice group-hover:rotate-12 transition-transform"></i> REVIEW & GENERATE RECEIPT
-                </span>
-            </button>
+                <div class="mt-8 text-center">
+                    <button onclick="review()" class="w-full md:w-auto group relative bg-slate-900 text-white px-8 md:px-12 py-4 rounded-xl md:rounded-full font-bold shadow-xl hover:bg-blue-900 transition-all hover:scale-[1.02] active:scale-95">
+                        <span class="flex items-center justify-center gap-3 text-base md:text-lg">
+                            <i class="fas fa-file-invoice group-hover:rotate-12 transition-transform"></i> REVIEW & GENERATE RECEIPT
+                        </span>
+                    </button>
+                </div>
+
+            </div>
         </div>
     </div>
 
     <div id="modal-review" class="fixed inset-0 z-50 hidden bg-slate-900/80 backdrop-blur-sm flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] flex flex-col overflow-hidden animate-[slideUp_0.3s_ease-out]">
-            <div class="bg-slate-900 p-5 flex justify-between items-center text-white">
+            <div class="bg-slate-900 p-4 md:p-5 flex justify-between items-center text-white shrink-0">
                 <div class="flex items-center gap-3">
                     <div class="bg-white/10 p-2 rounded-lg"><i class="fas fa-receipt"></i></div>
-                    <div><h2 class="font-bold text-lg">Transaction Summary</h2><p class="text-xs text-slate-400">Verify details</p></div>
+                    <div><h2 class="font-bold text-base md:text-lg">Transaction Summary</h2><p class="text-[10px] text-slate-400">Verify details before printing</p></div>
                 </div>
-                <button onclick="closeModal()" class="text-slate-400 hover:text-white transition"><i class="fas fa-times text-xl"></i></button>
+                <button onclick="closeModal()" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/20 transition"><i class="fas fa-times"></i></button>
             </div>
+            
             <div class="p-0 overflow-y-auto custom-scroll flex-1 bg-slate-50" id="review-content-area"></div>
-            <div class="p-5 border-t bg-white flex gap-3">
-                <button onclick="closeModal()" class="px-6 py-3 rounded-xl font-bold text-slate-500 hover:bg-slate-100 transition border">Edit</button>
-                <button onclick="copyToClipboard()" class="flex-1 px-6 py-3 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 shadow-lg transition flex items-center justify-center gap-2">
-                    <i class="fas fa-copy"></i> COPY TO CLIPBOARD
+            
+            <div class="p-4 border-t bg-white flex flex-col md:flex-row gap-3 shrink-0">
+                <button onclick="closeModal()" class="px-6 py-3 rounded-xl font-bold text-slate-500 hover:bg-slate-100 transition border w-full md:w-auto order-2 md:order-1">Edit</button>
+                <button onclick="copyToClipboard()" class="flex-1 px-6 py-3 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 shadow-lg transition flex items-center justify-center gap-2 w-full order-1 md:order-2 active:bg-blue-800">
+                    <i class="fas fa-copy"></i> COPY DETAILS
                 </button>
             </div>
         </div>
@@ -334,15 +352,15 @@
             const bar = document.getElementById('status-bar');
 
             if(isGL) {
-                bCash.className = "py-4 rounded-xl font-bold text-sm text-slate-400 border-2 border-slate-200 hover:bg-slate-50 transition-all flex items-center justify-center gap-2 bg-white";
-                bGl.className = "py-4 rounded-xl font-bold text-sm text-red-600 border-2 border-red-600 bg-red-50 shadow-md transition-all flex items-center justify-center gap-2";
+                bCash.className = "py-3 md:py-4 rounded-xl font-bold text-xs md:text-sm text-slate-400 border-2 border-slate-200 hover:bg-slate-50 transition-all flex flex-col md:flex-row items-center justify-center gap-2 bg-white opacity-60";
+                bGl.className = "py-3 md:py-4 rounded-xl font-bold text-xs md:text-sm text-red-600 border-2 border-red-600 bg-red-50 shadow-md transition-all flex flex-col md:flex-row items-center justify-center gap-2 transform scale-[1.02]";
                 bar.className = "h-1.5 w-full bg-red-600";
                 document.getElementById('sel-name-format').value = "Patient Name";
                 document.getElementById('sel-name-format').disabled = true;
                 updateNameLabel();
             } else {
-                bCash.className = "py-4 rounded-xl font-bold text-sm text-blue-700 border-2 border-blue-600 bg-blue-50 shadow-md transition-all flex items-center justify-center gap-2";
-                bGl.className = "py-4 rounded-xl font-bold text-sm text-slate-400 border-2 border-slate-200 hover:bg-slate-50 transition-all flex items-center justify-center gap-2 bg-white";
+                bCash.className = "py-3 md:py-4 rounded-xl font-bold text-xs md:text-sm text-blue-700 border-2 border-blue-600 bg-blue-50 shadow-md transition-all flex flex-col md:flex-row items-center justify-center gap-2 transform scale-[1.02]";
+                bGl.className = "py-3 md:py-4 rounded-xl font-bold text-xs md:text-sm text-slate-400 border-2 border-slate-200 hover:bg-slate-50 transition-all flex flex-col md:flex-row items-center justify-center gap-2 bg-white opacity-60";
                 bar.className = "h-1.5 w-full bg-blue-600";
                 document.getElementById('sel-name-format').disabled = false;
                 document.getElementById('sel-name-format').value = "Customer Name";
@@ -353,7 +371,7 @@
             toggle('gl-specific-lines', isGL);
             toggle('comp-gl', isGL);
             toggle('comp-cash', !isGL);
-            addRow();
+            if(document.querySelectorAll('#tbl-body tr').length === 0) addRow();
         }
 
         function updateNameLabel() {
@@ -407,22 +425,22 @@
             const tr = document.createElement('tr');
             tr.className = "hover:bg-slate-50 transition-colors";
             tr.innerHTML = `
-                <td class="p-2 border-b"><input class="tbl-inp font-semibold text-slate-700" placeholder="Generic Name"></td>
-                <td class="p-2 border-b"><input class="tbl-inp font-black text-slate-800" placeholder="Brand Name"></td>
-                <td class="p-2 border-b"><input class="tbl-inp text-center" placeholder="Box/Bot"></td>
+                <td class="p-2 border-b"><input class="tbl-inp font-semibold text-slate-700 min-w-[120px]" placeholder="Generic Name"></td>
+                <td class="p-2 border-b"><input class="tbl-inp font-black text-slate-800 min-w-[120px]" placeholder="Brand Name"></td>
+                <td class="p-2 border-b"><input class="tbl-inp text-center min-w-[60px]" placeholder="Box/Bot"></td>
                 <td class="p-2 border-b text-center"><select class="text-xs bg-transparent outline-none font-bold cursor-pointer"><option>Long</option><option class="text-red-600">Near</option></select></td>
-                <td class="p-2 border-b"><input type="number" class="tbl-inp text-right price font-mono" placeholder="0.00" oninput="calculate()"></td>
-                <td class="p-2 border-b"><input type="number" class="tbl-inp text-center qty bg-slate-100 rounded font-bold" placeholder="1" value="1" oninput="calculate()"></td>
+                <td class="p-2 border-b"><input type="number" class="tbl-inp text-right price font-mono min-w-[80px]" placeholder="0.00" oninput="calculate()"></td>
+                <td class="p-2 border-b"><input type="number" class="tbl-inp text-center qty bg-slate-100 rounded font-bold min-w-[50px]" placeholder="1" value="1" oninput="calculate()"></td>
                 <td class="p-2 border-b">
-                     <div class="flex items-center border rounded bg-white overflow-hidden h-8 w-full shadow-sm">
+                     <div class="flex items-center border rounded bg-white overflow-hidden h-9 w-full shadow-sm min-w-[90px]">
                         <select class="h-full bg-slate-100 text-[10px] font-bold px-1 border-r outline-none dtype cursor-pointer text-center w-10 text-slate-600" onchange="calculate()">
                             <option value="n">-</option><option value="%">%</option><option value="-">₱</option>
                         </select>
                         <input type="number" class="w-full px-1 text-center text-xs outline-none dval h-full text-red-500 font-bold" disabled placeholder="0" oninput="calculate()">
                     </div>
                 </td>
-                <td class="p-2 border-b text-right font-black text-slate-800 total font-mono">0.00</td>
-                <td class="p-2 border-b text-center"><button onclick="this.closest('tr').remove();calculate()" class="text-slate-300 hover:text-red-500 transition"><i class="fas fa-trash-alt"></i></button></td>
+                <td class="p-2 border-b text-right font-black text-slate-800 total font-mono min-w-[80px]">0.00</td>
+                <td class="p-2 border-b text-center"><button onclick="this.closest('tr').remove();calculate()" class="text-slate-300 hover:text-red-500 transition w-8 h-8 flex items-center justify-center"><i class="fas fa-trash-alt"></i></button></td>
             `;
             document.getElementById('tbl-body').appendChild(tr);
         }
@@ -435,10 +453,10 @@
                 : `<option value="35">Gel Pack (35)</option><option value="50">Ice Pack L (50)</option>`;
             
             div.innerHTML = `
-                <select class="flex-1 p-2 border rounded bg-white psel font-bold text-slate-700 outline-none cursor-pointer" onchange="calculate()">${opts}</select>
-                <div class="flex items-center"><span class="text-slate-400 mr-1">x</span><input type="number" class="w-12 text-center border rounded p-1 pqty font-bold" value="1" oninput="calculate()"></div>
+                <select class="flex-1 p-2 border rounded bg-white psel font-bold text-slate-700 outline-none cursor-pointer h-10" onchange="calculate()">${opts}</select>
+                <div class="flex items-center"><span class="text-slate-400 mr-1 hidden md:inline">x</span><input type="number" class="w-12 text-center border rounded p-1 pqty font-bold h-10" value="1" oninput="calculate()"></div>
                 <span class="font-bold w-16 text-right ptot text-slate-800 font-mono">0.00</span>
-                <button onclick="this.parentElement.remove();calculate()" class="text-red-300 ml-2 hover:text-red-600"><i class="fas fa-times"></i></button>
+                <button onclick="this.parentElement.remove();calculate()" class="text-red-300 ml-1 md:ml-2 hover:text-red-600 w-8 h-10"><i class="fas fa-times"></i></button>
             `;
             document.getElementById(type === 'box' ? 'list-box' : 'list-gel').appendChild(div);
             calculate();
@@ -497,10 +515,10 @@
 
                 if(totalCashOut > 0.01) {
                     sl.innerText = "TOTAL CASH OUT REQUIRED"; 
-                    box.className = "p-5 rounded-xl text-center border-2 transition-all bg-red-50 border-red-200 text-red-600";
+                    box.className = "p-4 md:p-5 rounded-xl text-center border-2 transition-all bg-red-50 border-red-200 text-red-600";
                 } else {
                     sl.innerText = "NO CASH OUT (FULLY COVERED)"; 
-                    box.className = "p-5 rounded-xl text-center border-2 transition-all bg-green-50 border-green-200 text-green-600";
+                    box.className = "p-4 md:p-5 rounded-xl text-center border-2 transition-all bg-green-50 border-green-200 text-green-600";
                 }
             }
         }
@@ -555,12 +573,12 @@
             h += `<div class="text-center mb-6 pb-4 border-b border-dashed border-slate-300">`;
             h += `<div class="flex justify-center gap-2 items-center text-xl font-black font-sans tracking-tight"><span class="text-blue-900">COMPLETESOLUTION</span><span class="text-red-600">PHARMACY</span></div>`;
             h += `<p class="text-[10px] text-slate-400 uppercase tracking-widest font-sans mt-1">Transaction Receipt</p></div>`;
-            h += `<div class="flex justify-between mb-2"><span class="font-bold">Date:</span> <span>${new Date().toLocaleString()}</span></div>`;
-            h += `<div class="flex justify-between mb-4"><span class="font-bold">Type:</span> <span class="uppercase font-bold ${MODE==='gl'?'text-red-600':'text-blue-600'}">${MODE==='gl'?'Guarantee Letter':'Walk-in / Cash'}</span></div>`;
+            h += `<div class="flex justify-between mb-2 text-xs md:text-sm"><span class="font-bold">Date:</span> <span>${new Date().toLocaleString()}</span></div>`;
+            h += `<div class="flex justify-between mb-4 text-xs md:text-sm"><span class="font-bold">Type:</span> <span class="uppercase font-bold ${MODE==='gl'?'text-red-600':'text-blue-600'}">${MODE==='gl'?'Guarantee Letter':'Walk-in / Cash'}</span></div>`;
             h += `<div class="bg-slate-50 p-3 rounded mb-4 border border-slate-100">`;
             const labelName = document.getElementById('sel-name-format').value;
             h += `<div class="flex justify-between mb-1"><span class="text-xs text-slate-400 uppercase font-bold">Bill To (${labelName}):</span></div>`;
-            h += `<div class="font-bold text-lg mb-2 border-b border-slate-200 pb-2">${document.getElementById('inp-name').value || 'N/A'}</div>`;
+            h += `<div class="font-bold text-lg mb-2 border-b border-slate-200 pb-2 break-words">${document.getElementById('inp-name').value || 'N/A'}</div>`;
             h += `<div class="grid grid-cols-2 gap-2 text-xs">`;
             h += `<div><span class="block text-slate-400">Payment</span><b>${document.getElementById('inp-terms').value}</b></div>`;
             h += `<div><span class="block text-slate-400">Delivery</span><b>${document.getElementById('inp-delivery').value}</b></div>`;
@@ -577,7 +595,7 @@
 
             // CLIPBOARD TEXT CONSTRUCTION
             let txt = `================================\n`;
-            txt += `   COMPLETESOLUTION PHARMACY   \n`;
+            txt += `   COMPLETESOLUTION PHARMACY    \n`;
             txt += `================================\n`;
             txt += `DATE: ${new Date().toLocaleString()}\n`;
             txt += `TYPE: ${MODE === 'gl' ? 'GUARANTEE LETTER' : 'WALK-IN / CASH'}\n`;
@@ -597,7 +615,7 @@
             }
             txt += `--------------------------------\n`;
 
-            h += `<table class="w-full mb-4"><thead><tr class="border-b border-black"><th class="text-left pb-1">Item</th><th class="text-center pb-1">Qty</th><th class="text-right pb-1">Amount</th></tr></thead><tbody>`;
+            h += `<table class="w-full mb-4 text-xs md:text-sm"><thead><tr class="border-b border-black"><th class="text-left pb-1">Item</th><th class="text-center pb-1">Qty</th><th class="text-right pb-1">Amount</th></tr></thead><tbody>`;
             
             txt += `ITEMS:\n`;
             document.querySelectorAll('#tbl-body tr').forEach(tr => {
@@ -643,7 +661,7 @@
                  h += `<div class="flex justify-between text-sm text-green-600 mb-2"><span>GL Coverage</span><span>-${fmt(glLimit)}</span></div>`;
                  
                  txt += `MEDS TOTAL: ${document.getElementById('lbl-sub-med').innerText}\n`;
-                 txt += `APPROVED GL AMOUNT: ${fmt(glLimit)}\n`; // NEW LINE
+                 txt += `APPROVED GL AMOUNT: ${fmt(glLimit)}\n`;
 
                  if(excess > 0) {
                      h += `<div class="flex justify-between text-sm text-red-600 font-bold border-t border-dotted"><span>Excess Meds (Payable)</span><span>${fmt(excess)}</span></div>`;
