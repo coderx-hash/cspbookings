@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
+        /* FONTS: INTER (UI) & ORBITRON (CREDITS) */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&family=Orbitron:wght@700;900&display=swap');
         
         body { 
@@ -149,6 +150,7 @@
                         <div class="md:col-span-1 hidden" id="pcso-branch-div">
                             <label class="text-[10px] font-bold text-orange-600 uppercase tracking-wider mb-1 block">PCSO Branch</label>
                             <select id="gl-branch" class="inp-modern text-orange-700 cursor-pointer">
+                                <option>MANILA</option><option>BATANGAS</option><option>OLANGAPO</option>
                                 <option>LAGUNA</option><option>RIZAL</option><option>BULACAN</option>
                                 <option>CDO</option><option>PAMPANGA</option><option>QUEZON</option>
                                 <option>ILOILO</option><option>CEBU</option><option>ISABELA</option>
@@ -230,8 +232,7 @@
                                 <th class="p-4 text-center w-[5%]"></th>
                             </tr>
                         </thead>
-                        <tbody id="tbl-body" class="divide-y divide-slate-200 bg-white">
-                            </tbody>
+                        <tbody id="tbl-body" class="divide-y divide-slate-200 bg-white"></tbody>
                     </table>
                     <button onclick="addRow()" class="w-full py-3 bg-white hover:bg-blue-50 text-blue-600 font-bold text-xs transition border-t border-slate-200 flex items-center justify-center gap-2 group">
                         <i class="fas fa-plus-circle group-hover:scale-110 transition-transform"></i> ADD MEDICINE ROW
@@ -256,17 +257,14 @@
                 </div>
 
                 <div class="flex flex-col md:flex-row justify-end items-center border-t border-dashed border-slate-300 pt-8 gap-10">
-                    
                     <div class="w-full md:w-1/2 space-y-2 text-right text-sm">
                         <div class="flex justify-between text-slate-500"><span id="lbl-meds-title">Medicines Subtotal:</span> <span id="lbl-sub-med" class="font-mono font-bold">₱ 0.00</span></div>
                         <div class="flex justify-between text-slate-500"><span id="lbl-pack-title">Packaging (Separate):</span> <span id="lbl-sub-pack" class="font-mono font-bold">₱ 0.00</span></div>
-                        
                         <div id="gl-specific-lines" class="hidden border-t pt-2 mt-2 space-y-2">
                              <div class="flex justify-between text-green-600 text-sm font-bold"><span>Approved GL Amount:</span> <span id="gl-limit-display">₱ 0.00</span></div>
                              <div class="flex justify-between text-red-600 text-sm font-bold border-t border-dotted pt-1"><span>GL Excess (Payable):</span> <span id="gl-excess-display">₱ 0.00</span></div>
                         </div>
                     </div>
-
                     <div class="w-full md:w-auto min-w-[320px] text-right">
                         <div id="comp-cash">
                             <span class="block text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-2">Grand Total Amount</span>
@@ -280,26 +278,22 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
 
                 <div class="mt-10 pt-6 border-t border-slate-100 flex justify-end items-center gap-3">
                     <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Processed By:</span>
                     <input type="text" id="inp-proc" class="inp-modern w-48 text-right font-bold text-blue-900 uppercase border-0 bg-slate-50 focus:bg-white" placeholder="ENTER NAME">
                 </div>
-
             </div>
         </div>
 
         <div class="mt-10 text-center pb-20">
             <button onclick="review()" class="group relative bg-slate-900 text-white px-12 py-4 rounded-full font-bold shadow-2xl hover:bg-blue-900 transition-all hover:scale-105 active:scale-95">
                 <span class="flex items-center gap-3 text-lg">
-                    <i class="fas fa-file-invoice group-hover:rotate-12 transition-transform"></i> 
-                    REVIEW & GENERATE RECEIPT
+                    <i class="fas fa-file-invoice group-hover:rotate-12 transition-transform"></i> REVIEW & GENERATE RECEIPT
                 </span>
             </button>
         </div>
-
     </div>
 
     <div id="modal-review" class="fixed inset-0 z-50 hidden bg-slate-900/80 backdrop-blur-sm flex items-center justify-center p-4">
@@ -359,7 +353,6 @@
             toggle('gl-specific-lines', isGL);
             toggle('comp-gl', isGL);
             toggle('comp-cash', !isGL);
-
             addRow();
         }
 
@@ -367,11 +360,8 @@
             const format = document.getElementById('sel-name-format').value;
             const inp = document.getElementById('inp-name');
             const err = document.getElementById('name-error-msg');
-            
-            // Clear errors on change
             inp.classList.remove('inp-error');
             err.classList.add('hidden');
-
             if(format === "Customer Name") inp.placeholder = "Enter Customer Name";
             else if(format === "Patient Name") inp.placeholder = "Enter Patient Name";
             else if(format === "Doctor's Name & Patient") inp.placeholder = "Dr. [Name] / Patient [Name]";
@@ -385,28 +375,21 @@
             document.getElementById('inp-address').value = '';
             document.getElementById('inp-delivery').selectedIndex = 0;
             document.getElementById('inp-terms').selectedIndex = 0;
-            
             document.getElementById('gl-agency').selectedIndex = 0;
             document.getElementById('gl-branch').selectedIndex = 0;
             document.getElementById('pcso-branch-div').style.display = 'none';
             document.getElementById('gl-ref').value = '';
             document.getElementById('gl-amount').value = '';
-            
             document.getElementById('tbl-body').innerHTML = '';
             document.getElementById('list-box').innerHTML = '';
             document.getElementById('list-gel').innerHTML = '';
-            
-            // Clear validation errors
             document.getElementById('inp-name').classList.remove('inp-error');
             document.getElementById('name-error-msg').classList.add('hidden');
-
             calculate();
         }
 
         function toggle(id, show) {
-            const el = document.getElementById(id);
-            if(id === 'gl-section') el.style.display = show ? 'block' : 'none';
-            else el.style.display = show ? 'block' : 'none';
+            document.getElementById(id).style.display = show ? 'block' : 'none';
         }
 
         function checkBranch() {
@@ -502,9 +485,7 @@
                 let glRaw = document.getElementById('gl-amount').value.replace(/,/g, '');
                 const glLimit = parseFloat(glRaw) || 0;
                 let excessMeds = 0;
-                if(medSum > glLimit) {
-                    excessMeds = medSum - glLimit;
-                }
+                if(medSum > glLimit) { excessMeds = medSum - glLimit; }
                 const totalCashOut = excessMeds + packSum;
 
                 document.getElementById('gl-limit-display').innerText = fmt(glLimit);
@@ -524,111 +505,90 @@
             }
         }
 
-        // --- STRICT INPUT VALIDATION ---
         function validateInput() {
-            if(MODE === 'gl') return true; // GL handled separately
-
+            if(MODE === 'gl') return true;
             const format = document.getElementById('sel-name-format').value;
             const nameVal = document.getElementById('inp-name').value.trim();
             const errDiv = document.getElementById('name-error-msg');
             const inp = document.getElementById('inp-name');
-
-            // Reset
             inp.classList.remove('inp-error');
             errDiv.classList.add('hidden');
-            errDiv.innerText = "";
-
+            
             if(!nameVal) {
                 inp.classList.add('inp-error');
                 errDiv.innerText = "⚠️ Name cannot be empty.";
                 errDiv.classList.remove('hidden');
                 return false;
             }
-
-            // 1. Doctor's Name Validation
             if (format === "Doctor's Name" || format === "Doctor's Name & Patient") {
-                const startsWithDr = /^Dr\.|^Dra\./i.test(nameVal);
-                if (!startsWithDr) {
+                if (!/^Dr\.|^Dra\./i.test(nameVal)) {
                     inp.classList.add('inp-error');
                     errDiv.innerText = "⚠️ STRICT: Must start with 'Dr.' or 'Dra.'";
                     errDiv.classList.remove('hidden');
                     return false;
                 }
             }
-
-            // 2. Doctor & Patient Split Validation
             if (format === "Doctor's Name & Patient") {
                 if (!nameVal.includes("/")) {
                     inp.classList.add('inp-error');
-                    errDiv.innerText = "⚠️ STRICT: Must separate Doctor and Patient with '/' (e.g., Dr. Cruz / Patient Name)";
+                    errDiv.innerText = "⚠️ STRICT: Must separate Doctor and Patient with '/'";
                     errDiv.classList.remove('hidden');
                     return false;
                 }
             }
-
-            // 3. Minimum Length
             if (nameVal.length < 3) {
                  inp.classList.add('inp-error');
                  errDiv.innerText = "⚠️ Name too short.";
                  errDiv.classList.remove('hidden');
                  return false;
             }
-
             return true;
         }
 
         function review() {
-            // CALL VALIDATION FIRST
-            if(!validateInput()) {
-                alert("Please correct the input errors highlighted in red.");
-                return;
-            }
-
+            if(!validateInput()) { alert("Please correct the input errors."); return; }
             const proc = document.getElementById('inp-proc').value;
             if(!proc.trim()) { alert("Please enter 'Processed By' name."); return; }
 
-            // --- HEADER ---
+            // BUILD MODAL HTML
             let h = `<div class="p-6 font-mono text-sm text-slate-700">`;
             h += `<div class="text-center mb-6 pb-4 border-b border-dashed border-slate-300">`;
-            h += `<div class="flex justify-center gap-2 items-center text-xl font-black font-sans tracking-tight">
-                    <span class="text-blue-900">COMPLETESOLUTION</span>
-                    <span class="text-red-600">PHARMACY</span>
-                  </div>`;
-            h += `<p class="text-[10px] text-slate-400 uppercase tracking-widest font-sans mt-1">Transaction Receipt</p>`;
-            h += `</div>`;
-
-            // --- META ---
+            h += `<div class="flex justify-center gap-2 items-center text-xl font-black font-sans tracking-tight"><span class="text-blue-900">COMPLETESOLUTION</span><span class="text-red-600">PHARMACY</span></div>`;
+            h += `<p class="text-[10px] text-slate-400 uppercase tracking-widest font-sans mt-1">Transaction Receipt</p></div>`;
             h += `<div class="flex justify-between mb-2"><span class="font-bold">Date:</span> <span>${new Date().toLocaleString()}</span></div>`;
             h += `<div class="flex justify-between mb-4"><span class="font-bold">Type:</span> <span class="uppercase font-bold ${MODE==='gl'?'text-red-600':'text-blue-600'}">${MODE==='gl'?'Guarantee Letter':'Walk-in / Cash'}</span></div>`;
-
-            // --- CUSTOMER ---
             h += `<div class="bg-slate-50 p-3 rounded mb-4 border border-slate-100">`;
             const labelName = document.getElementById('sel-name-format').value;
             h += `<div class="flex justify-between mb-1"><span class="text-xs text-slate-400 uppercase font-bold">Bill To (${labelName}):</span></div>`;
             h += `<div class="font-bold text-lg mb-2 border-b border-slate-200 pb-2">${document.getElementById('inp-name').value || 'N/A'}</div>`;
+            h += `<div class="grid grid-cols-2 gap-2 text-xs">`;
+            h += `<div><span class="block text-slate-400">Payment</span><b>${document.getElementById('inp-terms').value}</b></div>`;
+            h += `<div><span class="block text-slate-400">Delivery</span><b>${document.getElementById('inp-delivery').value}</b></div>`;
+            h += `<div class="col-span-2"><span class="block text-slate-400">Address</span><b>${document.getElementById('inp-address').value || 'N/A'}</b></div></div>`;
             
             if(MODE === 'gl') {
-                h += `<div class="mt-2 pt-2 border-t border-slate-200">`;
-                h += `<div class="font-bold text-red-600 text-xs uppercase">GL Agency Info:</div>`;
+                h += `<div class="mt-2 pt-2 border-t border-slate-200"><div class="font-bold text-red-600 text-xs uppercase">GL Agency Info:</div>`;
                 const agency = document.getElementById('gl-agency').value;
                 let agencyDisplay = agency;
-                if(agency === 'PCSO') {
-                    const branch = document.getElementById('gl-branch').value;
-                    agencyDisplay += ` (${branch})`;
-                }
-                h += `<div>${agencyDisplay}</div>`;
-                h += `<div>Ref: ${document.getElementById('gl-ref').value}</div>`;
-                h += `</div>`;
+                if(agency === 'PCSO') { agencyDisplay += ` (${document.getElementById('gl-branch').value})`; }
+                h += `<div>${agencyDisplay}</div><div>Ref: ${document.getElementById('gl-ref').value}</div></div>`;
             }
             h += `</div>`;
 
-            // --- COPY TEXT PREP ---
+            // CLIPBOARD TEXT CONSTRUCTION
             let txt = `================================\n`;
             txt += `   COMPLETESOLUTION PHARMACY   \n`;
             txt += `================================\n`;
             txt += `DATE: ${new Date().toLocaleString()}\n`;
-            txt += `TYPE: ${MODE.toUpperCase()}\n`;
-            txt += `BILL TO: ${document.getElementById('inp-name').value}\n`;
+            txt += `TYPE: ${MODE === 'gl' ? 'GUARANTEE LETTER' : 'WALK-IN / CASH'}\n`;
+            txt += `--------------------------------\n`;
+            txt += `CUSTOMER DETAILS:\n`;
+            txt += `NAME: ${document.getElementById('inp-name').value}\n`;
+            txt += `CONTACT: ${document.getElementById('inp-contact').value || 'N/A'}\n`;
+            txt += `PAYMENT: ${document.getElementById('inp-terms').value}\n`;
+            txt += `DELIVERY: ${document.getElementById('inp-delivery').value}\n`;
+            txt += `ADDRESS: ${document.getElementById('inp-address').value || 'N/A'}\n`;
+            
             if(MODE === 'gl') {
                  const ag = document.getElementById('gl-agency').value;
                  const br = document.getElementById('gl-branch').value;
@@ -639,13 +599,13 @@
 
             h += `<table class="w-full mb-4"><thead><tr class="border-b border-black"><th class="text-left pb-1">Item</th><th class="text-center pb-1">Qty</th><th class="text-right pb-1">Amount</th></tr></thead><tbody>`;
             
-            txt += `MEDICINES:\n`;
+            txt += `ITEMS:\n`;
             document.querySelectorAll('#tbl-body tr').forEach(tr => {
                 const i = tr.querySelectorAll('input');
                 const gen = i[0].value; const br = i[1].value; const qt = i[3].value; const tot = tr.querySelector('.total').innerText;
                 if(gen || br) {
                     h += `<tr><td class="py-1"><div class="font-bold">${br}</div><div class="text-[10px] text-slate-500">${gen}</div></td><td class="text-center align-top py-1">${qt}</td><td class="text-right align-top py-1">${tot}</td></tr>`;
-                    txt += ` - ${br} (${gen}) [x${qt}] = ${tot}\n`;
+                    txt += ` - ${br} (${gen}) [Qty: ${qt}] = ${tot}\n`;
                 }
             });
 
@@ -662,7 +622,7 @@
                     const qty = d.querySelector('.pqty').value;
                     const tot = d.querySelector('.ptot').innerText;
                     h += `<tr><td class="py-1 text-xs pl-2">${label}</td><td class="text-center py-1 text-xs">${qty}</td><td class="text-right py-1 text-xs">${tot}</td></tr>`;
-                    txt += ` - ${label} [x${qty}] = ${tot}\n`;
+                    txt += ` - ${label} [Qty: ${qty}] = ${tot}\n`;
                  });
             }
             h += `</tbody></table>`;
@@ -682,9 +642,8 @@
                  h += `<div class="flex justify-between text-sm"><span>Meds Total</span><span>${document.getElementById('lbl-sub-med').innerText}</span></div>`;
                  h += `<div class="flex justify-between text-sm text-green-600 mb-2"><span>GL Coverage</span><span>-${fmt(glLimit)}</span></div>`;
                  
-                 // ADDED TO CLIPBOARD
                  txt += `MEDS TOTAL: ${document.getElementById('lbl-sub-med').innerText}\n`;
-                 txt += `APPROVED GL AMOUNT: ${fmt(glLimit)}\n`; // REQUESTED LINE
+                 txt += `APPROVED GL AMOUNT: ${fmt(glLimit)}\n`; // NEW LINE
 
                  if(excess > 0) {
                      h += `<div class="flex justify-between text-sm text-red-600 font-bold border-t border-dotted"><span>Excess Meds (Payable)</span><span>${fmt(excess)}</span></div>`;
@@ -703,23 +662,17 @@
                  txt += `--------------------------------\n`;
                  txt += `TOTAL CASH OUT: ${document.getElementById('gl-final').innerText}\n`;
                  
-                 if(totalCash <= 0) {
-                     txt += `STATUS: NO PAYMENT REQUIRED\n`;
-                 } else {
-                     txt += `STATUS: PAYMENT REQUIRED\n`;
-                 }
+                 if(totalCash <= 0) txt += `STATUS: NO PAYMENT REQUIRED\n`;
+                 else txt += `STATUS: PAYMENT REQUIRED\n`;
 
             } else {
                  h += `<div class="flex justify-between font-black text-xl"><span>GRAND TOTAL</span><span>${document.getElementById('cash-grand').innerText}</span></div>`;
                  txt += `GRAND TOTAL: ${document.getElementById('cash-grand').innerText}\n`;
             }
-            h += `</div>`;
-
+            h += `</div><div class="mt-6 text-center text-xs text-slate-400">Processed By: <span class="font-bold text-slate-600 uppercase">${proc}</span></div></div>`;
+            
             txt += `================================\n`;
             txt += `Processed By: ${proc}\n`;
-
-            h += `<div class="mt-6 text-center text-xs text-slate-400">Processed By: <span class="font-bold text-slate-600 uppercase">${proc}</span></div>`;
-            h += `</div>`;
 
             document.getElementById('review-content-area').innerHTML = h;
             document.getElementById('hidden-copy-text').value = txt;
