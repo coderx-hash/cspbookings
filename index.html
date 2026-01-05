@@ -104,7 +104,6 @@
         }
 
         /* --- TABLE INPUT STYLING (Visible Borders) --- */
-        /* This fixes the "no frame" issue */
         .tbl-box {
             width: 100%;
             background: #ffffff;
@@ -315,8 +314,8 @@
                                 <th class="pb-2 text-left w-[20%]">Brand Name</th>
                                 <th class="pb-2 text-center w-[10%]">Prep</th>
                                 <th class="pb-2 text-center w-[10%]">Expiry</th>
-                                <th class="pb-2 text-right w-[10%]">Price</th>
                                 <th class="pb-2 text-center w-[8%]">Qty</th>
+                                <th class="pb-2 text-right w-[10%]">Price</th>
                                 <th class="pb-2 text-center w-[12%]">Discount</th>
                                 <th class="pb-2 text-right w-[15%] pr-1">Total</th>
                                 <th class="pb-2 text-center w-[5%]"></th>
@@ -518,7 +517,7 @@
             input.value = value ? parseFloat(value).toLocaleString('en-US') : '';
         }
 
-        // --- NEW ADD ROW FUNCTION USING VISIBLE BOXES ---
+        // --- NEW ADD ROW FUNCTION WITH SWAPPED QTY/PRICE ---
         function addRow() {
             const tr = document.createElement('tr');
             tr.className = "group";
@@ -527,8 +526,8 @@
                 <td class="p-1"><input class="tbl-box font-black" placeholder="Brand Name"></td>
                 <td class="p-1"><input class="tbl-box text-center" placeholder="Box/Bot"></td>
                 <td class="p-1 text-center"><select class="tbl-sel cursor-pointer w-full"><option>Long</option><option class="text-red-600">Near</option></select></td>
-                <td class="p-1"><input type="number" class="tbl-box text-right price font-mono" placeholder="0.00" oninput="calculate()"></td>
                 <td class="p-1"><input type="number" class="tbl-box text-center qty" placeholder="1" value="1" oninput="calculate()"></td>
+                <td class="p-1"><input type="number" class="tbl-box text-right price font-mono" placeholder="0.00" oninput="calculate()"></td>
                 <td class="p-1">
                      <div class="flex items-center border border-slate-300 rounded-md bg-white overflow-hidden h-[38px] w-full shadow-sm">
                         <select class="h-full bg-slate-100 text-[10px] font-bold px-1 border-r outline-none dtype cursor-pointer text-center w-10 text-slate-600" onchange="calculate()">
@@ -718,7 +717,11 @@
             txt += `ITEMS:\n`;
             document.querySelectorAll('#tbl-body tr').forEach(tr => {
                 const i = tr.querySelectorAll('input');
-                const gen = i[0].value; const br = i[1].value; const qt = i[3].value; const tot = tr.querySelector('.total').innerText;
+                // Indices changed: 0:Gen, 1:Brand, 2:Box, 3:QTY, 4:PRICE
+                const gen = i[0].value; 
+                const br = i[1].value; 
+                const qt = i[3].value; // New Index for QTY
+                const tot = tr.querySelector('.total').innerText;
                 if(gen || br) {
                     h += `<tr><td class="py-1"><div class="font-bold">${br}</div><div class="text-[10px] text-slate-500">${gen}</div></td><td class="text-center align-top py-1">${qt}</td><td class="text-right align-top py-1">${tot}</td></tr>`;
                     txt += ` - ${br} (${gen}) [Qty: ${qt}] = ${tot}\n`;
