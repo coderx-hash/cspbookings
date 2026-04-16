@@ -236,7 +236,7 @@
                         <label class="label-clean">Approved Amount</label>
                         <div class="relative">
                             <span class="absolute left-3 top-3.5 text-green-600 font-bold">₱</span>
-                            <input type="text" id="gl-amount" class="inp-clean pl-7 font-bold text-green-700" placeholder="0.00" onkeyup="formatCurrencyInput(this)" onblur="calculate()">
+                            <input type="text" id="gl-amount" class="inp-clean pl-7 font-bold text-green-700" placeholder="0.00" oninput="formatCurrencyInput(this)" onblur="calculate()">
                         </div>
                     </div>
                 </div>
@@ -511,10 +511,32 @@
             document.getElementById('pcso-branch-div').style.display = ag === 'PCSO' ? 'block' : 'none';
         }
 
+        // --- UPDATED CURRENCY FORMATTER PARA GUMAGANA ANG DECIMAL POINT (.) ---
         function formatCurrencyInput(input) {
-            let value = input.value.replace(/,/g, '').replace(/[^\d.]/g, '');
-            if ((value.match(/\./g) || []).length > 1) value = value.replace(/\.+$/, "");
-            input.value = value ? parseFloat(value).toLocaleString('en-US') : '';
+            // Tanggalin lahat ng characters maliban sa number at decimal
+            let value = input.value.replace(/[^\d.]/g, '');
+
+            // Pigilan ang paglagay ng higit sa isang decimal point
+            let parts = value.split('.');
+            if (parts.length > 2) {
+                value = parts[0] + '.' + parts.slice(1).join('').replace(/\./g, '');
+                parts = value.split('.');
+            }
+
+            if (value !== '') {
+                let integerPart = parts[0];
+                let decimalPart = parts.length > 1 ? '.' + parts[1] : '';
+
+                // Lagyan ng comma ang whole number
+                if (integerPart !== '') {
+                    integerPart = parseInt(integerPart, 10).toLocaleString('en-US');
+                }
+
+                // Pagsamahin ulit
+                input.value = integerPart + decimalPart;
+            } else {
+                input.value = '';
+            }
         }
 
         // --- NEW ADD ROW FUNCTION WITH SWAPPED QTY/PRICE ---
