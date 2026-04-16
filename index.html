@@ -9,44 +9,32 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* FONTS: INTER (UI) & ORBITRON (CREDITS) */
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@700;900&display=swap');
+        /* FONTS: INTER (UI), ORBITRON (CREDITS), & SPACE MONO (PRICES) */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@700;900&family=Space+Mono:wght@400;700&display=swap');
         
         body { 
             font-family: 'Inter', sans-serif; 
-            background-color: #f1f5f9; 
-            color: #1e293b; 
+            background-color: #eef2f6; 
+            color: #0f172a; 
             -webkit-tap-highlight-color: transparent;
         }
+
+        .font-mono { font-family: 'Space Mono', monospace; }
 
         /* --- INTRO ANIMATION --- */
         #intro-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #ffffff;
-            z-index: 9999;
+            background: #ffffff; z-index: 9999;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             animation: curtainUp 0.8s ease-in-out 3.5s forwards;
         }
-
         .intro-logo-box {
             opacity: 0; transform: scale(0.5);
             animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.2s forwards;
         }
-
-        .intro-text-group {
-            opacity: 0; transform: translateY(20px);
-            animation: slideUpFade 0.8s ease-out 0.6s forwards;
-            text-align: center;
-        }
-
-        .intro-subtitle {
-            opacity: 0; letter-spacing: 0px;
-            animation: trackExpand 1s ease-out 0.9s forwards;
-        }
-
-        .gelo-char {
-            display: inline-block; opacity: 0; transform: translateY(-40px); color: #1e3a8a;
-        }
+        .intro-text-group { opacity: 0; transform: translateY(20px); animation: slideUpFade 0.8s ease-out 0.6s forwards; text-align: center; }
+        .intro-subtitle { opacity: 0; letter-spacing: 0px; animation: trackExpand 1s ease-out 0.9s forwards; }
+        .gelo-char { display: inline-block; opacity: 0; transform: translateY(-40px); color: #1e3a8a; }
         
         @keyframes dropBounce {
             0% { opacity: 0; transform: translateY(-60px); }
@@ -54,7 +42,6 @@
             80% { transform: translateY(-5px); }
             100% { opacity: 1; transform: translateY(0); }
         }
-
         .gelo-char:nth-child(1) { animation: dropBounce 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.6s forwards; }
         .gelo-char:nth-child(2) { animation: dropBounce 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.7s forwards; }
         .gelo-char:nth-child(3) { animation: dropBounce 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.8s forwards; }
@@ -65,33 +52,41 @@
         @keyframes trackExpand { to { opacity: 1; letter-spacing: 3px; } }
         @keyframes curtainUp { 0% { transform: translateY(0); opacity: 1; } 100% { transform: translateY(-100%); opacity: 0; visibility: hidden; } }
 
-        /* UI UTILITIES */
+        /* UI UTILITIES - POS STYLE */
         .card-clean {
             background: white;
-            border-radius: 16px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
             border: 1px solid #e2e8f0;
         }
 
-        /* --- NEW INPUT STYLING (For Main Form) --- */
+        /* --- INPUT STYLING --- */
         .inp-clean {
             width: 100%;
-            background-color: #ffffff;
+            background-color: #f8fafc;
             border: 1px solid #cbd5e1;
-            border-radius: 10px;
-            padding: 12px 16px;
+            border-radius: 8px;
+            padding: 12px 14px;
             font-size: 0.95rem;
-            color: #334155;
-            transition: all 0.2s;
+            color: #0f172a;
+            font-weight: 700;
+            transition: all 0.2s ease;
             outline: none;
+            text-transform: uppercase;
         }
         .inp-clean:focus {
             border-color: #3b82f6;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
-            transform: translateY(-1px);
+            background-color: #ffffff;
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
         }
-        .inp-clean::placeholder { color: #94a3b8; font-weight: 500; }
-        .inp-error { border-color: #ef4444 !important; background-color: #fef2f2 !important; }
+        .inp-clean::placeholder { color: #94a3b8; font-weight: 500; text-transform: none; }
+        
+        /* ERROR STATE FOR REQUIRED FIELDS */
+        .inp-error { 
+            border-color: #ef4444 !important; 
+            background-color: #fef2f2 !important; 
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2) !important;
+        }
 
         .label-clean {
             display: block;
@@ -103,41 +98,31 @@
             letter-spacing: 0.05em;
         }
 
-        /* --- TABLE INPUT STYLING (Visible Borders) --- */
+        /* --- TABLE INPUT STYLING --- */
         .tbl-box {
             width: 100%;
             background: #ffffff;
-            border: 1px solid #cbd5e1; /* Visible gray border */
+            border: 1px solid #cbd5e1;
             border-radius: 6px;
             padding: 8px 10px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: #334155;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #0f172a;
             outline: none;
             transition: all 0.2s;
             min-height: 38px;
+            text-transform: uppercase;
         }
         .tbl-box:focus {
-            border-color: #2563eb;
-            background: #eff6ff;
-            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+            z-index: 10; relative;
         }
-        .tbl-box::placeholder {
-            color: #cbd5e1;
-            font-weight: 400;
-        }
+        .tbl-box::placeholder { color: #94a3b8; font-weight: 500; text-transform: none; }
         
-        /* Dropdown specific for table */
         .tbl-sel {
-            background: #f8fafc;
-            border: 1px solid #cbd5e1;
-            border-radius: 6px;
-            padding: 0 4px;
-            height: 38px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            color: #475569;
-            outline: none;
+            background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 6px;
+            padding: 0 4px; height: 38px; font-size: 0.8rem; font-weight: 700; color: #334155; outline: none;
         }
 
         /* Custom Scrollbars */
@@ -157,59 +142,59 @@
                 <span class="text-blue-900">COMPLETESOLUTION</span>&nbsp;<span class="text-red-600">PHARMACY</span>
             </div>
             <div class="intro-subtitle text-[10px] md:text-sm font-bold text-slate-400 uppercase tracking-widest">
-                Next-Gen Ordering System
+                Professional POS Terminal
             </div>
         </div>
         <div class="mt-12 text-center">
-            <div class="text-[9px] font-bold text-slate-400 tracking-widest mb-2 opacity-0 animate-[popIn_0.5s_ease_1.4s_forwards]">DESIGNED BY</div>
+            <div class="text-[9px] font-bold text-slate-400 tracking-widest mb-2 opacity-0 animate-[popIn_0.5s_ease_1.4s_forwards]">SYSTEM BUILD BY</div>
             <div class="text-2xl md:text-4xl font-black tracking-[0.5em] pl-2 font-['Orbitron']">
                 <span class="gelo-char">G</span><span class="gelo-char">E</span><span class="gelo-char">L</span><span class="gelo-char">O</span>
             </div>
         </div>
     </div>
 
-    <div class="max-w-3xl mx-auto min-h-screen">
+    <div class="max-w-5xl mx-auto min-h-screen md:my-6 md:rounded-2xl bg-white shadow-2xl border border-slate-200 overflow-hidden">
         
-        <div class="bg-white p-4 pb-6 shadow-sm sticky top-0 z-40 rounded-b-3xl border-b border-slate-200">
-            <div class="flex items-center gap-3 mb-3">
-                <div class="bg-gradient-to-br from-blue-900 to-blue-800 text-white w-10 h-10 rounded-xl flex items-center justify-center shadow-lg shrink-0">
-                    <i class="fas fa-mortar-pestle text-lg"></i>
+        <div class="bg-gradient-to-r from-slate-900 to-slate-800 text-white p-5 sticky top-0 z-40 shadow-md flex justify-between items-center">
+            <div class="flex items-center gap-4">
+                <div class="bg-gradient-to-br from-blue-500 to-blue-700 text-white w-12 h-12 rounded-xl flex items-center justify-center shadow-lg shrink-0">
+                    <i class="fas fa-desktop text-xl"></i>
                 </div>
                 <div>
-                    <h1 class="font-black text-lg leading-none tracking-tight">
-                        <span class="text-blue-900">COMPLETESOLUTION</span>&nbsp;<span class="text-red-600">PHARMACY</span>
+                    <h1 class="font-black text-xl md:text-2xl leading-none tracking-tight">
+                        <span class="text-blue-400">COMPLETE</span>SOLUTION <span class="text-red-500">POS</span>
                     </h1>
-                    <p class="text-[9px] text-slate-400 font-bold uppercase tracking-widest mt-0.5">Professional Management System</p>
+                    <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-1">Terminal 01 - Active</p>
                 </div>
             </div>
             
-            <div class="bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 flex items-center gap-2 text-slate-600 w-full shadow-inner">
-                <i class="far fa-calendar-alt text-blue-500"></i>
-                <span id="date-now" class="text-xs font-bold">--</span>
+            <div class="hidden md:flex bg-slate-900/50 border border-slate-700 rounded-lg px-4 py-2 items-center gap-3 text-slate-300 backdrop-blur-sm">
+                <i class="far fa-clock text-blue-400"></i>
+                <span id="date-now" class="text-xs font-mono font-bold tracking-tight">--</span>
             </div>
         </div>
 
-        <div class="p-3 md:p-5 space-y-4">
+        <div class="p-4 md:p-8 space-y-6">
 
-            <div class="grid grid-cols-2 gap-3">
-                <button onclick="setMode('cash')" id="btn-cash" class="py-4 rounded-xl font-bold text-sm shadow-sm transition-all flex flex-col items-center justify-center gap-1 border bg-white">
-                    <i class="fas fa-wallet text-xl mb-1"></i> <span>WALK-IN</span>
+            <div class="grid grid-cols-2 gap-4">
+                <button onclick="setMode('cash')" id="btn-cash" class="py-4 rounded-xl font-black text-sm transition-all flex flex-col md:flex-row items-center justify-center gap-2 border-2">
+                    <i class="fas fa-wallet text-xl"></i> <span>WALK-IN</span>
                 </button>
-                <button onclick="setMode('gl')" id="btn-gl" class="py-4 rounded-xl font-bold text-sm shadow-sm transition-all flex flex-col items-center justify-center gap-1 border bg-white">
-                    <i class="fas fa-file-contract text-xl mb-1"></i> <span>GUARANTEE</span>
+                <button onclick="setMode('gl')" id="btn-gl" class="py-4 rounded-xl font-black text-sm transition-all flex flex-col md:flex-row items-center justify-center gap-2 border-2">
+                    <i class="fas fa-file-contract text-xl"></i> <span>GUARANTEE LETTER</span>
                 </button>
             </div>
             
-            <div id="status-bar" class="h-1.5 w-full bg-blue-600 rounded-full transition-colors duration-500 opacity-80"></div>
+            <div id="status-bar" class="h-1.5 w-full bg-blue-600 rounded-full transition-colors duration-500 shadow-sm"></div>
 
-            <div id="gl-section" class="hidden card-clean p-4 border-l-4 border-l-red-500 bg-red-50/50">
-                <div class="flex items-center gap-2 mb-4 text-red-700 font-bold text-sm uppercase tracking-wider">
-                    <i class="fas fa-landmark"></i> Government Agency Details
+            <div id="gl-section" class="hidden card-clean p-6 border-t-4 border-t-red-500 bg-red-50/40">
+                <div class="flex items-center gap-2 mb-5 text-red-700 font-black text-sm uppercase tracking-wider border-b border-red-200 pb-2">
+                    <i class="fas fa-landmark"></i> Agency Authorization Details (REQUIRED)
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <label class="label-clean">Agency Name</label>
-                        <select id="gl-agency" class="inp-clean font-bold text-red-700 cursor-pointer" onchange="checkBranch()">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-5">
+                    <div class="md:col-span-1">
+                        <label class="label-clean">Agency Name *</label>
+                        <select id="gl-agency" class="inp-clean text-red-700 cursor-pointer" onchange="checkBranch()">
                             <option value="">Select Agency...</option>
                             <option>PCSO</option>
                             <option>DSWD NCR</option>
@@ -219,197 +204,193 @@
                             <option>NATIONAL SHRINE</option>
                         </select>
                     </div>
-                    <div id="pcso-branch-div" class="hidden">
-                        <label class="label-clean">PCSO Branch</label>
-                        <select id="gl-branch" class="inp-clean font-bold text-orange-700">
+                    <div id="pcso-branch-div" class="hidden md:col-span-1">
+                        <label class="label-clean">PCSO Branch *</label>
+                        <select id="gl-branch" class="inp-clean text-orange-700">
+                            <option value="">Select Branch...</option>
                             <option>MANILA</option><option>BATANGAS</option><option>OLANGAPO</option>
                             <option>LAGUNA</option><option>RIZAL</option><option>BULACAN</option>
                             <option>CDO</option><option>PAMPANGA</option><option>QUEZON</option>
                             <option>ILOILO</option><option>CEBU</option><option>ISABELA</option>
                         </select>
                     </div>
-                    <div>
-                        <label class="label-clean">GL Reference No.</label>
-                        <input type="text" id="gl-ref" class="inp-clean uppercase font-bold" placeholder="Control #">
+                    <div class="md:col-span-1">
+                        <label class="label-clean">GL # *</label>
+                        <input type="text" id="gl-ref" class="inp-clean" placeholder="ENTER GL #">
                     </div>
-                    <div>
-                        <label class="label-clean">Approved Amount</label>
+                    <div class="md:col-span-1">
+                        <label class="label-clean">Approved Amount *</label>
                         <div class="relative">
-                            <span class="absolute left-3 top-3.5 text-green-600 font-bold">₱</span>
-                            <input type="text" id="gl-amount" class="inp-clean pl-7 font-bold text-green-700" placeholder="0.00" oninput="formatCurrencyInput(this)" onblur="calculate()">
+                            <span class="absolute left-4 top-3.5 text-green-600 font-black">₱</span>
+                            <input type="text" id="gl-amount" class="inp-clean pl-8 text-green-700 font-mono text-lg" placeholder="0.00" oninput="formatCurrencyInput(this)" onblur="calculate()">
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="card-clean p-5 md:p-6 space-y-4">
-                
-                <div>
-                    <div class="flex justify-between items-center">
-                        <label class="label-clean mb-1" id="lbl-name-static">INVOICE TO:</label>
-                        <select id="sel-name-format" class="text-[10px] font-bold text-blue-600 bg-blue-50 border border-blue-100 rounded px-2 py-1 outline-none mb-1 cursor-pointer" onchange="updateNameLabel()">
-                            <option value="Customer Name">Customer Name</option>
-                            <option value="Patient Name">Patient Name</option>
-                            <option value="Doctor's Name & Patient">Doctor's Name & Patient</option>
-                            <option value="Doctor's Name">Doctor's Name Only</option>
-                            <option value="Company Name">Company Name</option>
-                        </select>
+            <div class="card-clean p-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div class="md:col-span-2 flex gap-4 items-end">
+                        <div class="w-1/3 md:w-1/4">
+                            <label class="label-clean mb-1" id="lbl-name-static">BILL TO FORMAT</label>
+                            <select id="sel-name-format" class="inp-clean cursor-pointer bg-slate-100" onchange="updateNameLabel()">
+                                <option value="Customer Name">CUSTOMER</option>
+                                <option value="Patient Name">PATIENT</option>
+                                <option value="Doctor's Name & Patient">DR & PATIENT</option>
+                                <option value="Doctor's Name">DOCTOR ONLY</option>
+                                <option value="Company Name">COMPANY</option>
+                            </select>
+                        </div>
+                        <div class="flex-1 relative">
+                            <label class="label-clean" id="lbl-main-name">CUSTOMER NAME *</label>
+                            <input type="text" id="inp-name" class="inp-clean text-lg" placeholder="ENTER NAME (REQUIRED)">
+                        </div>
                     </div>
-                    <input type="text" id="inp-name" class="inp-clean text-lg font-bold" placeholder="Enter Customer Name">
-                    <div id="name-error-msg" class="text-xs text-red-500 font-bold mt-1 hidden animate-pulse"></div>
-                </div>
 
-                <div>
-                    <label class="label-clean">CONTACT NUMBER</label>
-                    <input type="tel" id="inp-contact" class="inp-clean font-semibold" placeholder="09xxxxxxxxx">
-                </div>
+                    <div>
+                        <label class="label-clean">CONTACT NUMBER *</label>
+                        <input type="tel" id="inp-contact" class="inp-clean font-mono" placeholder="09XX-XXX-XXXX (REQUIRED)">
+                    </div>
 
-                <div>
-                    <label class="label-clean">PAYMENT TERMS</label>
-                    <div class="relative">
-                        <select id="inp-terms" class="inp-clean cursor-pointer bg-white appearance-none font-semibold">
-                            <option>Walk in Payment</option>
-                            <option>Online Payment (Gcash/Maya)</option>
+                    <div>
+                        <label class="label-clean">DELIVERY ADDRESS / BRANCH *</label>
+                        <input type="text" id="inp-address" class="inp-clean" placeholder="ENTER COMPLETE ADDRESS (REQUIRED)">
+                    </div>
+
+                    <div>
+                        <label class="label-clean">PAYMENT TERMS *</label>
+                        <select id="inp-terms" class="inp-clean cursor-pointer">
+                            <option>WALK IN PAYMENT</option>
+                            <option>ONLINE PAYMENT (GCASH/MAYA)</option>
                             <option>C.O.D.</option>
-                            <option>Terms 30 Days</option>
-                            <option>Terms 45 Days</option>
-                            <option>Check Payment</option>
+                            <option>TERMS 30 DAYS</option>
+                            <option>TERMS 45 DAYS</option>
+                            <option>CHECK PAYMENT</option>
                         </select>
-                        <div class="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400"><i class="fas fa-chevron-down"></i></div>
                     </div>
-                </div>
 
-                <div>
-                    <label class="label-clean">COMPLETE ADDRESS / BRANCH</label>
-                    <input type="text" id="inp-address" class="inp-clean font-semibold" placeholder="Delivery Address">
-                </div>
-
-                <div>
-                    <label class="label-clean">DELIVERY OPTION</label>
-                    <div class="relative">
-                        <select id="inp-delivery" class="inp-clean cursor-pointer bg-white appearance-none font-semibold">
-                            <option>Pick-Up</option>
-                            <option>Branch Delivery</option>
-                            <option>Lalamove</option>
-                            <option>Grab Express</option>
-                            <option>Courier (LBC/J&T)</option>
+                    <div>
+                        <label class="label-clean">DELIVERY OPTION *</label>
+                        <select id="inp-delivery" class="inp-clean cursor-pointer">
+                            <option>PICK-UP</option>
+                            <option>BRANCH DELIVERY</option>
+                            <option>LALAMOVE</option>
+                            <option>GRAB EXPRESS</option>
+                            <option>COURIER (LBC/J&T)</option>
                         </select>
-                        <div class="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400"><i class="fas fa-chevron-down"></i></div>
                     </div>
                 </div>
             </div>
 
-            <div class="card-clean overflow-hidden">
-                <div class="bg-slate-100/80 border-b border-slate-200 p-4">
-                    <h3 class="text-xs font-black uppercase text-slate-600 tracking-wider flex items-center gap-2">
-                        <i class="fas fa-list-ul"></i> Order Items
+            <div class="card-clean overflow-hidden border-slate-200 shadow-sm">
+                <div class="bg-slate-50 p-4 border-b border-slate-200 flex justify-between items-center">
+                    <h3 class="text-xs font-black uppercase text-slate-700 tracking-wider flex items-center gap-2">
+                        <i class="fas fa-list-ul text-blue-500"></i> Itemized Order List *
                     </h3>
+                    <button onclick="addRow()" class="bg-blue-100 hover:bg-blue-200 text-blue-700 px-4 py-1.5 rounded-lg font-black text-xs transition shadow-sm flex items-center gap-2">
+                        <i class="fas fa-plus"></i> ADD ROW
+                    </button>
                 </div>
                 
-                <div class="overflow-x-auto custom-scroll p-1">
-                    <table class="w-full text-sm min-w-[800px] border-separate border-spacing-y-2 px-2"> 
-                        <thead class="text-slate-400 font-bold uppercase text-[10px] tracking-wider">
+                <div class="overflow-x-auto custom-scroll p-2">
+                    <table class="w-full text-sm min-w-[900px] border-separate border-spacing-y-1"> 
+                        <thead class="text-slate-400 font-black uppercase text-[10px] tracking-wider">
                             <tr>
-                                <th class="pb-2 text-left w-[20%] pl-1">Generic Name</th>
-                                <th class="pb-2 text-left w-[20%]">Brand Name</th>
-                                <th class="pb-2 text-center w-[10%]">Prep</th>
-                                <th class="pb-2 text-center w-[10%]">Expiry</th>
-                                <th class="pb-2 text-center w-[8%]">Qty</th>
-                                <th class="pb-2 text-right w-[10%]">Price</th>
-                                <th class="pb-2 text-center w-[12%]">Discount</th>
-                                <th class="pb-2 text-right w-[15%] pr-1">Total</th>
-                                <th class="pb-2 text-center w-[5%]"></th>
+                                <th class="p-2 text-left w-[18%]">GENERIC NAME</th>
+                                <th class="p-2 text-left w-[18%]">BRAND NAME</th>
+                                <th class="p-2 text-center w-[8%]">PREP</th>
+                                <th class="p-2 text-center w-[8%]">EXPIRY</th>
+                                <th class="p-2 text-center w-[8%] text-blue-600">QTY</th>
+                                <th class="p-2 text-right w-[10%]">UNIT PRICE</th>
+                                <th class="p-2 text-center w-[12%]">DISCOUNT</th>
+                                <th class="p-2 text-right w-[15%] text-slate-700">SUBTOTAL</th>
+                                <th class="p-2 text-center w-[3%]"></th>
                             </tr>
                         </thead>
                         <tbody id="tbl-body"></tbody>
                     </table>
                 </div>
-                
-                <div class="p-4 bg-slate-50 border-t border-slate-100">
-                    <button onclick="addRow()" class="w-full py-3 bg-white border border-blue-300 text-blue-600 rounded-xl font-bold text-xs hover:bg-blue-50 transition flex items-center justify-center gap-2 shadow-sm active:scale-[0.98]">
-                        <i class="fas fa-plus-circle text-lg"></i> ADD MEDICINE ROW
-                    </button>
-                </div>
             </div>
 
-            <div class="space-y-3">
-                <div class="bg-[#fff7ed] border border-[#ffedd5] rounded-xl p-4 shadow-sm">
-                    <div class="flex justify-between items-center mb-3 pb-2 border-b border-[#fed7aa]">
-                        <span class="font-bold text-[#9a3412] text-xs uppercase tracking-wider flex items-center gap-2">
-                            <i class="fas fa-box-open"></i> Styro / Box
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div class="card-clean p-5 border-t-4 border-t-orange-400 bg-orange-50/30">
+                    <div class="flex justify-between items-center mb-4 pb-2 border-b border-orange-100">
+                        <span class="font-black text-orange-700 text-xs uppercase tracking-wider flex items-center gap-2">
+                            <i class="fas fa-box-open"></i> Styro / Box Packaging
                         </span>
-                        <button onclick="addPack('box')" class="bg-white border border-[#fed7aa] text-[#ea580c] px-3 py-1.5 rounded-lg text-[10px] font-bold shadow-sm hover:bg-[#fff7ed] active:scale-95 transition">
-                            + Add Box
+                        <button onclick="addPack('box')" class="bg-white border border-orange-200 text-orange-600 px-3 py-1 rounded shadow-sm font-black text-[10px] hover:bg-orange-50 transition">
+                            + ADD
                         </button>
                     </div>
                     <div id="list-box" class="space-y-2"></div>
                 </div>
 
-                <div class="bg-[#f0f9ff] border border-[#e0f2fe] rounded-xl p-4 shadow-sm">
-                    <div class="flex justify-between items-center mb-3 pb-2 border-b border-[#bae6fd]">
-                        <span class="font-bold text-[#075985] text-xs uppercase tracking-wider flex items-center gap-2">
+                <div class="card-clean p-5 border-t-4 border-t-cyan-400 bg-cyan-50/30">
+                    <div class="flex justify-between items-center mb-4 pb-2 border-b border-cyan-100">
+                        <span class="font-black text-cyan-700 text-xs uppercase tracking-wider flex items-center gap-2">
                             <i class="fas fa-snowflake"></i> Gel / Ice Packs
                         </span>
-                        <button onclick="addPack('gel')" class="bg-white border border-[#bae6fd] text-[#0284c7] px-3 py-1.5 rounded-lg text-[10px] font-bold shadow-sm hover:bg-[#f0f9ff] active:scale-95 transition">
-                            + Add Ice
+                        <button onclick="addPack('gel')" class="bg-white border border-cyan-200 text-cyan-600 px-3 py-1 rounded shadow-sm font-black text-[10px] hover:bg-cyan-50 transition">
+                            + ADD
                         </button>
                     </div>
                     <div id="list-gel" class="space-y-2"></div>
                 </div>
             </div>
 
-            <div class="card-clean p-5 md:p-6 mt-6 bg-white">
-                <div class="space-y-2 mb-6 text-sm border-b border-dashed border-slate-200 pb-4">
-                    <div class="flex justify-between text-slate-500">
-                        <span id="lbl-meds-title">Medicines Subtotal:</span> 
-                        <span id="lbl-sub-med" class="font-mono font-bold text-slate-700 text-base">₱ 0.00</span>
+            <div class="card-clean p-6 bg-slate-50 border border-slate-200 flex flex-col md:flex-row gap-8 items-end shadow-md">
+                
+                <div class="flex-1 w-full space-y-3">
+                    <div class="flex justify-between text-slate-500 font-bold border-b border-slate-200 pb-2">
+                        <span class="uppercase text-xs tracking-wider">Medicines Subtotal:</span> 
+                        <span id="lbl-sub-med" class="font-mono text-base text-slate-800">₱ 0.00</span>
                     </div>
-                    <div class="flex justify-between text-slate-500">
-                        <span id="lbl-pack-title">Packaging (Separate):</span> 
-                        <span id="lbl-sub-pack" class="font-mono font-bold text-slate-700 text-base">₱ 0.00</span>
+                    <div class="flex justify-between text-slate-500 font-bold border-b border-slate-200 pb-2">
+                        <span class="uppercase text-xs tracking-wider">Packaging (Separate):</span> 
+                        <span id="lbl-sub-pack" class="font-mono text-base text-slate-800">₱ 0.00</span>
                     </div>
                     
-                    <div id="gl-specific-lines" class="hidden pt-2 mt-2 space-y-2">
-                        <div class="flex justify-between text-green-600 font-bold">
-                            <span>Approved GL Amount:</span> <span id="gl-limit-display">₱ 0.00</span>
+                    <div id="gl-specific-lines" class="hidden pt-2 space-y-2">
+                        <div class="flex justify-between text-green-700 font-black bg-green-100 p-2 rounded-lg">
+                            <span class="uppercase text-xs tracking-wider">Approved GL Limit:</span> <span id="gl-limit-display" class="font-mono text-base">₱ 0.00</span>
                         </div>
-                        <div class="flex justify-between text-red-600 font-bold border-t border-dotted pt-1">
-                            <span>GL Excess (Payable):</span> <span id="gl-excess-display">₱ 0.00</span>
+                        <div class="flex justify-between text-red-600 font-black px-2 pt-1 border-t border-dotted border-red-200">
+                            <span class="uppercase text-xs tracking-wider">GL Excess (Payable):</span> <span id="gl-excess-display" class="font-mono text-base">₱ 0.00</span>
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-slate-900 rounded-2xl p-5 text-center md:text-right mb-6 shadow-lg relative overflow-hidden">
-                    <div class="relative z-10 text-white">
-                         <div id="comp-cash">
-                            <span class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Grand Total Amount</span>
-                            <span class="block text-5xl font-black tracking-tight leading-none" id="cash-grand">₱ 0.00</span>
+                <div class="flex-1 w-full flex flex-col items-end">
+                    <div class="bg-slate-900 rounded-2xl p-6 text-right w-full shadow-xl relative overflow-hidden">
+                        <div class="absolute -top-10 -left-10 w-32 h-32 bg-blue-500 rounded-full blur-3xl opacity-20"></div>
+                         <div id="comp-cash" class="relative z-10">
+                            <span class="block text-xs font-black text-slate-400 uppercase tracking-widest mb-1">GRAND TOTAL DUE</span>
+                            <span class="block text-5xl font-mono font-black text-white tracking-tight leading-none" id="cash-grand">₱ 0.00</span>
                         </div>
-                        <div id="comp-gl" class="hidden">
-                             <div id="gl-balance-box" class="p-2 rounded-lg text-center transition-all bg-white/10 backdrop-blur-md border border-white/20">
-                                <span class="block text-[10px] font-bold uppercase opacity-80" id="gl-status-lbl">Total Cash Out</span>
-                                <span class="block text-3xl font-black mt-1 tracking-tight" id="gl-final">₱ 0.00</span>
+                        <div id="comp-gl" class="hidden relative z-10">
+                             <div id="gl-balance-box" class="p-3 rounded-xl text-right transition-all bg-white/10 border border-white/20 backdrop-blur-sm">
+                                <span class="block text-xs font-black uppercase text-slate-300" id="gl-status-lbl">TOTAL CASH OUT</span>
+                                <span class="block text-4xl font-mono font-black mt-2 text-white leading-none" id="gl-final">₱ 0.00</span>
                             </div>
                         </div>
                     </div>
-                    <div class="absolute -top-10 -left-10 w-32 h-32 bg-blue-600 rounded-full blur-3xl opacity-20"></div>
-                </div>
 
-                <div class="flex items-center gap-3 justify-end mb-6">
-                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest whitespace-nowrap">Processed By:</span>
-                    <input type="text" id="inp-proc" class="bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 w-48 text-right font-bold text-blue-900 uppercase text-sm outline-none focus:border-blue-400 transition" placeholder="ENTER NAME">
-                </div>
+                    <div class="w-full mt-5 flex items-center gap-3">
+                        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest whitespace-nowrap hidden md:block">Cashier / Processed By: *</span>
+                        <input type="text" id="inp-proc" class="inp-clean flex-1 text-center bg-white shadow-sm" placeholder="ENTER CASHIER NAME (REQUIRED)">
+                    </div>
 
-                <button onclick="review()" class="w-full bg-blue-600 text-white py-4 rounded-xl font-bold shadow-lg shadow-blue-200 hover:bg-blue-700 transition-all active:scale-[0.98] flex items-center justify-center gap-3 text-lg">
-                    <i class="fas fa-file-invoice"></i> REVIEW & GENERATE RECEIPT
-                </button>
+                    <button onclick="review()" class="w-full mt-4 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white py-4 rounded-xl font-black text-lg shadow-lg shadow-blue-500/30 transition-all flex items-center justify-center gap-3 active:scale-[0.98]">
+                        <i class="fas fa-file-invoice"></i> REVIEW & GENERATE RECEIPT
+                    </button>
+                </div>
             </div>
 
         </div>
     </div>
 
     <div id="modal-review" class="fixed inset-0 z-50 hidden bg-slate-900/80 backdrop-blur-sm flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-xl max-h-[90vh] flex flex-col overflow-hidden animate-[slideUp_0.3s_ease-out]">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-xl max-h-[90vh] flex flex-col overflow-hidden animate-[slideUpFade_0.2s_ease-out]">
             <div class="bg-slate-900 p-4 flex justify-between items-center text-white shrink-0">
                 <div class="flex items-center gap-3">
                     <div class="bg-white/10 p-2 rounded-lg"><i class="fas fa-receipt"></i></div>
@@ -432,12 +413,29 @@
     <textarea id="hidden-copy-text" class="hidden"></textarea>
 
     <script>
+        // ==========================================
+        // GLOBAL AUTO-CAPITALIZE SCRIPT
+        // ==========================================
+        document.addEventListener('input', function(e) {
+            if (e.target.tagName === 'INPUT' && e.target.type === 'text') {
+                let start = e.target.selectionStart;
+                let end = e.target.selectionEnd;
+                e.target.value = e.target.value.toUpperCase();
+                try { e.target.setSelectionRange(start, end); } catch(err) {}
+            }
+        });
+
         let MODE = 'cash';
         
         document.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('date-now').innerText = new Date().toLocaleString('en-US', {weekday:'short', month:'short', day:'numeric', hour:'numeric', minute:'numeric'});
+            updateTime();
+            setInterval(updateTime, 1000);
             setMode('cash');
         });
+
+        function updateTime() {
+            document.getElementById('date-now').innerText = new Date().toLocaleString('en-US', {weekday:'short', month:'short', day:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit', second:'2-digit'});
+        }
 
         function setMode(m) {
             clearForm();
@@ -448,15 +446,15 @@
             const bar = document.getElementById('status-bar');
 
             if(isGL) {
-                bCash.className = "py-4 rounded-xl font-bold text-sm text-slate-400 border border-slate-200 flex flex-col items-center justify-center gap-1 bg-white opacity-60";
-                bGl.className = "py-4 rounded-xl font-bold text-sm text-red-600 border-2 border-red-600 bg-red-50 shadow-md flex flex-col items-center justify-center gap-1";
-                bar.className = "h-1.5 w-full bg-red-600 rounded-full";
+                bCash.className = "py-4 rounded-xl font-black text-sm text-slate-400 border-slate-200 flex flex-col md:flex-row items-center justify-center gap-2 bg-white opacity-60";
+                bGl.className = "py-4 rounded-xl font-black text-sm text-red-600 border-2 border-red-500 bg-red-50 shadow-md flex flex-col md:flex-row items-center justify-center gap-2";
+                bar.className = "h-1.5 w-full bg-red-500 rounded-full";
                 document.getElementById('sel-name-format').value = "Patient Name";
                 document.getElementById('sel-name-format').disabled = true;
                 updateNameLabel();
             } else {
-                bCash.className = "py-4 rounded-xl font-bold text-sm text-blue-700 border-2 border-blue-600 bg-blue-50 shadow-md flex flex-col items-center justify-center gap-1";
-                bGl.className = "py-4 rounded-xl font-bold text-sm text-slate-400 border border-slate-200 flex flex-col items-center justify-center gap-1 bg-white opacity-60";
+                bCash.className = "py-4 rounded-xl font-black text-sm text-blue-700 border-2 border-blue-600 bg-blue-50 shadow-md flex flex-col md:flex-row items-center justify-center gap-2";
+                bGl.className = "py-4 rounded-xl font-black text-sm text-slate-400 border-slate-200 flex flex-col md:flex-row items-center justify-center gap-2 bg-white opacity-60";
                 bar.className = "h-1.5 w-full bg-blue-600 rounded-full";
                 document.getElementById('sel-name-format').disabled = false;
                 document.getElementById('sel-name-format').value = "Customer Name";
@@ -473,17 +471,20 @@
         function updateNameLabel() {
             const format = document.getElementById('sel-name-format').value;
             const inp = document.getElementById('inp-name');
-            const err = document.getElementById('name-error-msg');
+            const lbl = document.getElementById('lbl-main-name');
             inp.classList.remove('inp-error');
-            err.classList.add('hidden');
-            if(format === "Customer Name") inp.placeholder = "Enter Customer Name";
-            else if(format === "Patient Name") inp.placeholder = "Enter Patient Name";
-            else if(format === "Doctor's Name & Patient") inp.placeholder = "Dr. [Name] / Patient [Name]";
-            else if(format === "Doctor's Name") inp.placeholder = "Dr. [Name]";
-            else if(format === "Company Name") inp.placeholder = "Company / Organization Name";
+            
+            lbl.innerText = format.toUpperCase() + " *";
+            
+            if(format === "Customer Name") inp.placeholder = "ENTER CUSTOMER NAME (REQUIRED)";
+            else if(format === "Patient Name") inp.placeholder = "ENTER PATIENT NAME (REQUIRED)";
+            else if(format === "Doctor's Name & Patient") inp.placeholder = "DR. [NAME] / PATIENT [NAME] (REQUIRED)";
+            else if(format === "Doctor's Name") inp.placeholder = "DR. [NAME] (REQUIRED)";
+            else if(format === "Company Name") inp.placeholder = "COMPANY / ORG NAME (REQUIRED)";
         }
 
         function clearForm() {
+            document.querySelectorAll('.inp-error').forEach(el => el.classList.remove('inp-error'));
             document.getElementById('inp-name').value = '';
             document.getElementById('inp-contact').value = '';
             document.getElementById('inp-address').value = '';
@@ -494,61 +495,54 @@
             document.getElementById('pcso-branch-div').style.display = 'none';
             document.getElementById('gl-ref').value = '';
             document.getElementById('gl-amount').value = '';
+            document.getElementById('inp-proc').value = '';
             document.getElementById('tbl-body').innerHTML = '';
             document.getElementById('list-box').innerHTML = '';
             document.getElementById('list-gel').innerHTML = '';
-            document.getElementById('inp-name').classList.remove('inp-error');
-            document.getElementById('name-error-msg').classList.add('hidden');
             calculate();
         }
 
-        function toggle(id, show) {
-            document.getElementById(id).style.display = show ? 'block' : 'none';
-        }
+        function toggle(id, show) { document.getElementById(id).style.display = show ? 'block' : 'none'; }
 
         function checkBranch() {
             const ag = document.getElementById('gl-agency').value;
-            document.getElementById('pcso-branch-div').style.display = ag === 'PCSO' ? 'block' : 'none';
+            const branchDiv = document.getElementById('pcso-branch-div');
+            const branchSel = document.getElementById('gl-branch');
+            if (ag === 'PCSO') {
+                branchDiv.style.display = 'block';
+            } else {
+                branchDiv.style.display = 'none';
+                branchSel.value = "";
+                branchSel.classList.remove('inp-error');
+            }
         }
 
-        // --- UPDATED CURRENCY FORMATTER PARA GUMAGANA ANG DECIMAL POINT (.) ---
         function formatCurrencyInput(input) {
-            // Tanggalin lahat ng characters maliban sa number at decimal
             let value = input.value.replace(/[^\d.]/g, '');
-
-            // Pigilan ang paglagay ng higit sa isang decimal point
             let parts = value.split('.');
             if (parts.length > 2) {
                 value = parts[0] + '.' + parts.slice(1).join('').replace(/\./g, '');
                 parts = value.split('.');
             }
-
             if (value !== '') {
                 let integerPart = parts[0];
                 let decimalPart = parts.length > 1 ? '.' + parts[1] : '';
-
-                // Lagyan ng comma ang whole number
-                if (integerPart !== '') {
-                    integerPart = parseInt(integerPart, 10).toLocaleString('en-US');
-                }
-
-                // Pagsamahin ulit
+                if (integerPart !== '') integerPart = parseInt(integerPart, 10).toLocaleString('en-US');
                 input.value = integerPart + decimalPart;
             } else {
                 input.value = '';
             }
         }
 
-        // --- NEW ADD ROW FUNCTION WITH SWAPPED QTY/PRICE ---
         function addRow() {
             const tr = document.createElement('tr');
-            tr.className = "group";
+            tr.className = "bg-white hover:bg-slate-50 transition-colors";
             tr.innerHTML = `
-                <td class="p-1"><input class="tbl-box" placeholder="Generic Name"></td>
-                <td class="p-1"><input class="tbl-box font-black" placeholder="Brand Name"></td>
-                <td class="p-1"><input class="tbl-box text-center" placeholder="Box/Bot"></td>
-                <td class="p-1 text-center"><select class="tbl-sel cursor-pointer w-full"><option>Long</option><option class="text-red-600">Near</option></select></td>
-                <td class="p-1"><input type="number" class="tbl-box text-center qty" placeholder="1" value="1" oninput="calculate()"></td>
+                <td class="p-1"><input type="text" class="tbl-box" placeholder="GENERIC NAME"></td>
+                <td class="p-1"><input type="text" class="tbl-box font-black text-blue-900" placeholder="BRAND NAME"></td>
+                <td class="p-1"><input type="text" class="tbl-box text-center" placeholder="BOX/BOT"></td>
+                <td class="p-1"><select class="tbl-sel cursor-pointer w-full text-center"><option>LONG</option><option class="text-red-600 font-black">NEAR</option></select></td>
+                <td class="p-1"><input type="number" class="tbl-box text-center font-black text-blue-600 qty" placeholder="1" value="1" oninput="calculate()"></td>
                 <td class="p-1"><input type="number" class="tbl-box text-right price font-mono" placeholder="0.00" oninput="calculate()"></td>
                 <td class="p-1">
                      <div class="flex items-center border border-slate-300 rounded-md bg-white overflow-hidden h-[38px] w-full shadow-sm">
@@ -558,24 +552,26 @@
                         <input type="number" class="w-full px-1 text-center text-xs outline-none dval h-full text-red-500 font-bold" disabled placeholder="0" oninput="calculate()">
                     </div>
                 </td>
-                <td class="p-1 text-right font-black text-slate-700 total font-mono">0.00</td>
-                <td class="p-1 text-center"><button onclick="this.closest('tr').remove();calculate()" class="text-slate-300 hover:text-red-500 transition w-8 h-8 flex items-center justify-center"><i class="fas fa-trash-alt"></i></button></td>
+                <td class="p-2 text-right font-black text-slate-700 total font-mono text-base">0.00</td>
+                <td class="p-1 text-center"><button onclick="this.closest('tr').remove();calculate()" class="text-slate-300 hover:text-red-500 transition w-8 h-8 flex items-center justify-center rounded hover:bg-red-50"><i class="fas fa-trash-alt"></i></button></td>
             `;
             document.getElementById('tbl-body').appendChild(tr);
         }
 
         function addPack(type) {
             const div = document.createElement('div');
-            div.className = "flex items-center gap-2 text-xs border-b border-gray-100 pb-2 mb-2 last:border-0";
+            div.className = "flex items-center gap-2 text-sm border-b border-white/50 pb-2 mb-2 last:border-0";
             const opts = type === 'box' 
-                ? `<option value="55">Styro Small (55)</option><option value="150">Styro Med (150)</option><option value="180">Styro Lrg (180)</option><option value="125">C2 Box (125)</option><option value="150">Size C (150)</option>`
-                : `<option value="35">Gel Pack (35)</option><option value="50">Ice Pack L (50)</option>`;
+                ? `<option value="55">STYRO SMALL (55)</option><option value="150">STYRO MED (150)</option><option value="180">STYRO LRG (180)</option><option value="125">C2 BOX (125)</option><option value="150">SIZE C (150)</option>`
+                : `<option value="35">GEL PACK (35)</option><option value="50">ICE PACK L (50)</option>`;
             
             div.innerHTML = `
-                <select class="flex-1 p-2 border rounded bg-white psel font-bold text-slate-700 outline-none cursor-pointer h-10" onchange="calculate()">${opts}</select>
-                <div class="flex items-center"><span class="text-slate-400 mr-1 hidden md:inline">x</span><input type="number" class="w-12 text-center border rounded p-1 pqty font-bold h-10" value="1" oninput="calculate()"></div>
-                <span class="font-bold w-16 text-right ptot text-slate-800 font-mono">0.00</span>
-                <button onclick="this.parentElement.remove();calculate()" class="text-red-300 ml-1 md:ml-2 hover:text-red-600 w-8 h-10"><i class="fas fa-times"></i></button>
+                <select class="flex-1 p-2 border border-slate-300 rounded-md bg-white psel font-bold text-slate-700 outline-none cursor-pointer h-10" onchange="calculate()">${opts}</select>
+                <div class="flex items-center bg-white border border-slate-300 rounded-md h-10 px-2 text-slate-400 font-bold">
+                    <span class="mr-1 text-xs">x</span><input type="number" class="w-12 text-center bg-transparent outline-none pqty font-black text-slate-800" value="1" oninput="calculate()">
+                </div>
+                <span class="font-black w-20 text-right ptot text-slate-800 font-mono text-base">0.00</span>
+                <button onclick="this.parentElement.remove();calculate()" class="text-red-300 ml-2 hover:text-red-600 w-8 h-10"><i class="fas fa-times"></i></button>
             `;
             document.getElementById(type === 'box' ? 'list-box' : 'list-gel').appendChild(div);
             calculate();
@@ -634,60 +630,99 @@
 
                 if(totalCashOut > 0.01) {
                     sl.innerText = "TOTAL CASH OUT REQUIRED"; 
-                    box.className = "p-2 rounded-lg text-center transition-all bg-red-100 border border-red-300 text-red-700";
+                    box.className = "p-3 rounded-xl text-center transition-all bg-red-500/20 border border-red-500/50 text-red-100 backdrop-blur-sm";
                 } else {
                     sl.innerText = "NO CASH OUT (FULLY COVERED)"; 
-                    box.className = "p-2 rounded-lg text-center transition-all bg-green-100 border border-green-300 text-green-700";
+                    box.className = "p-3 rounded-xl text-center transition-all bg-green-500/20 border border-green-500/50 text-green-100 backdrop-blur-sm";
                 }
             }
         }
 
-        function validateInput() {
-            if(MODE === 'gl') return true;
+        // ==============================================================
+        // STRICT REQUIRED VALIDATION LOGIC
+        // ==============================================================
+        function validateStrictInput() {
+            let isValid = true;
+            let errorMsgs = [];
+
+            // Reset all error states
+            document.querySelectorAll('.inp-error').forEach(el => el.classList.remove('inp-error'));
+
+            const name = document.getElementById('inp-name');
+            const contact = document.getElementById('inp-contact');
+            const address = document.getElementById('inp-address');
+            const proc = document.getElementById('inp-proc');
+
+            // 1. Validate General Fields
+            if(!name.value.trim()) { name.classList.add('inp-error'); isValid = false; }
+            if(!contact.value.trim()) { contact.classList.add('inp-error'); isValid = false; }
+            if(!address.value.trim()) { address.classList.add('inp-error'); isValid = false; }
+            if(!proc.value.trim()) { proc.classList.add('inp-error'); isValid = false; }
+
+            // 2. Name specific formatting rules
             const format = document.getElementById('sel-name-format').value;
-            const nameVal = document.getElementById('inp-name').value.trim();
-            const errDiv = document.getElementById('name-error-msg');
-            const inp = document.getElementById('inp-name');
-            inp.classList.remove('inp-error');
-            errDiv.classList.add('hidden');
-            
-            if(!nameVal) {
-                inp.classList.add('inp-error');
-                errDiv.innerText = "⚠️ Name cannot be empty.";
-                errDiv.classList.remove('hidden');
-                return false;
-            }
+            const nameVal = name.value.trim();
             if (format === "Doctor's Name" || format === "Doctor's Name & Patient") {
-                if (!/^Dr\.|^Dra\./i.test(nameVal)) {
-                    inp.classList.add('inp-error');
-                    errDiv.innerText = "⚠️ STRICT: Must start with 'Dr.' or 'Dra.'";
-                    errDiv.classList.remove('hidden');
-                    return false;
+                if (!/^DR\.|^DRA\./i.test(nameVal)) {
+                    name.classList.add('inp-error'); isValid = false;
+                    errorMsgs.push("- Must start with 'DR.' or 'DRA.'");
                 }
             }
-            if (format === "Doctor's Name & Patient") {
-                if (!nameVal.includes("/")) {
-                    inp.classList.add('inp-error');
-                    errDiv.innerText = "⚠️ STRICT: Must separate Doctor and Patient with '/'";
-                    errDiv.classList.remove('hidden');
-                    return false;
-                }
+            if (format === "Doctor's Name & Patient" && !nameVal.includes("/")) {
+                name.classList.add('inp-error'); isValid = false;
+                errorMsgs.push("- Must separate Doctor and Patient with '/'");
             }
-            if (nameVal.length < 3) {
-                 inp.classList.add('inp-error');
-                 errDiv.innerText = "⚠️ Name too short.";
-                 errDiv.classList.remove('hidden');
-                 return false;
+            if (nameVal && nameVal.length < 3) {
+                 name.classList.add('inp-error'); isValid = false;
+                 errorMsgs.push("- Customer Name is too short");
             }
-            return true;
+
+            // 3. GL Specific Validation
+            if(MODE === 'gl') {
+                const agency = document.getElementById('gl-agency');
+                const branch = document.getElementById('gl-branch');
+                const ref = document.getElementById('gl-ref');
+                const amt = document.getElementById('gl-amount');
+                
+                if(!agency.value) { agency.classList.add('inp-error'); isValid = false; }
+                if(agency.value === 'PCSO' && !branch.value) { branch.classList.add('inp-error'); isValid = false; }
+                if(!ref.value.trim()) { ref.classList.add('inp-error'); isValid = false; }
+                
+                const rawAmt = parseFloat(amt.value.replace(/,/g, '')) || 0;
+                if(rawAmt <= 0) { amt.classList.add('inp-error'); isValid = false; }
+            }
+
+            // 4. Require at least ONE valid item in the order list
+            let hasItem = false;
+            document.querySelectorAll('#tbl-body tr').forEach(tr => {
+                const gen = tr.querySelectorAll('input')[0].value.trim();
+                const br = tr.querySelectorAll('input')[1].value.trim();
+                if(gen || br) hasItem = true;
+            });
+            if(!hasItem) {
+                isValid = false;
+                errorMsgs.push("- Please add at least one (1) item to the order list.");
+            }
+
+            // Fire Alert if failed
+            if(!isValid) {
+                let msg = "⚠️ CANNOT GENERATE RECEIPT.\nPlease fill out all required fields highlighted in RED.";
+                if(errorMsgs.length > 0) msg += "\n\nIssues found:\n" + errorMsgs.join("\n");
+                alert(msg);
+            }
+
+            return isValid;
         }
 
+        // ==============================================================
+        // ORIGINAL (SIMPLE) RECEIPT GENERATOR - STRICT REQUIREMENTS
+        // ==============================================================
         function review() {
-            if(!validateInput()) { alert("Please correct the input errors."); return; }
-            const proc = document.getElementById('inp-proc').value;
-            if(!proc.trim()) { alert("Please enter 'Processed By' name."); return; }
+            if(!validateStrictInput()) return; // Stop if validation fails
 
-            // BUILD MODAL HTML
+            const proc = document.getElementById('inp-proc').value.trim();
+
+            // BUILD MODAL HTML (ORIGINAL FORMAT) - No more 'N/A' fallbacks because fields are strictly required
             let h = `<div class="p-6 font-mono text-sm text-slate-700">`;
             h += `<div class="text-center mb-6 pb-4 border-b border-dashed border-slate-300">`;
             h += `<div class="flex justify-center gap-2 items-center text-xl font-black font-sans tracking-tight"><span class="text-blue-900">COMPLETESOLUTION</span><span class="text-red-600">PHARMACY</span></div>`;
@@ -697,22 +732,22 @@
             h += `<div class="bg-slate-50 p-3 rounded mb-4 border border-slate-100">`;
             const labelName = document.getElementById('sel-name-format').value;
             h += `<div class="flex justify-between mb-1"><span class="text-xs text-slate-400 uppercase font-bold">Bill To (${labelName}):</span></div>`;
-            h += `<div class="font-bold text-lg mb-2 border-b border-slate-200 pb-2 break-words">${document.getElementById('inp-name').value || 'N/A'}</div>`;
+            h += `<div class="font-bold text-lg mb-2 border-b border-slate-200 pb-2 break-words">${document.getElementById('inp-name').value}</div>`;
             h += `<div class="grid grid-cols-2 gap-2 text-xs">`;
             h += `<div><span class="block text-slate-400">Payment</span><b>${document.getElementById('inp-terms').value}</b></div>`;
             h += `<div><span class="block text-slate-400">Delivery</span><b>${document.getElementById('inp-delivery').value}</b></div>`;
-            h += `<div class="col-span-2"><span class="block text-slate-400">Address</span><b>${document.getElementById('inp-address').value || 'N/A'}</b></div></div>`;
+            h += `<div class="col-span-2"><span class="block text-slate-400">Address</span><b>${document.getElementById('inp-address').value}</b></div></div>`;
             
             if(MODE === 'gl') {
                 h += `<div class="mt-2 pt-2 border-t border-slate-200"><div class="font-bold text-red-600 text-xs uppercase">GL Agency Info:</div>`;
                 const agency = document.getElementById('gl-agency').value;
                 let agencyDisplay = agency;
                 if(agency === 'PCSO') { agencyDisplay += ` (${document.getElementById('gl-branch').value})`; }
-                h += `<div>${agencyDisplay}</div><div>Ref: ${document.getElementById('gl-ref').value}</div></div>`;
+                h += `<div>${agencyDisplay}</div><div>GL #: ${document.getElementById('gl-ref').value}</div></div>`;
             }
             h += `</div>`;
 
-            // CLIPBOARD TEXT CONSTRUCTION
+            // CLIPBOARD TEXT CONSTRUCTION (ORIGINAL FORMAT)
             let txt = `================================\n`;
             txt += `   COMPLETESOLUTION PHARMACY    \n`;
             txt += `================================\n`;
@@ -721,16 +756,16 @@
             txt += `--------------------------------\n`;
             txt += `CUSTOMER DETAILS:\n`;
             txt += `NAME: ${document.getElementById('inp-name').value}\n`;
-            txt += `CONTACT: ${document.getElementById('inp-contact').value || 'N/A'}\n`;
+            txt += `CONTACT: ${document.getElementById('inp-contact').value}\n`;
             txt += `PAYMENT: ${document.getElementById('inp-terms').value}\n`;
             txt += `DELIVERY: ${document.getElementById('inp-delivery').value}\n`;
-            txt += `ADDRESS: ${document.getElementById('inp-address').value || 'N/A'}\n`;
+            txt += `ADDRESS: ${document.getElementById('inp-address').value}\n`;
             
             if(MODE === 'gl') {
                  const ag = document.getElementById('gl-agency').value;
                  const br = document.getElementById('gl-branch').value;
                  txt += `AGENCY: ${ag} ${ag==='PCSO' ? '('+br+')' : ''}\n`;
-                 txt += `REF #: ${document.getElementById('gl-ref').value}\n`;
+                 txt += `GL #: ${document.getElementById('gl-ref').value}\n`;
             }
             txt += `--------------------------------\n`;
 
@@ -739,10 +774,9 @@
             txt += `ITEMS:\n`;
             document.querySelectorAll('#tbl-body tr').forEach(tr => {
                 const i = tr.querySelectorAll('input');
-                // Indices changed: 0:Gen, 1:Brand, 2:Box, 3:QTY, 4:PRICE
                 const gen = i[0].value; 
                 const br = i[1].value; 
-                const qt = i[3].value; // New Index for QTY
+                const qt = i[3].value; 
                 const tot = tr.querySelector('.total').innerText;
                 if(gen || br) {
                     h += `<tr><td class="py-1"><div class="font-bold">${br}</div><div class="text-[10px] text-slate-500">${gen}</div></td><td class="text-center align-top py-1">${qt}</td><td class="text-right align-top py-1">${tot}</td></tr>`;
@@ -823,8 +857,12 @@
         function closeModal() { document.getElementById('modal-review').classList.add('hidden'); }
         function copyToClipboard() {
             const t = document.getElementById('hidden-copy-text');
+            t.classList.remove('hidden');
             t.select(); t.setSelectionRange(0,99999);
-            navigator.clipboard.writeText(t.value).then(() => alert("Receipt Details Copied!"));
+            navigator.clipboard.writeText(t.value).then(() => {
+                t.classList.add('hidden');
+                alert("Receipt Details Copied Successfully!");
+            });
         }
     </script>
 </body>
