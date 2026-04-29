@@ -16,7 +16,7 @@
             font-family: 'Inter', sans-serif; 
             color: #0f172a; 
             -webkit-tap-highlight-color: transparent;
-            background-color: #f8fafc; /* Light background */
+            background-color: #f8fafc;
         }
 
         .font-mono { font-family: 'Space Mono', monospace; }
@@ -38,39 +38,36 @@
             justify-content: center;
         }
 
-        /* Float Up Animation with Rotation */
         @keyframes floatUpMed {
             0% { transform: translateY(110vh) rotate(0deg); }
             100% { transform: translateY(-30vh) rotate(360deg); }
         }
         
-        /* Float Down Animation with Reverse Rotation */
         @keyframes floatDownMed {
             0% { transform: translateY(-30vh) rotate(360deg); }
             100% { transform: translateY(110vh) rotate(0deg); }
         }
 
-        /* Individual Colorful Icon Placements and Timings */
-        .med-1 { left: 5%; font-size: 14rem; color: #0ea5e9; opacity: 0.15; animation: floatUpMed 35s linear infinite; filter: blur(4px); }
-        .med-2 { left: 22%; font-size: 8rem; color: #e11d48; opacity: 0.25; animation: floatDownMed 45s linear infinite; animation-delay: -10s; filter: blur(1px); }
-        .med-3 { left: 35%; font-size: 22rem; color: #10b981; opacity: 0.1; animation: floatUpMed 50s linear infinite; animation-delay: -25s; filter: blur(8px); }
-        .med-4 { left: 50%; font-size: 6rem; color: #8b5cf6; opacity: 0.3; animation: floatUpMed 28s linear infinite; animation-delay: -5s; filter: blur(0px); }
-        .med-5 { left: 68%; font-size: 11rem; color: #f59e0b; opacity: 0.2; animation: floatDownMed 40s linear infinite; animation-delay: -15s; filter: blur(3px); }
-        .med-6 { left: 82%; font-size: 18rem; color: #06b6d4; opacity: 0.12; animation: floatUpMed 42s linear infinite; animation-delay: -30s; filter: blur(6px); }
-        .med-7 { left: 92%; font-size: 7rem; color: #ec4899; opacity: 0.25; animation: floatDownMed 32s linear infinite; animation-delay: -8s; filter: blur(1px); }
+        /* Adjusted Colors to match Blue/Red Theme */
+        .med-1 { left: 5%; font-size: 14rem; color: #1d4ed8; opacity: 0.15; animation: floatUpMed 35s linear infinite; filter: blur(4px); } /* Blue */
+        .med-2 { left: 22%; font-size: 8rem; color: #dc2626; opacity: 0.20; animation: floatDownMed 45s linear infinite; animation-delay: -10s; filter: blur(1px); } /* Red */
+        .med-3 { left: 35%; font-size: 22rem; color: #2563eb; opacity: 0.1; animation: floatUpMed 50s linear infinite; animation-delay: -25s; filter: blur(8px); } /* Blue */
+        .med-4 { left: 50%; font-size: 6rem; color: #ef4444; opacity: 0.25; animation: floatUpMed 28s linear infinite; animation-delay: -5s; filter: blur(0px); } /* Red */
+        .med-5 { left: 68%; font-size: 11rem; color: #1e40af; opacity: 0.15; animation: floatDownMed 40s linear infinite; animation-delay: -15s; filter: blur(3px); } /* Dark Blue */
+        .med-6 { left: 82%; font-size: 18rem; color: #b91c1c; opacity: 0.12; animation: floatUpMed 42s linear infinite; animation-delay: -30s; filter: blur(6px); } /* Dark Red */
+        .med-7 { left: 92%; font-size: 7rem; color: #3b82f6; opacity: 0.20; animation: floatDownMed 32s linear infinite; animation-delay: -8s; filter: blur(1px); } /* Lighter Blue */
 
-        /* Adding a subtle colorful glow behind everything for depth */
         .bg-glow {
             position: absolute;
             border-radius: 50%;
             filter: blur(120px);
-            opacity: 0.4;
+            opacity: 0.3;
             z-index: -1;
         }
-        .glow-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: rgba(56, 189, 248, 0.15); }
-        .glow-2 { bottom: -10%; right: -10%; width: 60vw; height: 60vw; background: rgba(244, 63, 94, 0.1); }
+        .glow-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: rgba(29, 78, 216, 0.15); } /* Blue Glow */
+        .glow-2 { bottom: -10%; right: -10%; width: 60vw; height: 60vw; background: rgba(220, 38, 38, 0.15); } /* Red Glow */
 
-        /* --- INTRO ANIMATION (WHITE THEME) --- */
+        /* --- INTRO ANIMATION --- */
         #intro-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #ffffff; z-index: 9999;
@@ -86,7 +83,7 @@
         }
         .intro-text-group { opacity: 0; transform: translateY(20px); animation: slideUpFade 0.8s ease-out 0.6s forwards; text-align: center; }
         .intro-subtitle { opacity: 0; letter-spacing: 0px; animation: trackExpand 1s ease-out 0.9s forwards; }
-        .gelo-char { display: inline-block; opacity: 0; transform: translateY(-40px); color: #0ea5e9; text-shadow: 0 0 10px rgba(14, 165, 233, 0.3); }
+        .gelo-char { display: inline-block; opacity: 0; transform: translateY(-40px); color: #1d4ed8; text-shadow: 0 0 10px rgba(29, 78, 216, 0.3); }
         
         @keyframes dropBounce {
             0% { opacity: 0; transform: translateY(-60px); }
@@ -104,7 +101,7 @@
         @keyframes trackExpand { to { opacity: 1; letter-spacing: 4px; } }
         @keyframes curtainUp { 0% { transform: translateY(0); opacity: 1; } 100% { transform: translateY(-100%); opacity: 0; visibility: hidden; } }
 
-        /* UI UTILITIES - FLOATING GLASS STYLE */
+        /* UI UTILITIES */
         .glass-panel {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(25px);
@@ -130,16 +127,16 @@
         }
         .inp-clean:focus {
             background-color: #ffffff;
-            border-color: #3b82f6;
-            box-shadow: 0 0 15px rgba(59, 130, 246, 0.25), inset 0 2px 4px rgba(0, 0, 0, 0.01);
+            border-color: #2563eb; /* Blue Focus */
+            box-shadow: 0 0 15px rgba(37, 99, 235, 0.25), inset 0 2px 4px rgba(0, 0, 0, 0.01);
             transform: translateY(-2px);
         }
         .inp-clean::placeholder { color: #94a3b8; font-weight: 600; text-transform: none; }
         
         .inp-error { 
-            border-color: #ef4444 !important; 
-            background-color: #fff1f2 !important; 
-            box-shadow: 0 0 15px rgba(239, 68, 68, 0.25) !important;
+            border-color: #dc2626 !important; 
+            background-color: #fef2f2 !important; 
+            box-shadow: 0 0 15px rgba(220, 38, 38, 0.25) !important;
             animation: shake 0.4s ease-in-out;
         }
 
@@ -176,8 +173,8 @@
         .tbl-box:hover { background: rgba(241, 245, 249, 0.5); }
         .tbl-box:focus {
             background: #ffffff;
-            border-color: #3b82f6;
-            box-shadow: 0 0 12px rgba(59, 130, 246, 0.2);
+            border-color: #2563eb;
+            box-shadow: 0 0 12px rgba(37, 99, 235, 0.2);
             z-index: 10; relative;
         }
         .tbl-box::placeholder { color: #cbd5e1; font-weight: 500; text-transform: none; }
@@ -187,15 +184,13 @@
             padding: 0 4px; height: 42px; font-size: 0.8rem; font-weight: 800; color: #334155; outline: none;
             transition: all 0.2s;
         }
-        .tbl-sel:focus { border-color: #3b82f6; background: #ffffff; }
+        .tbl-sel:focus { border-color: #2563eb; background: #ffffff; }
 
-        /* Custom Scrollbars */
         .custom-scroll::-webkit-scrollbar { height: 8px; width: 8px; }
         .custom-scroll::-webkit-scrollbar-track { background: transparent; }
         .custom-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
         .custom-scroll::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
         
-        /* Modern Select Arrow */
         select.inp-clean {
             appearance: none;
             background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23475569%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
@@ -223,15 +218,15 @@
     </div>
 
     <div id="intro-overlay">
-        <div class="intro-logo-box p-6 rounded-3xl mb-6 flex items-center justify-center w-28 h-28 md:w-36 md:h-36 shadow-[0_10px_30px_rgba(56,189,248,0.2)]">
-            <i class="fas fa-prescription text-5xl md:text-7xl text-sky-500"></i>
+        <div class="intro-logo-box p-6 rounded-3xl mb-6 flex items-center justify-center w-28 h-28 md:w-36 md:h-36 shadow-[0_10px_30px_rgba(29,78,216,0.2)]">
+            <i class="fas fa-prescription text-5xl md:text-7xl text-blue-700"></i>
         </div>
         <div class="intro-text-group px-4">
-            <div class="font-black text-3xl md:text-5xl tracking-tight mb-2 leading-tight flex gap-2 justify-center">
-                <span class="text-slate-900">COMPLETE<span class="text-sky-500">SOLUTION</span></span>
-                <span class="text-rose-600">PHARMACY</span>
+            <div class="font-black text-4xl md:text-5xl tracking-tight mb-2 leading-tight flex flex-col justify-center items-center">
+                <span class="text-blue-700 underline decoration-[4px] underline-offset-[6px]">Completesolution</span>
+                <span class="text-red-600 mt-2">Pharmacy</span>
             </div>
-            <div class="intro-subtitle text-[11px] md:text-sm font-bold text-slate-500 uppercase tracking-widest">
+            <div class="intro-subtitle text-[11px] md:text-sm font-bold text-slate-500 uppercase tracking-widest mt-4">
                 Premium POS Terminal Interface
             </div>
         </div>
@@ -245,27 +240,28 @@
 
     <div class="w-full max-w-[1200px] max-h-[95vh] bg-white rounded-[30px] shadow-[0_25px_70px_rgba(0,0,0,0.15)] border border-slate-200 overflow-hidden relative flex flex-col transition-all duration-300 z-10">
         
-        <div class="bg-[#0f172a] text-white p-6 sticky top-0 z-40 flex justify-between items-center shadow-lg border-b border-slate-800 shrink-0">
-            <div class="flex items-center gap-5">
-                <div class="bg-gradient-to-br from-blue-500 to-sky-400 text-white w-14 h-14 rounded-2xl flex items-center justify-center shadow-[0_0_20px_rgba(56,189,248,0.3)] shrink-0">
-                    <i class="fas fa-bolt text-2xl"></i>
+        <div class="bg-[#0f172a] text-white p-5 md:p-6 sticky top-0 z-40 flex justify-between items-center shadow-lg border-b border-slate-800 shrink-0">
+            <div class="flex items-center gap-4 md:gap-5">
+                <div class="bg-gradient-to-br from-blue-700 to-blue-500 text-white w-12 h-12 md:w-14 md:h-14 rounded-2xl flex items-center justify-center shadow-[0_0_20px_rgba(29,78,216,0.4)] shrink-0">
+                    <i class="fas fa-bolt text-xl md:text-2xl"></i>
                 </div>
                 <div>
-                    <h1 class="font-black text-2xl md:text-3xl leading-none tracking-tight">
-                        <span class="text-sky-400">COMPLETE</span>SOLUTION <span class="text-rose-500">POS</span>
+                    <h1 class="font-black text-xl md:text-3xl leading-none tracking-tight flex items-baseline gap-1.5 md:gap-2">
+                        <span class="text-blue-400 border-b-2 border-blue-400 pb-0.5">Completesolution</span> 
+                        <span class="text-red-500">Pharmacy</span>
                     </h1>
                     <div class="flex items-center gap-2 mt-1.5">
-                        <span class="relative flex h-2.5 w-2.5">
+                        <span class="relative flex h-2 w-2 md:h-2.5 md:w-2.5">
                           <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                          <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                          <span class="relative inline-flex rounded-full h-2 w-2 md:h-2.5 md:w-2.5 bg-emerald-500"></span>
                         </span>
-                        <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Terminal 01 - Online & Secure</p>
+                        <p class="text-[9px] md:text-[10px] text-slate-400 font-bold uppercase tracking-widest">Terminal 01 - Online & Secure</p>
                     </div>
                 </div>
             </div>
             
-            <div class="hidden md:flex bg-slate-800/80 border border-slate-700/50 rounded-xl px-5 py-3 items-center gap-3 text-slate-200 shadow-inner backdrop-blur-sm">
-                <i class="far fa-clock text-sky-400 text-lg"></i>
+            <div class="hidden lg:flex bg-slate-800/80 border border-slate-700/50 rounded-xl px-5 py-3 items-center gap-3 text-slate-200 shadow-inner backdrop-blur-sm">
+                <i class="far fa-clock text-blue-400 text-lg"></i>
                 <span id="date-now" class="text-sm font-mono font-bold tracking-tight">--</span>
             </div>
         </div>
@@ -275,28 +271,28 @@
             <div class="grid grid-cols-2 gap-4 md:gap-6">
                 <button onclick="setMode('cash')" id="btn-cash" class="group relative py-5 rounded-2xl font-black text-sm transition-all flex flex-col md:flex-row items-center justify-center gap-3 overflow-hidden">
                     <div class="absolute inset-0 bg-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    <i class="fas fa-wallet text-2xl z-10"></i> <span class="z-10 tracking-widest">WALK-IN TRANSACTION</span>
+                    <i class="fas fa-wallet text-2xl z-10"></i> <span class="z-10 tracking-widest text-center">WALK-IN TRANSACTION</span>
                 </button>
                 <button onclick="setMode('gl')" id="btn-gl" class="group relative py-5 rounded-2xl font-black text-sm transition-all flex flex-col md:flex-row items-center justify-center gap-3 overflow-hidden">
-                    <div class="absolute inset-0 bg-rose-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    <i class="fas fa-file-contract text-2xl z-10"></i> <span class="z-10 tracking-widest">GUARANTEE LETTER (GL)</span>
+                    <div class="absolute inset-0 bg-red-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <i class="fas fa-file-contract text-2xl z-10"></i> <span class="z-10 tracking-widest text-center">GUARANTEE LETTER (GL)</span>
                 </button>
             </div>
             
             <div class="relative h-2 w-full bg-slate-200 rounded-full overflow-hidden">
-                <div id="status-bar" class="absolute top-0 left-0 h-full bg-blue-500 rounded-full transition-all duration-500 shadow-[0_0_10px_rgba(59,130,246,0.5)] w-1/2"></div>
+                <div id="status-bar" class="absolute top-0 left-0 h-full bg-blue-600 rounded-full transition-all duration-500 shadow-[0_0_10px_rgba(37,99,235,0.5)] w-1/2"></div>
             </div>
 
-            <div id="gl-section" class="hidden glass-panel p-8 border-l-4 border-l-rose-500 relative overflow-hidden bg-rose-50/30">
-                <div class="absolute -right-10 -top-10 text-rose-200 opacity-40 pointer-events-none"><i class="fas fa-landmark text-9xl"></i></div>
+            <div id="gl-section" class="hidden glass-panel p-6 md:p-8 border-l-4 border-l-red-600 relative overflow-hidden bg-red-50/30">
+                <div class="absolute -right-10 -top-10 text-red-200 opacity-40 pointer-events-none"><i class="fas fa-landmark text-9xl"></i></div>
                 <div class="relative z-10">
-                    <div class="flex items-center gap-3 mb-6 text-rose-700 font-black text-sm uppercase tracking-widest border-b-2 border-rose-100 pb-3">
+                    <div class="flex items-center gap-3 mb-6 text-red-700 font-black text-sm uppercase tracking-widest border-b-2 border-red-100 pb-3">
                         <i class="fas fa-shield-alt text-lg"></i> Agency Authorization Details (REQUIRED)
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
                         <div class="md:col-span-1">
                             <label class="label-clean">Agency Name *</label>
-                            <select id="gl-agency" class="inp-clean text-rose-700 cursor-pointer font-black" onchange="checkBranch()">
+                            <select id="gl-agency" class="inp-clean text-red-700 cursor-pointer font-black" onchange="checkBranch()">
                                 <option value="">Select Agency...</option>
                                 <option>PCSO</option>
                                 <option>DSWD NCR</option>
@@ -331,7 +327,7 @@
                 </div>
             </div>
 
-            <div class="glass-panel p-8 relative overflow-hidden bg-white/60">
+            <div class="glass-panel p-6 md:p-8 relative overflow-hidden bg-white/60">
                 <div class="absolute -right-10 -top-10 text-slate-200 opacity-50 pointer-events-none"><i class="fas fa-id-card text-9xl"></i></div>
                 <div class="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div class="md:col-span-2 flex flex-col md:flex-row gap-6 items-end">
@@ -346,7 +342,7 @@
                             </select>
                         </div>
                         <div class="flex-1 w-full">
-                            <label class="label-clean text-blue-600" id="lbl-main-name">CUSTOMER NAME *</label>
+                            <label class="label-clean text-blue-700" id="lbl-main-name">CUSTOMER NAME *</label>
                             <input type="text" id="inp-name" class="inp-clean text-xl font-black" placeholder="ENTER NAME (REQUIRED)">
                         </div>
                     </div>
@@ -395,9 +391,9 @@
             <div class="glass-panel overflow-hidden border border-slate-200">
                 <div class="bg-slate-800 p-5 flex justify-between items-center">
                     <h3 class="text-sm font-black uppercase text-white tracking-widest flex items-center gap-3">
-                        <i class="fas fa-list-ul text-sky-400"></i> Itemized Order List *
+                        <i class="fas fa-list-ul text-blue-400"></i> Itemized Order List *
                     </h3>
-                    <button onclick="addRow()" class="bg-sky-500 hover:bg-sky-400 text-white px-5 py-2 rounded-xl font-black text-xs transition-all shadow-[0_0_15px_rgba(56,189,248,0.4)] flex items-center gap-2 active:scale-95">
+                    <button onclick="addRow()" class="bg-blue-600 hover:bg-blue-500 text-white px-5 py-2 rounded-xl font-black text-xs transition-all shadow-[0_0_15px_rgba(37,99,235,0.4)] flex items-center gap-2 active:scale-95">
                         <i class="fas fa-plus"></i> ADD ROW
                     </button>
                 </div>
@@ -410,7 +406,7 @@
                                 <th class="p-3 text-left w-[18%]">BRAND NAME</th>
                                 <th class="p-3 text-center w-[8%]">PREP</th>
                                 <th class="p-3 text-center w-[8%]">EXPIRY</th>
-                                <th class="p-3 text-center w-[8%] text-blue-600">QTY</th>
+                                <th class="p-3 text-center w-[8%] text-blue-700">QTY</th>
                                 <th class="p-3 text-right w-[12%]">UNIT PRICE</th>
                                 <th class="p-3 text-center w-[12%]">DISCOUNT</th>
                                 <th class="p-3 text-right w-[12%] text-slate-800">SUBTOTAL</th>
@@ -454,7 +450,7 @@
                 </div>
             </div>
 
-            <div class="glass-panel p-8 bg-white/80 flex flex-col lg:flex-row gap-10 items-end shadow-2xl relative border-t-4 border-t-blue-500">
+            <div class="glass-panel p-6 md:p-8 bg-white/80 flex flex-col lg:flex-row gap-10 items-end shadow-2xl relative border-t-4 border-t-blue-700">
                 
                 <div class="flex-1 w-full space-y-4 relative z-10">
                     <div class="flex justify-between text-slate-500 font-bold border-b border-slate-200 pb-3">
@@ -470,25 +466,25 @@
                         <div class="flex justify-between text-emerald-700 font-black bg-emerald-50 p-3 rounded-xl border border-emerald-200">
                             <span class="uppercase text-sm tracking-widest">Approved GL Limit:</span> <span id="gl-limit-display" class="font-mono text-lg">₱ 0.00</span>
                         </div>
-                        <div class="flex justify-between text-rose-600 font-black px-3 pt-2">
+                        <div class="flex justify-between text-red-600 font-black px-3 pt-2">
                             <span class="uppercase text-sm tracking-widest flex items-center gap-2"><i class="fas fa-exclamation-circle"></i> GL Excess (Payable):</span> <span id="gl-excess-display" class="font-mono text-lg">₱ 0.00</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="flex-1 w-full flex flex-col items-end relative z-10">
-                    <div class="bg-[#0f172a] rounded-3xl p-8 text-right w-full shadow-2xl relative overflow-hidden ring-1 ring-slate-800">
-                        <div class="absolute -top-20 -left-20 w-48 h-48 bg-blue-600 rounded-full blur-[80px] opacity-40 mix-blend-screen pointer-events-none"></div>
-                        <div class="absolute -bottom-20 -right-20 w-48 h-48 bg-sky-400 rounded-full blur-[80px] opacity-30 mix-blend-screen pointer-events-none"></div>
+                    <div class="bg-[#0f172a] rounded-3xl p-6 md:p-8 text-right w-full shadow-2xl relative overflow-hidden ring-1 ring-slate-800">
+                        <div class="absolute -top-20 -left-20 w-48 h-48 bg-blue-700 rounded-full blur-[80px] opacity-40 mix-blend-screen pointer-events-none"></div>
+                        <div class="absolute -bottom-20 -right-20 w-48 h-48 bg-red-600 rounded-full blur-[80px] opacity-30 mix-blend-screen pointer-events-none"></div>
                         
                         <div id="comp-cash" class="relative z-10">
-                            <span class="block text-sm font-black text-sky-400 uppercase tracking-[0.2em] mb-2">GRAND TOTAL DUE</span>
+                            <span class="block text-sm font-black text-blue-400 uppercase tracking-[0.2em] mb-2">GRAND TOTAL DUE</span>
                             <span class="block text-5xl md:text-6xl font-mono font-black text-white tracking-tight leading-none drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]" id="cash-grand">₱ 0.00</span>
                         </div>
                         
                         <div id="comp-gl" class="hidden relative z-10">
-                             <div id="gl-balance-box" class="p-5 rounded-2xl text-right transition-all bg-white/5 border border-white/10 backdrop-blur-md">
-                                <span class="block text-sm font-black uppercase tracking-[0.2em]" id="gl-status-lbl">TOTAL CASH OUT</span>
+                             <div id="gl-balance-box" class="p-4 md:p-5 rounded-2xl text-right transition-all bg-white/5 border border-white/10 backdrop-blur-md">
+                                <span class="block text-xs md:text-sm font-black uppercase tracking-[0.2em]" id="gl-status-lbl">TOTAL CASH OUT</span>
                                 <span class="block text-5xl md:text-6xl font-mono font-black mt-3 text-white leading-none drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]" id="gl-final">₱ 0.00</span>
                             </div>
                         </div>
@@ -499,7 +495,7 @@
                             <span class="absolute left-4 top-3.5 text-slate-400"><i class="fas fa-user-circle"></i></span>
                             <input type="text" id="inp-proc" class="inp-clean pl-10 text-center shadow-sm border-2 border-slate-200" placeholder="CASHIER NAME">
                         </div>
-                        <button onclick="review()" class="w-full md:w-1/2 bg-gradient-to-r from-blue-600 to-sky-500 hover:from-blue-500 hover:to-sky-400 text-white py-4 rounded-xl font-black text-sm md:text-base tracking-widest shadow-[0_0_20px_rgba(56,189,248,0.4)] transition-all flex items-center justify-center gap-3 active:scale-[0.98]">
+                        <button onclick="review()" class="w-full md:w-1/2 bg-gradient-to-r from-blue-700 to-blue-500 hover:from-blue-600 hover:to-blue-400 text-white py-4 rounded-xl font-black text-sm md:text-base tracking-widest shadow-[0_0_20px_rgba(29,78,216,0.4)] transition-all flex items-center justify-center gap-3 active:scale-[0.98]">
                             <i class="fas fa-print text-xl"></i> REVIEW & GENERATE
                         </button>
                     </div>
@@ -513,7 +509,7 @@
         <div class="bg-white rounded-[24px] shadow-2xl w-full max-w-2xl max-h-[90vh] flex flex-col overflow-hidden animate-[slideUpFade_0.3s_ease-out] border border-white/20">
             <div class="bg-[#0f172a] p-5 flex justify-between items-center text-white shrink-0">
                 <div class="flex items-center gap-4">
-                    <div class="bg-sky-500/20 p-3 rounded-xl border border-sky-500/30 text-sky-400"><i class="fas fa-receipt text-xl"></i></div>
+                    <div class="bg-blue-500/20 p-3 rounded-xl border border-blue-500/30 text-blue-400"><i class="fas fa-receipt text-xl"></i></div>
                     <div><h2 class="font-black text-lg tracking-widest">TRANSACTION SUMMARY</h2><p class="text-xs text-slate-400 font-mono">Verify details before generation</p></div>
                 </div>
                 <button onclick="closeModal()" class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-white/10 transition text-slate-300 hover:text-white"><i class="fas fa-times text-xl"></i></button>
@@ -521,9 +517,9 @@
             
             <div class="p-0 overflow-y-auto custom-scroll flex-1 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] bg-slate-50" id="review-content-area"></div>
             
-            <div class="p-5 border-t border-slate-200 bg-white flex gap-4 shrink-0">
-                <button onclick="closeModal()" class="px-6 py-4 rounded-xl font-black text-slate-600 hover:bg-slate-100 transition border-2 border-slate-200 uppercase tracking-widest text-sm w-1/3">Edit Form</button>
-                <button onclick="copyToClipboard()" class="flex-1 py-4 bg-gradient-to-r from-blue-600 to-sky-500 text-white rounded-xl font-black text-sm tracking-widest hover:from-blue-500 hover:to-sky-400 shadow-[0_0_20px_rgba(56,189,248,0.4)] transition flex items-center justify-center gap-3 active:scale-95">
+            <div class="p-5 border-t border-slate-200 bg-white flex flex-col md:flex-row gap-4 shrink-0">
+                <button onclick="closeModal()" class="w-full md:w-1/3 px-6 py-4 rounded-xl font-black text-slate-600 hover:bg-slate-100 transition border-2 border-slate-200 uppercase tracking-widest text-sm">Edit Form</button>
+                <button onclick="copyToClipboard()" class="w-full md:flex-1 py-4 bg-gradient-to-r from-blue-700 to-blue-500 text-white rounded-xl font-black text-sm tracking-widest hover:from-blue-600 hover:to-blue-400 shadow-[0_0_20px_rgba(29,78,216,0.4)] transition flex items-center justify-center gap-3 active:scale-95">
                     <i class="fas fa-copy text-lg"></i> COPY RECEIPT DETAILS
                 </button>
             </div>
@@ -566,8 +562,8 @@
 
             if(isGL) {
                 bCash.className = "group relative py-5 rounded-2xl font-black text-sm text-slate-500 border-2 border-slate-200 bg-white/50 flex flex-col md:flex-row items-center justify-center gap-3 hover:bg-white transition-all";
-                bGl.className = "group relative py-5 rounded-2xl font-black text-sm text-white bg-rose-500 shadow-[0_0_20px_rgba(244,63,94,0.4)] flex flex-col md:flex-row items-center justify-center gap-3 ring-2 ring-rose-400 transition-all transform scale-[1.02]";
-                bar.className = "absolute top-0 right-0 h-full bg-rose-500 rounded-full transition-all duration-500 shadow-[0_0_10px_rgba(244,63,94,0.5)] w-1/2 float-right";
+                bGl.className = "group relative py-5 rounded-2xl font-black text-sm text-white bg-red-600 shadow-[0_0_20px_rgba(220,38,38,0.4)] flex flex-col md:flex-row items-center justify-center gap-3 ring-2 ring-red-500 transition-all transform scale-[1.02]";
+                bar.className = "absolute top-0 right-0 h-full bg-red-600 rounded-full transition-all duration-500 shadow-[0_0_10px_rgba(220,38,38,0.5)] w-1/2 float-right";
                 bar.style.transform = "translateX(100%)";
                 document.getElementById('sel-name-format').value = "Patient Name";
                 document.getElementById('sel-name-format').disabled = true;
@@ -672,19 +668,19 @@
                 <td class="p-1"><input type="text" class="tbl-box" placeholder="GENERIC NAME"></td>
                 <td class="p-1"><input type="text" class="tbl-box font-black text-blue-900" placeholder="BRAND NAME"></td>
                 <td class="p-1"><input type="text" class="tbl-box text-center" placeholder="BOX/BOT"></td>
-                <td class="p-1"><select class="tbl-sel cursor-pointer w-full text-center"><option>LONG</option><option class="text-rose-600 font-black">NEAR</option></select></td>
-                <td class="p-1"><input type="number" class="tbl-box text-center font-black text-sky-500 qty text-lg" placeholder="1" value="1" oninput="calculate()"></td>
+                <td class="p-1"><select class="tbl-sel cursor-pointer w-full text-center"><option>LONG</option><option class="text-red-600 font-black">NEAR</option></select></td>
+                <td class="p-1"><input type="number" class="tbl-box text-center font-black text-blue-700 qty text-lg" placeholder="1" value="1" oninput="calculate()"></td>
                 <td class="p-1"><input type="number" class="tbl-box text-right price font-mono text-base" placeholder="0.00" oninput="calculate()"></td>
                 <td class="p-1">
-                     <div class="flex items-center border-2 border-slate-200 rounded-lg bg-white overflow-hidden h-[42px] w-full focus-within:border-sky-400 focus-within:shadow-[0_0_10px_rgba(56,189,248,0.2)] transition-all">
+                     <div class="flex items-center border-2 border-slate-200 rounded-lg bg-white overflow-hidden h-[42px] w-full focus-within:border-blue-500 focus-within:shadow-[0_0_10px_rgba(37,99,235,0.2)] transition-all">
                         <select class="h-full bg-slate-100 font-black px-2 border-r border-slate-200 outline-none dtype cursor-pointer text-center text-slate-600" onchange="calculate()">
                             <option value="n">-</option><option value="%">%</option><option value="-">₱</option>
                         </select>
-                        <input type="number" class="w-full px-2 text-center text-sm outline-none dval h-full text-rose-500 font-black bg-transparent" disabled placeholder="0" oninput="calculate()">
+                        <input type="number" class="w-full px-2 text-center text-sm outline-none dval h-full text-red-500 font-black bg-transparent" disabled placeholder="0" oninput="calculate()">
                     </div>
                 </td>
                 <td class="p-2 text-right font-black text-slate-800 total font-mono text-lg">0.00</td>
-                <td class="p-1 text-center"><button onclick="this.closest('tr').remove();calculate()" class="text-slate-300 hover:text-rose-500 transition w-8 h-8 flex items-center justify-center rounded-lg hover:bg-rose-50"><i class="fas fa-trash-alt"></i></button></td>
+                <td class="p-1 text-center"><button onclick="this.closest('tr').remove();calculate()" class="text-slate-300 hover:text-red-500 transition w-8 h-8 flex items-center justify-center rounded-lg hover:bg-red-50"><i class="fas fa-trash-alt"></i></button></td>
             `;
             document.getElementById('tbl-body').appendChild(tr);
         }
@@ -697,12 +693,12 @@
                 : `<option value="35">GEL PACK (35)</option><option value="50">ICE PACK L (50)</option>`;
             
             div.innerHTML = `
-                <select class="flex-1 p-2 border-2 border-slate-200 rounded-xl bg-white psel font-black text-slate-700 outline-none cursor-pointer h-12 focus:border-sky-400 transition-colors" onchange="calculate()">${opts}</select>
-                <div class="flex items-center bg-white border-2 border-slate-200 rounded-xl h-12 px-3 text-slate-400 font-bold focus-within:border-sky-400 transition-colors">
+                <select class="flex-1 p-2 border-2 border-slate-200 rounded-xl bg-white psel font-black text-slate-700 outline-none cursor-pointer h-12 focus:border-blue-500 transition-colors" onchange="calculate()">${opts}</select>
+                <div class="flex items-center bg-white border-2 border-slate-200 rounded-xl h-12 px-3 text-slate-400 font-bold focus-within:border-blue-500 transition-colors">
                     <span class="mr-1 text-sm text-slate-300"><i class="fas fa-times"></i></span><input type="number" class="w-12 text-center bg-transparent outline-none pqty font-black text-slate-800 text-lg" value="1" oninput="calculate()">
                 </div>
                 <span class="font-black w-24 text-right ptot text-slate-800 font-mono text-lg">0.00</span>
-                <button onclick="this.parentElement.remove();calculate()" class="text-slate-300 ml-2 hover:text-rose-500 w-8 h-10 flex justify-center items-center rounded-lg hover:bg-rose-50 transition-colors"><i class="fas fa-trash"></i></button>
+                <button onclick="this.parentElement.remove();calculate()" class="text-slate-300 ml-2 hover:text-red-500 w-8 h-10 flex justify-center items-center rounded-lg hover:bg-red-50 transition-colors"><i class="fas fa-trash"></i></button>
             `;
             document.getElementById(type === 'box' ? 'list-box' : 'list-gel').appendChild(div);
             calculate();
@@ -721,10 +717,10 @@
                 dv.disabled = dt.value === 'n';
                 if(dt.value === 'n') {
                     dv.value = '';
-                    dv.parentElement.classList.remove('bg-rose-50/50');
+                    dv.parentElement.classList.remove('bg-red-50/50');
                 }
                 else {
-                    dv.parentElement.classList.add('bg-rose-50/50');
+                    dv.parentElement.classList.add('bg-red-50/50');
                     const val = parseFloat(dv.value) || 0;
                     if(dt.value === '%') sub -= sub * (val/100);
                     else sub -= val;
@@ -765,12 +761,12 @@
 
                 if(totalCashOut > 0.01) {
                     sl.innerText = "TOTAL CASH OUT REQUIRED"; 
-                    sl.className = "block text-sm font-black uppercase tracking-[0.2em] text-rose-300";
-                    box.className = "p-5 rounded-2xl text-right transition-all bg-rose-500/20 border border-rose-500/40 backdrop-blur-md shadow-[0_0_30px_rgba(244,63,94,0.1)]";
+                    sl.className = "block text-xs md:text-sm font-black uppercase tracking-[0.2em] text-red-300";
+                    box.className = "p-4 md:p-5 rounded-2xl text-right transition-all bg-red-600/20 border border-red-500/40 backdrop-blur-md shadow-[0_0_30px_rgba(220,38,38,0.1)]";
                 } else {
                     sl.innerText = "NO CASH OUT (FULLY COVERED)"; 
-                    sl.className = "block text-sm font-black uppercase tracking-[0.2em] text-emerald-300";
-                    box.className = "p-5 rounded-2xl text-right transition-all bg-emerald-500/20 border border-emerald-500/40 backdrop-blur-md shadow-[0_0_30px_rgba(16,185,129,0.1)]";
+                    sl.className = "block text-xs md:text-sm font-black uppercase tracking-[0.2em] text-emerald-300";
+                    box.className = "p-4 md:p-5 rounded-2xl text-right transition-all bg-emerald-500/20 border border-emerald-500/40 backdrop-blur-md shadow-[0_0_30px_rgba(16,185,129,0.1)]";
                 }
             }
         }
@@ -849,13 +845,19 @@
 
             let h = `<div class="p-8 font-mono text-sm text-slate-800 bg-white/80 backdrop-blur-md">`;
             h += `<div class="text-center mb-8 pb-6 border-b-2 border-dashed border-slate-300 relative">`;
-            h += `<div class="absolute inset-0 flex justify-center items-center opacity-5 pointer-events-none"><i class="fas fa-prescription text-8xl"></i></div>`;
-            h += `<div class="flex justify-center gap-2 items-center text-2xl font-black font-sans tracking-tight relative z-10"><span class="text-slate-800">COMPLETE<span class="text-sky-500">SOLUTION</span></span><span class="text-rose-600">PHARMACY</span></div>`;
-            h += `<p class="text-[11px] text-slate-500 uppercase tracking-[0.3em] font-sans mt-2 font-bold relative z-10">Official Transaction Receipt</p></div>`;
+            h += `<div class="absolute inset-0 flex justify-center items-center opacity-5 pointer-events-none"><i class="fas fa-prescription text-8xl text-blue-700"></i></div>`;
+            
+            // UPDATED RECEIPT LOGO BRANDING TO MATCH IMAGE
+            h += `<div class="flex flex-col justify-center items-center text-2xl font-black font-sans tracking-tight relative z-10">`;
+            h += `<span class="text-blue-700 underline decoration-[3px] underline-offset-[4px]">Completesolution</span>`;
+            h += `<span class="text-red-600 mt-1">Pharmacy</span>`;
+            h += `</div>`;
+
+            h += `<p class="text-[11px] text-slate-500 uppercase tracking-[0.3em] font-sans mt-3 font-bold relative z-10">Official Transaction Receipt</p></div>`;
             
             h += `<div class="grid grid-cols-2 gap-4 mb-6">`;
             h += `<div><span class="block text-xs text-slate-400 font-bold uppercase tracking-widest">Date & Time</span> <span class="font-bold">${new Date().toLocaleString()}</span></div>`;
-            h += `<div class="text-right"><span class="block text-xs text-slate-400 font-bold uppercase tracking-widest">Trans. Type</span> <span class="uppercase font-black ${MODE==='gl'?'text-rose-600':'text-sky-600'}">${MODE==='gl'?'Guarantee Letter':'Walk-in / Cash'}</span></div>`;
+            h += `<div class="text-right"><span class="block text-xs text-slate-400 font-bold uppercase tracking-widest">Trans. Type</span> <span class="uppercase font-black ${MODE==='gl'?'text-red-600':'text-blue-700'}">${MODE==='gl'?'Guarantee Letter':'Walk-in / Cash'}</span></div>`;
             h += `</div>`;
             
             h += `<div class="bg-slate-100 p-5 rounded-xl mb-6 border border-slate-200 shadow-inner">`;
@@ -868,7 +870,7 @@
             h += `<div class="col-span-2 mt-2"><span class="block text-slate-500 uppercase tracking-wider mb-1">Address</span><b class="text-sm">${document.getElementById('inp-address').value}</b></div></div>`;
             
             if(MODE === 'gl') {
-                h += `<div class="mt-4 pt-4 border-t-2 border-dashed border-slate-300 bg-rose-50 p-4 rounded-lg"><div class="font-black text-rose-600 text-xs uppercase tracking-widest mb-2"><i class="fas fa-shield-alt"></i> GL Authorization Data:</div>`;
+                h += `<div class="mt-4 pt-4 border-t-2 border-dashed border-slate-300 bg-red-50 p-4 rounded-lg"><div class="font-black text-red-600 text-xs uppercase tracking-widest mb-2"><i class="fas fa-shield-alt"></i> GL Authorization Data:</div>`;
                 const agency = document.getElementById('gl-agency').value;
                 let agencyDisplay = agency;
                 if(agency === 'PCSO') { agencyDisplay += ` (${document.getElementById('gl-branch').value})`; }
@@ -949,7 +951,7 @@
                  txt += `APPROVED GL AMOUNT: ${fmt(glLimit)}\n`;
 
                  if(excess > 0) {
-                     h += `<div class="flex justify-between text-sm text-rose-400 font-bold mb-1"><span>Excess Meds (Payable)</span><span class="font-mono">${fmt(excess)}</span></div>`;
+                     h += `<div class="flex justify-between text-sm text-red-400 font-bold mb-1"><span>Excess Meds (Payable)</span><span class="font-mono">${fmt(excess)}</span></div>`;
                      txt += `EXCESS MEDS (PAYABLE): ${fmt(excess)}\n`;
                  } else {
                      h += `<div class="text-xs text-emerald-400 text-right italic mb-1 uppercase tracking-widest"><i class="fas fa-check-circle"></i> Meds Fully Covered</div>`;
@@ -961,7 +963,7 @@
                     txt += `PACKAGING FEE: ${packFee}\n`;
                  }
 
-                 h += `<div class="flex justify-between items-center font-black text-2xl mt-4 pt-4 border-t-2 border-slate-600 text-sky-400"><span class="text-sm tracking-widest uppercase">Total Cash Out</span><span class="font-mono tracking-tight">${document.getElementById('gl-final').innerText}</span></div>`;
+                 h += `<div class="flex justify-between items-center font-black text-2xl mt-4 pt-4 border-t-2 border-slate-600 text-blue-400"><span class="text-sm tracking-widest uppercase">Total Cash Out</span><span class="font-mono tracking-tight">${document.getElementById('gl-final').innerText}</span></div>`;
                  txt += `--------------------------------\n`;
                  txt += `TOTAL CASH OUT: ${document.getElementById('gl-final').innerText}\n`;
                  
@@ -969,7 +971,7 @@
                  else txt += `STATUS: PAYMENT REQUIRED\n`;
 
             } else {
-                 h += `<div class="flex justify-between items-center font-black text-3xl text-sky-400"><span class="text-sm tracking-widest uppercase">Grand Total</span><span class="font-mono tracking-tight">${document.getElementById('cash-grand').innerText}</span></div>`;
+                 h += `<div class="flex justify-between items-center font-black text-3xl text-blue-400"><span class="text-sm tracking-widest uppercase">Grand Total</span><span class="font-mono tracking-tight">${document.getElementById('cash-grand').innerText}</span></div>`;
                  txt += `GRAND TOTAL: ${document.getElementById('cash-grand').innerText}\n`;
             }
             h += `</div><div class="mt-8 text-center text-xs text-slate-500 uppercase tracking-widest">Processed By: <span class="font-black text-slate-800 border-b-2 border-slate-300 pb-1 ml-2">${proc}</span></div></div>`;
