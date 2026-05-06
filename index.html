@@ -175,7 +175,7 @@
             background: #ffffff;
             border-color: #2563eb;
             box-shadow: 0 0 12px rgba(37, 99, 235, 0.2);
-            z-index: 10; relative;
+            z-index: 10; position: relative;
         }
         .tbl-box::placeholder { color: #cbd5e1; font-weight: 500; text-transform: none; }
         
@@ -903,14 +903,47 @@
             
             txt += `ITEMS:\n`;
             document.querySelectorAll('#tbl-body tr').forEach(tr => {
-                const i = tr.querySelectorAll('input');
-                const gen = i[0].value; 
-                const br = i[1].value; 
-                const qt = i[3].value; 
+                const inputs = tr.querySelectorAll('input');
+                const gen = inputs[0].value; 
+                const br = inputs[1].value; 
+                
+                // Using class selectors is safer than indices to extract values
+                const qt = tr.querySelector('.qty').value; 
+                const price = parseFloat(tr.querySelector('.price').value) || 0;
+                const dtype = tr.querySelector('.dtype').value;
+                const dval = parseFloat(tr.querySelector('.dval').value) || 0;
                 const tot = tr.querySelector('.total').innerText;
+                
+                // Compute formatting for Discount Text
+                let discText = 'None';
+                if (dtype !== 'n' && dval > 0) {
+                    discText = dtype === '%' ? `${dval}%` : `₱${dval.toFixed(2)}`;
+                }
+
                 if(gen || br) {
-                    h += `<tr><td class="py-3"><div class="font-black text-slate-800">${br}</div><div class="text-[10px] text-slate-500 uppercase tracking-widest">${gen}</div></td><td class="text-center align-middle py-3 font-bold">${qt}</td><td class="text-right align-middle py-3 font-mono font-bold">${tot}</td></tr>`;
-                    txt += ` - ${br} (${gen}) [Qty: ${qt}] = ${tot}\n`;
+                    // Visual formatting for Modal
+                    let subDesc = `UP: ₱${price.toFixed(2)}`;
+                    if (discText !== 'None') {
+                        subDesc += ` | DISC: ${discText}`;
+                    }
+
+                    h += `<tr>
+                            <td class="py-3">
+                                <div class="font-black text-slate-800">${br}</div>
+                                <div class="text-[10px] text-slate-500 uppercase tracking-widest">${gen}</div>
+                                <div class="text-[10px] text-blue-600 font-bold mt-0.5">${subDesc}</div>
+                            </td>
+                            <td class="text-center align-middle py-3 font-bold">${qt}</td>
+                            <td class="text-right align-middle py-3 font-mono font-bold">${tot}</td>
+                          </tr>`;
+                    
+                    // Text output for clipboard
+                    let txtLine = ` - ${br} (${gen}) | Qty: ${qt} | UP: ₱${price.toFixed(2)}`;
+                    if (discText !== 'None') {
+                        txtLine += ` | Disc: ${discText}`;
+                    }
+                    txtLine += ` = ₱${tot}\n`;
+                    txt += txtLine;
                 }
             });
 
@@ -927,7 +960,7 @@
                     const qty = d.querySelector('.pqty').value;
                     const tot = d.querySelector('.ptot').innerText;
                     h += `<tr class="bg-amber-50/20"><td class="py-2 text-xs pl-4 font-bold text-slate-700">${label}</td><td class="text-center py-2 text-xs font-bold text-slate-700">${qty}</td><td class="text-right py-2 text-xs font-mono font-bold text-slate-700">${tot}</td></tr>`;
-                    txt += ` - ${label} [Qty: ${qty}] = ${tot}\n`;
+                    txt += ` - ${label} [Qty: ${qty}] = ₱${tot}\n`;
                  });
             }
             h += `</tbody></table>`;
