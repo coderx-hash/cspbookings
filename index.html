@@ -110,6 +110,21 @@
             border: 1px solid rgba(226, 232, 240, 0.8);
         }
 
+        /* MENU SELECTION BUTTONS */
+        .menu-btn {
+            position: relative;
+            overflow: hidden;
+            border-radius: 24px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .menu-btn::before {
+            content: ''; position: absolute; inset: 0; opacity: 0; transition: opacity 0.4s ease;
+            background: linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
+        }
+        .menu-btn:hover { transform: translateY(-8px) scale(1.02); }
+        .menu-btn:hover::before { opacity: 1; }
+        .menu-btn:active { transform: translateY(2px) scale(0.98); }
+
         /* --- INPUT STYLING --- */
         .inp-clean {
             width: 100%;
@@ -127,7 +142,7 @@
         }
         .inp-clean:focus {
             background-color: #ffffff;
-            border-color: #2563eb; /* Blue Focus */
+            border-color: #2563eb;
             box-shadow: 0 0 15px rgba(37, 99, 235, 0.25), inset 0 2px 4px rgba(0, 0, 0, 0.01);
             transform: translateY(-2px);
         }
@@ -238,10 +253,16 @@
         </div>
     </div>
 
-    <div class="w-full max-w-[1200px] max-h-[95vh] bg-white rounded-[30px] shadow-[0_25px_70px_rgba(0,0,0,0.15)] border border-slate-200 overflow-hidden relative flex flex-col transition-all duration-300 z-10">
+    <div class="w-full max-w-[1200px] max-h-[95vh] h-full bg-white rounded-[30px] shadow-[0_25px_70px_rgba(0,0,0,0.15)] border border-slate-200 overflow-hidden relative flex flex-col transition-all duration-300 z-10">
         
         <div class="bg-[#0f172a] text-white p-5 md:p-6 sticky top-0 z-40 flex justify-between items-center shadow-lg border-b border-slate-800 shrink-0">
             <div class="flex items-center gap-4 md:gap-5">
+                
+                <button id="btn-back" onclick="goHome()" class="hidden bg-slate-800 hover:bg-slate-700 border border-slate-600 text-white w-10 h-10 md:w-auto md:px-5 md:py-3 rounded-xl flex items-center justify-center gap-2 font-black text-xs uppercase tracking-widest transition-all shadow-[0_0_15px_rgba(0,0,0,0.5)] active:scale-95 group">
+                    <i class="fas fa-chevron-left text-blue-400 group-hover:-translate-x-1 transition-transform"></i>
+                    <span class="hidden md:inline">BACK TO MENU</span>
+                </button>
+
                 <div class="bg-gradient-to-br from-blue-700 to-blue-500 text-white w-12 h-12 md:w-14 md:h-14 rounded-2xl flex items-center justify-center shadow-[0_0_20px_rgba(29,78,216,0.4)] shrink-0">
                     <i class="fas fa-bolt text-xl md:text-2xl"></i>
                 </div>
@@ -255,7 +276,7 @@
                           <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                           <span class="relative inline-flex rounded-full h-2 w-2 md:h-2.5 md:w-2.5 bg-emerald-500"></span>
                         </span>
-                        <p class="text-[9px] md:text-[10px] text-slate-400 font-bold uppercase tracking-widest">Terminal 01 - Online & Secure</p>
+                        <p id="terminal-status" class="text-[9px] md:text-[10px] text-slate-400 font-bold uppercase tracking-widest">AWAITING SELECTION</p>
                     </div>
                 </div>
             </div>
@@ -266,24 +287,44 @@
             </div>
         </div>
 
-        <div class="p-5 md:p-8 space-y-8 overflow-y-auto custom-scroll flex-1">
-
-            <div class="grid grid-cols-2 gap-4 md:gap-6">
-                <button onclick="setMode('cash')" id="btn-cash" class="group relative py-5 rounded-2xl font-black text-sm transition-all flex flex-col md:flex-row items-center justify-center gap-3 overflow-hidden">
-                    <div class="absolute inset-0 bg-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    <i class="fas fa-wallet text-2xl z-10"></i> <span class="z-10 tracking-widest text-center">WALK-IN TRANSACTION</span>
-                </button>
-                <button onclick="setMode('gl')" id="btn-gl" class="group relative py-5 rounded-2xl font-black text-sm transition-all flex flex-col md:flex-row items-center justify-center gap-3 overflow-hidden">
-                    <div class="absolute inset-0 bg-red-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    <i class="fas fa-file-contract text-2xl z-10"></i> <span class="z-10 tracking-widest text-center">GUARANTEE LETTER (GL)</span>
-                </button>
-            </div>
+        <div id="view-selection" class="flex-1 flex flex-col items-center justify-center p-8 bg-slate-50 relative overflow-hidden">
+            <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-[0.03]"></div>
             
-            <div class="relative h-2 w-full bg-slate-200 rounded-full overflow-hidden">
-                <div id="status-bar" class="absolute top-0 left-0 h-full bg-blue-600 rounded-full transition-all duration-500 shadow-[0_0_10px_rgba(37,99,235,0.5)] w-1/2"></div>
+            <div class="text-center mb-10 relative z-10 animate-[slideUpFade_0.4s_ease-out]">
+                <h2 class="text-3xl md:text-4xl font-black text-[#0f172a] tracking-tight mb-3">SELECT TRANSACTION</h2>
+                <p class="text-sm font-bold text-slate-500 uppercase tracking-[0.2em]">Choose module to begin processing</p>
             </div>
 
-            <div id="gl-section" class="hidden glass-panel p-6 md:p-8 border-l-4 border-l-red-600 relative overflow-hidden bg-red-50/30">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 w-full max-w-4xl relative z-10">
+                <button onclick="setMode('cash')" class="menu-btn group bg-gradient-to-br from-blue-600 to-blue-800 border border-blue-500/50 shadow-[0_20px_40px_rgba(29,78,216,0.25)] p-10 flex flex-col items-center justify-center gap-6 animate-[popIn_0.4s_ease-out_0.1s_forwards] opacity-0">
+                    <div class="w-24 h-24 rounded-full bg-white/10 flex items-center justify-center ring-4 ring-white/20 group-hover:ring-white/40 transition-all shadow-inner">
+                        <i class="fas fa-wallet text-5xl text-white"></i>
+                    </div>
+                    <div class="text-center">
+                        <span class="block text-2xl font-black text-white tracking-widest mb-1">WALK-IN</span>
+                        <span class="block text-xs font-bold text-blue-200 uppercase tracking-[0.2em]">Standard Cash Transaction</span>
+                    </div>
+                </button>
+
+                <button onclick="setMode('gl')" class="menu-btn group bg-gradient-to-br from-red-600 to-red-800 border border-red-500/50 shadow-[0_20px_40px_rgba(220,38,38,0.25)] p-10 flex flex-col items-center justify-center gap-6 animate-[popIn_0.4s_ease-out_0.2s_forwards] opacity-0">
+                    <div class="w-24 h-24 rounded-full bg-white/10 flex items-center justify-center ring-4 ring-white/20 group-hover:ring-white/40 transition-all shadow-inner">
+                        <i class="fas fa-file-contract text-5xl text-white"></i>
+                    </div>
+                    <div class="text-center">
+                        <span class="block text-2xl font-black text-white tracking-widest mb-1">GUARANTEE LETTER</span>
+                        <span class="block text-xs font-bold text-red-200 uppercase tracking-[0.2em]">Agency Sponsored (GL)</span>
+                    </div>
+                </button>
+            </div>
+        </div>
+
+        <div id="view-form" class="hidden p-5 md:p-8 space-y-8 overflow-y-auto custom-scroll flex-1 bg-white">
+            
+            <div class="relative h-1.5 w-full bg-slate-100 rounded-full overflow-hidden mb-2">
+                <div id="status-bar" class="absolute top-0 left-0 h-full rounded-full transition-all duration-700 shadow-[0_0_10px_rgba(0,0,0,0.5)] w-full"></div>
+            </div>
+
+            <div id="gl-section" class="hidden glass-panel p-6 md:p-8 border-l-4 border-l-red-600 relative overflow-hidden bg-red-50/30 shadow-sm">
                 <div class="absolute -right-10 -top-10 text-red-200 opacity-40 pointer-events-none"><i class="fas fa-landmark text-9xl"></i></div>
                 <div class="relative z-10">
                     <div class="flex items-center gap-3 mb-6 text-red-700 font-black text-sm uppercase tracking-widest border-b-2 border-red-100 pb-3">
@@ -327,8 +368,8 @@
                 </div>
             </div>
 
-            <div class="glass-panel p-6 md:p-8 relative overflow-hidden bg-white/60">
-                <div class="absolute -right-10 -top-10 text-slate-200 opacity-50 pointer-events-none"><i class="fas fa-id-card text-9xl"></i></div>
+            <div class="glass-panel p-6 md:p-8 relative overflow-hidden bg-white shadow-sm border border-slate-200">
+                <div class="absolute -right-10 -top-10 text-slate-100 opacity-80 pointer-events-none"><i class="fas fa-id-card text-9xl"></i></div>
                 <div class="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div class="md:col-span-2 flex flex-col md:flex-row gap-6 items-end">
                         <div class="w-full md:w-1/3">
@@ -388,7 +429,7 @@
                 </div>
             </div>
 
-            <div class="glass-panel overflow-hidden border border-slate-200">
+            <div class="glass-panel overflow-hidden border border-slate-200 shadow-sm">
                 <div class="bg-slate-800 p-5 flex justify-between items-center">
                     <h3 class="text-sm font-black uppercase text-white tracking-widest flex items-center gap-3">
                         <i class="fas fa-list-ul text-blue-400"></i> Itemized Order List *
@@ -398,9 +439,9 @@
                     </button>
                 </div>
                 
-                <div class="overflow-x-auto custom-scroll bg-white/80 backdrop-blur-sm p-3">
+                <div class="overflow-x-auto custom-scroll bg-slate-50/50 p-3">
                     <table class="w-full text-sm min-w-[1000px] border-separate border-spacing-y-2"> 
-                        <thead class="text-slate-500 font-black uppercase text-[10px] tracking-widest bg-slate-100/50">
+                        <thead class="text-slate-500 font-black uppercase text-[10px] tracking-widest bg-slate-200/50">
                             <tr>
                                 <th class="p-3 text-left rounded-l-lg w-[18%]">GENERIC NAME</th>
                                 <th class="p-3 text-left w-[18%]">BRAND NAME</th>
@@ -419,7 +460,7 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="glass-panel p-6 border-l-4 border-l-amber-500 relative overflow-hidden group bg-amber-50/20">
+                <div class="glass-panel p-6 border-l-4 border-l-amber-500 relative overflow-hidden group bg-amber-50/20 shadow-sm">
                     <div class="absolute -right-6 -bottom-6 text-amber-500/10 transition-transform group-hover:scale-110 pointer-events-none"><i class="fas fa-box-open text-8xl"></i></div>
                     <div class="relative z-10">
                         <div class="flex justify-between items-center mb-5 pb-3 border-b border-amber-200">
@@ -434,7 +475,7 @@
                     </div>
                 </div>
 
-                <div class="glass-panel p-6 border-l-4 border-l-cyan-500 relative overflow-hidden group bg-cyan-50/20">
+                <div class="glass-panel p-6 border-l-4 border-l-cyan-500 relative overflow-hidden group bg-cyan-50/20 shadow-sm">
                     <div class="absolute -right-6 -bottom-6 text-cyan-500/10 transition-transform group-hover:scale-110 pointer-events-none"><i class="fas fa-snowflake text-8xl"></i></div>
                     <div class="relative z-10">
                         <div class="flex justify-between items-center mb-5 pb-3 border-b border-cyan-200">
@@ -450,7 +491,7 @@
                 </div>
             </div>
 
-            <div class="glass-panel p-6 md:p-8 bg-white/80 flex flex-col lg:flex-row gap-10 items-end shadow-2xl relative border-t-4 border-t-blue-700">
+            <div class="glass-panel p-6 md:p-8 bg-white/80 flex flex-col lg:flex-row gap-10 items-end shadow-2xl relative border-t-4 border-t-slate-800">
                 
                 <div class="flex-1 w-full space-y-4 relative z-10">
                     <div class="flex justify-between text-slate-500 font-bold border-b border-slate-200 pb-3">
@@ -473,12 +514,11 @@
                 </div>
 
                 <div class="flex-1 w-full flex flex-col items-end relative z-10">
-                    <div class="bg-[#0f172a] rounded-3xl p-6 md:p-8 text-right w-full shadow-2xl relative overflow-hidden ring-1 ring-slate-800">
-                        <div class="absolute -top-20 -left-20 w-48 h-48 bg-blue-700 rounded-full blur-[80px] opacity-40 mix-blend-screen pointer-events-none"></div>
-                        <div class="absolute -bottom-20 -right-20 w-48 h-48 bg-red-600 rounded-full blur-[80px] opacity-30 mix-blend-screen pointer-events-none"></div>
+                    <div id="total-card" class="rounded-3xl p-6 md:p-8 text-right w-full shadow-2xl relative overflow-hidden ring-1 ring-slate-800 transition-colors duration-500">
+                        <div id="total-glow" class="absolute -top-20 -left-20 w-64 h-64 rounded-full blur-[80px] opacity-40 mix-blend-screen pointer-events-none transition-colors duration-500"></div>
                         
                         <div id="comp-cash" class="relative z-10">
-                            <span class="block text-sm font-black text-blue-400 uppercase tracking-[0.2em] mb-2">GRAND TOTAL DUE</span>
+                            <span class="block text-sm font-black text-blue-300 opacity-80 uppercase tracking-[0.2em] mb-2">GRAND TOTAL DUE</span>
                             <span class="block text-5xl md:text-6xl font-mono font-black text-white tracking-tight leading-none drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]" id="cash-grand">₱ 0.00</span>
                         </div>
                         
@@ -495,8 +535,8 @@
                             <span class="absolute left-4 top-3.5 text-slate-400"><i class="fas fa-user-circle"></i></span>
                             <input type="text" id="inp-proc" class="inp-clean pl-10 text-center shadow-sm border-2 border-slate-200" placeholder="CASHIER NAME">
                         </div>
-                        <button onclick="review()" class="w-full md:w-1/2 bg-gradient-to-r from-blue-700 to-blue-500 hover:from-blue-600 hover:to-blue-400 text-white py-4 rounded-xl font-black text-sm md:text-base tracking-widest shadow-[0_0_20px_rgba(29,78,216,0.4)] transition-all flex items-center justify-center gap-3 active:scale-[0.98]">
-                            <i class="fas fa-print text-xl"></i> REVIEW & GENERATE
+                        <button onclick="review()" class="w-full md:w-1/2 bg-slate-800 hover:bg-slate-700 text-white py-4 rounded-xl font-black text-sm md:text-base tracking-widest shadow-lg transition-all flex items-center justify-center gap-3 active:scale-[0.98]">
+                            <i class="fas fa-print text-xl text-blue-400"></i> REVIEW & GENERATE
                         </button>
                     </div>
                 </div>
@@ -539,40 +579,75 @@
             }
         });
 
-        let MODE = 'cash';
+        let MODE = ''; // Empty initially for the menu selection
         
         document.addEventListener('DOMContentLoaded', () => {
             updateTime();
             setInterval(updateTime, 1000);
-            setMode('cash');
-            setTimeout(() => { document.getElementById('status-bar').style.width = '50%'; }, 100);
+            // Default to Selection Menu view
+            document.getElementById('view-form').classList.add('hidden');
+            document.getElementById('view-selection').classList.remove('hidden');
         });
 
         function updateTime() {
             document.getElementById('date-now').innerText = new Date().toLocaleString('en-US', {weekday:'short', month:'short', day:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit', second:'2-digit'});
         }
 
+        function goHome() {
+            if(confirm("Are you sure you want to go back? The current form data will be cleared.")) {
+                // Hide form, show selection
+                document.getElementById('view-form').classList.add('hidden');
+                document.getElementById('view-selection').classList.remove('hidden');
+                
+                // Hide back button
+                document.getElementById('btn-back').classList.add('hidden');
+                
+                // Reset terminal status
+                document.getElementById('terminal-status').innerText = "AWAITING SELECTION";
+                document.getElementById('terminal-status').className = "text-[9px] md:text-[10px] text-slate-400 font-bold uppercase tracking-widest";
+                
+                clearForm();
+                MODE = '';
+            }
+        }
+
         function setMode(m) {
             clearForm();
             MODE = m;
             const isGL = m === 'gl';
-            const bCash = document.getElementById('btn-cash');
-            const bGl = document.getElementById('btn-gl');
+            
+            // Switch views
+            document.getElementById('view-selection').classList.add('hidden');
+            document.getElementById('view-form').classList.remove('hidden');
+            
+            // Show Back Button
+            document.getElementById('btn-back').classList.remove('hidden');
+
+            // Form specific logic
             const bar = document.getElementById('status-bar');
+            const totalCard = document.getElementById('total-card');
+            const totalGlow = document.getElementById('total-glow');
+            const termStatus = document.getElementById('terminal-status');
 
             if(isGL) {
-                bCash.className = "group relative py-5 rounded-2xl font-black text-sm text-slate-500 border-2 border-slate-200 bg-white/50 flex flex-col md:flex-row items-center justify-center gap-3 hover:bg-white transition-all";
-                bGl.className = "group relative py-5 rounded-2xl font-black text-sm text-white bg-red-600 shadow-[0_0_20px_rgba(220,38,38,0.4)] flex flex-col md:flex-row items-center justify-center gap-3 ring-2 ring-red-500 transition-all transform scale-[1.02]";
-                bar.className = "absolute top-0 right-0 h-full bg-red-600 rounded-full transition-all duration-500 shadow-[0_0_10px_rgba(220,38,38,0.5)] w-1/2 float-right";
-                bar.style.transform = "translateX(100%)";
+                bar.className = "absolute top-0 left-0 h-full bg-red-600 rounded-full transition-all duration-700 shadow-[0_0_10px_rgba(220,38,38,0.5)] w-full";
+                totalCard.className = "rounded-3xl p-6 md:p-8 text-right w-full shadow-2xl relative overflow-hidden ring-1 ring-red-800 bg-[#0f172a] transition-colors duration-500";
+                totalGlow.className = "absolute -top-20 -left-20 w-64 h-64 bg-red-700 rounded-full blur-[80px] opacity-30 mix-blend-screen pointer-events-none transition-colors duration-500";
+                
+                termStatus.innerText = "GUARANTEE LETTER - ACTIVE";
+                termStatus.className = "text-[9px] md:text-[10px] text-red-400 font-bold uppercase tracking-widest";
+
                 document.getElementById('sel-name-format').value = "Patient Name";
                 document.getElementById('sel-name-format').disabled = true;
                 updateNameLabel();
             } else {
-                bCash.className = "group relative py-5 rounded-2xl font-black text-sm text-white bg-blue-600 shadow-[0_0_20px_rgba(37,99,235,0.4)] flex flex-col md:flex-row items-center justify-center gap-3 ring-2 ring-blue-500 transition-all transform scale-[1.02]";
-                bGl.className = "group relative py-5 rounded-2xl font-black text-sm text-slate-500 border-2 border-slate-200 bg-white/50 flex flex-col md:flex-row items-center justify-center gap-3 hover:bg-white transition-all";
-                bar.className = "absolute top-0 left-0 h-full bg-blue-600 rounded-full transition-all duration-500 shadow-[0_0_10px_rgba(37,99,235,0.5)] w-1/2";
-                bar.style.transform = "translateX(0)";
+                bar.className = "absolute top-0 left-0 h-full bg-blue-600 rounded-full transition-all duration-700 shadow-[0_0_10px_rgba(37,99,235,0.5)] w-full";
+                totalCard.className = "rounded-3xl p-6 md:p-8 text-right w-full shadow-2xl relative overflow-hidden ring-1 ring-blue-800 bg-[#0f172a] transition-colors duration-500";
+                totalGlow.className = "absolute -top-20 -left-20 w-64 h-64 bg-blue-700 rounded-full blur-[80px] opacity-40 mix-blend-screen pointer-events-none transition-colors duration-500";
+                
+                termStatus.innerText = "WALK-IN TRANSACTION - ACTIVE";
+                termStatus.className = "text-[9px] md:text-[10px] text-blue-400 font-bold uppercase tracking-widest";
+
                 document.getElementById('sel-name-format').disabled = false;
                 document.getElementById('sel-name-format').value = "Customer Name";
                 updateNameLabel();
@@ -582,6 +657,7 @@
             toggle('gl-specific-lines', isGL);
             toggle('comp-gl', isGL);
             toggle('comp-cash', !isGL);
+            
             if(document.querySelectorAll('#tbl-body tr').length === 0) addRow();
         }
 
@@ -612,7 +688,7 @@
             document.getElementById('pcso-branch-div').style.display = 'none';
             document.getElementById('gl-ref').value = '';
             document.getElementById('gl-amount').value = '';
-            document.getElementById('inp-proc').value = '';
+            // Processed by (inp-proc) is usually kept per terminal user, but we can clear it or leave it
             document.getElementById('tbl-body').innerHTML = '';
             document.getElementById('list-box').innerHTML = '';
             document.getElementById('list-gel').innerHTML = '';
@@ -745,7 +821,7 @@
 
             if(MODE === 'cash') {
                 document.getElementById('cash-grand').innerText = fmt(grandTotal);
-            } else {
+            } else if(MODE === 'gl') {
                 let glRaw = document.getElementById('gl-amount').value.replace(/,/g, '');
                 const glLimit = parseFloat(glRaw) || 0;
                 let excessMeds = 0;
@@ -847,7 +923,6 @@
             h += `<div class="text-center mb-8 pb-6 border-b-2 border-dashed border-slate-300 relative">`;
             h += `<div class="absolute inset-0 flex justify-center items-center opacity-5 pointer-events-none"><i class="fas fa-prescription text-8xl text-blue-700"></i></div>`;
             
-            // UPDATED RECEIPT LOGO BRANDING TO MATCH IMAGE
             h += `<div class="flex flex-col justify-center items-center text-2xl font-black font-sans tracking-tight relative z-10">`;
             h += `<span class="text-blue-700 underline decoration-[3px] underline-offset-[4px]">Completesolution</span>`;
             h += `<span class="text-red-600 mt-1">Pharmacy</span>`;
@@ -907,21 +982,18 @@
                 const gen = inputs[0].value; 
                 const br = inputs[1].value; 
                 
-                // Using class selectors is safer than indices to extract values
                 const qt = tr.querySelector('.qty').value; 
                 const price = parseFloat(tr.querySelector('.price').value) || 0;
                 const dtype = tr.querySelector('.dtype').value;
                 const dval = parseFloat(tr.querySelector('.dval').value) || 0;
                 const tot = tr.querySelector('.total').innerText;
                 
-                // Compute formatting for Discount Text
                 let discText = 'None';
                 if (dtype !== 'n' && dval > 0) {
                     discText = dtype === '%' ? `${dval}%` : `₱${dval.toFixed(2)}`;
                 }
 
                 if(gen || br) {
-                    // Visual formatting for Modal
                     let subDesc = `UP: ₱${price.toFixed(2)}`;
                     if (discText !== 'None') {
                         subDesc += ` | DISC: ${discText}`;
@@ -937,7 +1009,6 @@
                             <td class="text-right align-middle py-3 font-mono font-bold">${tot}</td>
                           </tr>`;
                     
-                    // Text output for clipboard
                     let txtLine = ` - ${br} (${gen}) | Qty: ${qt} | UP: ₱${price.toFixed(2)}`;
                     if (discText !== 'None') {
                         txtLine += ` | Disc: ${discText}`;
